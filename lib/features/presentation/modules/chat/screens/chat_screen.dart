@@ -11,7 +11,7 @@ import 'package:_88credit_flutter/features/presentation/modules/chat/screens/cha
 import '../chat_controler.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({Key? key}) : super(key: key) {
+  ChatScreen({super.key}) {
     controller.initConversation();
   }
 
@@ -54,7 +54,8 @@ class ChatScreen extends StatelessWidget {
             children: [
               ListTile(
                 onTap: () {
-                  Get.to(() => ChatDetailScreen(), arguments: conversation);
+                  Get.to(() => const ChatDetailScreen(),
+                      arguments: conversation);
                 },
                 titleAlignment: ListTileTitleAlignment.threeLine,
                 leading: const CircleAvatar(
@@ -64,7 +65,9 @@ class ChatScreen extends StatelessWidget {
                 title: Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
-                    conversation.users![0].fullName ?? 'Người dùng',
+                    conversation.users == null
+                        ? 'Người dùng'
+                        : conversation.users![0].fullName,
                     style: AppTextStyles.semiBold16,
                   ),
                 ),

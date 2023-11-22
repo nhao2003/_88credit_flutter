@@ -1,9 +1,9 @@
 import 'package:_88credit_flutter/features/data/models/chat/message_model.dart';
 import 'package:_88credit_flutter/features/data/models/chat/participant_model.dart';
 import 'package:_88credit_flutter/features/domain/entities/chat/conversation.dart';
-import 'package:_88credit_flutter/features/domain/entities/chat/message.dart';
 import 'package:_88credit_flutter/features/domain/entities/user/user.dart';
 
+// ignore: must_be_immutable
 class ConversationModel extends Conversation {
   ConversationModel(
       {required super.id,
