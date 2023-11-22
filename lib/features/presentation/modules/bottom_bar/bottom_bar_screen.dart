@@ -41,9 +41,9 @@ class _BottomBarScreenState extends State<BottomBarScreen>
         title: "Trang chủ".tr,
       ),
       TabItem(
-        icon: Image.asset(Assets.document),
-        activeIcon: Image.asset(Assets.document, color: AppColors.green),
-        title: 'Quản lý tin'.tr,
+        icon: Image.asset(Assets.chart, color: AppColors.grey700),
+        activeIcon: Image.asset(Assets.chart, color: AppColors.green),
+        title: 'Bài đăng'.tr,
       ),
       TabItem(
         icon: CircleAvatar(
@@ -55,9 +55,9 @@ class _BottomBarScreenState extends State<BottomBarScreen>
         ),
       ),
       TabItem(
-        icon: Image.asset(Assets.blog),
-        activeIcon: Image.asset(Assets.blog, color: AppColors.green),
-        title: 'Blog'.tr,
+        icon: Image.asset(Assets.clipboard, color: AppColors.grey700),
+        activeIcon: Image.asset(Assets.clipboard, color: AppColors.green),
+        title: 'Hợp đồng'.tr,
       ),
       TabItem(
         icon: Image.asset(Assets.user),

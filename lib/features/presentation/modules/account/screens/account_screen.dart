@@ -146,6 +146,27 @@ class AccountScreen extends StatelessWidget {
                   size: 18,
                 ),
               ),
+              ListTile(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+                title: Text(
+                  'Quản lý bài đăng',
+                  style: AppTextStyles.medium16,
+                ),
+                onTap: () {},
+                leading: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Image.asset(
+                    Assets.chart,
+                    height: 25,
+                    color: AppColors.black,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 18,
+                ),
+              ),
               // update info
               ListTile(
                 contentPadding:

@@ -32,6 +32,36 @@ class AppTextStyles {
     fontWeight: FontWeight.w100,
   );
 
+  static TextStyle bold30 = GoogleFonts.inter(
+    fontSize: 30,
+    fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle semiBold30 = GoogleFonts.inter(
+    fontSize: 30,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle medium30 = GoogleFonts.inter(
+    fontSize: 30,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle regular30 = GoogleFonts.inter(
+    fontSize: 30,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle light30 = GoogleFonts.inter(
+    fontSize: 30,
+    fontWeight: FontWeight.w300,
+  );
+
+  static TextStyle thin30 = GoogleFonts.inter(
+    fontSize: 30,
+    fontWeight: FontWeight.w100,
+  );
+
   static TextStyle bold24 = GoogleFonts.inter(
     fontSize: 24,
     fontWeight: FontWeight.w700,

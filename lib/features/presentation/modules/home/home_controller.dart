@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/utils/check_time_date.dart';
 import 'package:_88credit_flutter/features/domain/entities/posts/real_estate_post.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts.dart';
-import 'package:_88credit_flutter/features/presentation/modules/search/widgets/my_search_delegate.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/resources/data_state.dart';
+import '../../../domain/entities/blog/blog.dart';
+import '../../../domain/usecases/blog/remote/get_all_blogs.dart';
 
 class HomeController extends GetxController {
   String nameUser = "Minh Phan";
@@ -21,26 +21,25 @@ class HomeController extends GetxController {
     return CheckTimeOfDate.getGreeting();
   }
 
-  // Search
-  var textSearchController = TextEditingController();
-  var searchFocusNode = FocusNode();
+  // loan limit
+  RxInt lendLimit = 20000000.obs;
+  RxInt borrowLimit = 10000000.obs;
 
-  onTapSearch(BuildContext context, MySearchDelegate delegate) async {
-    await showSearch<String>(
-      context: context,
-      delegate: delegate,
-    );
+  RxInt lendedUsed = 100000.obs;
+  RxInt borrowedUsed = 5000000.obs;
+
+  RxInt currentIndexTab = 0.obs;
+  changeIndexTab(int index) {
+    currentIndexTab.value = index;
   }
-
-  onChangedTextFiled(String value) {}
 
   // image ad
   final List<String> imgList = [
-    'https://cdn.chotot.com/admincentre/D7Le2XZDgAF07oJDVyc_Gz765rWVQ5c8hwXonwYWapg/preset:raw/plain/a54ed308183c261c8529a6729ef4512c-2812912165257461362.jpg',
-    'https://cdn.chotot.com/admincentre/ctc6HtBG1QICBtN5KQNCNO34k73kZn9gQLxmhOjfWw4/preset:raw/plain/1bfd526b0b6c995da1c20eb5f3ba0c51-2805772162331331393.jpg',
-    'https://cdn.chotot.com/admincentre/ICGqIPhBAn559vSI4v7jaBAYFYegeRG7xSfUJ6tkugI/preset:raw/plain/6ec3994f81e14d768dfc467847ce430c-2820195948173896828.jpg',
-    'https://cdn.chotot.com/admincentre/83O9GjTqqxMohxXA1DcGEojtznUAIxJYWwTDMhhWp88/preset:raw/plain/bb0f1e32befe115598c292f0b7434fe7-2829010373569559918.jpg',
-    'https://cdn.chotot.com/admincentre/586665ff-021b-4eb2-a0a2-acf2405ebedc_banner.jpg',
+    'https://tinnhiemmang.vn/storage/photos/shares/tin-tuc/tt2022/10211a.jpg',
+    'https://cdn.tima.vn/content-image/2020/4/2020440_vay-40tr-khong-the-chap.jpg',
+    'https://cdn.tuoitre.vn/471584752817336320/2023/9/20/photo-1695177142803-16951771434652004020101.jpg',
+    'https://image.congan.com.vn/thumbnail/CATP-480-2023-4-28/nhung-app-vay-tien-bi-bat-1_637_382_326.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1em0CudPUva4SQdZ522Qx6UA6jsDed5OA0w&usqp=CAU',
   ];
   final String fakeUrl = 'https://flutter.dev';
 
@@ -51,16 +50,6 @@ class HomeController extends GetxController {
     }
   }
 
-  // near by
-  List<String> locationNearby = [
-    "Thủ Đức",
-    "Quận 10",
-    "Bình Thạnh",
-    "Gò Vấp",
-    "Tân Bình",
-    "Quận 12",
-  ];
-
   // get all posts
   final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
   Future<List<RealEstatePostEntity>> getAllPosts() async {
@@ -70,6 +59,17 @@ class HomeController extends GetxController {
       return dataState.data!;
     } else if (dataState is DataFailed) {
       return [];
+    } else {
+      return [];
+    }
+  }
+
+  // get blog
+  final GetBlogsUseCase getBlogsUseCase = sl.get<GetBlogsUseCase>();
+  Future<List<BlogEntity>> getBlogs() async {
+    final result = await getBlogsUseCase.call();
+    if (result is DataSuccess) {
+      return result.data!;
     } else {
       return [];
     }

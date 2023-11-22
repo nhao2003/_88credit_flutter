@@ -11,6 +11,12 @@ class Assets {
   static const String avatarDefault = '$imagePath/avatar.png';
   static const String avatar2 = '$imagePath/avatar_2.png';
   static const String forgotPassword = '$imagePath/forgot.png';
+  static const String borrow = '$imagePath/borrow.png';
+  static const String chatbot = '$imagePath/chatbot.png';
+  static const String creditor = '$imagePath/creditor.png';
+  static const String financialProfit = '$imagePath/financial-profit.png';
+  static const String history = '$imagePath/history.png';
+  static const String schedule = '$imagePath/schedule.png';
   // icon
   static const String home = '$iconPath/home (1).png';
   static const String homeGreen = '$iconPath/home.png';
@@ -49,6 +55,10 @@ class Assets {
   static const String calendar = '$iconPath/calendar.png';
   static const String grid = '$iconPath/view-grid.png';
   static const String solar = '$iconPath/solar_moon-outline.png';
+  static const String eye = '$iconPath/eye.png';
+  static const String eyeOff = '$iconPath/eye-off.png';
+  static const String chart = '$iconPath/chart.png';
+  static const String lightning = '$iconPath/lightning.png';
 
   // Ilustration
   static const String purchaseFailed = '$ilustrationPath/purchase-fail.png';
