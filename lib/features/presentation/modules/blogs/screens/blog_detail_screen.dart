@@ -11,7 +11,8 @@ import 'package:get/get.dart';
 
 class BlogDetailScreen extends StatelessWidget {
   final BlogController controller = Get.put(BlogController());
-  BlogDetailScreen({Key? key}) : super(key: key);
+  BlogDetailScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     BlogEntity blog = Get.arguments;

@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
@@ -153,7 +154,9 @@ class AccountScreen extends StatelessWidget {
                   'Quản lý bài đăng',
                   style: AppTextStyles.medium16,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(AppRoutes.postManagement);
+                },
                 leading: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Image.asset(

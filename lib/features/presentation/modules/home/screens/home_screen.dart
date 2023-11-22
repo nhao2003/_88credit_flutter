@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/features/domain/entities/blog/blog.dart';
 import 'package:_88credit_flutter/features/presentation/modules/home/widgets/border_image_button.dart';
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const ReportCard(),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -64,7 +65,7 @@ class HomeScreen extends StatelessWidget {
               ),
 
               // quang cao
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               CarouselAd(
                 imgList: controller.imgList,
                 aspectRatio: 2.59,
@@ -74,12 +75,25 @@ class HomeScreen extends StatelessWidget {
               // text tin tuc
               const SizedBox(height: 15),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: Text(
                       "Tin tức",
                       style: AppTextStyles.bold14,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.blog);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Text(
+                        "Xen thêm >",
+                        style: AppTextStyles.light12,
+                      ),
                     ),
                   ),
                 ],

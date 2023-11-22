@@ -31,7 +31,6 @@ class _BlogListScreenState extends State<BlogListScreen> {
     return Scaffold(
       appBar: MyAppbar(
         title: 'Blogs',
-        isShowBack: false,
       ),
       body: FutureBuilder<List<BlogEntity>>(
           future: _controller.getBlogs(),

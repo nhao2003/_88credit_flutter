@@ -15,6 +15,12 @@ abstract class AppRoutes {
   // home
   static const home = '/home';
 
+  // blog
+  static const blog = '/blog';
+
+  // contract
+  static const contract = '/contract';
+
   // post detail
   static const postDetail = '/post_detail/:id';
   static String getPostRoute(String id) {
@@ -31,6 +37,9 @@ abstract class AppRoutes {
   static const account = '/account';
   static const purchase = '/account/purchase';
   static const purchaseChoosePlan = '/account/purchase/choose_plan';
+
+  // post
+  static const post = '/post';
 
   // create post
   static const createPost = '/createPost';

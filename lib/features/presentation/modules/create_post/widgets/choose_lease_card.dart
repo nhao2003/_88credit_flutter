@@ -31,7 +31,7 @@ class ChooseLeaseCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                "Cần bán",
+                "Vay tiền",
                 style: AppTextStyles.medium14.copyWith(
                   color: controller.isLease.value == true
                       ? AppColors.green
@@ -61,7 +61,7 @@ class ChooseLeaseCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                "Cho thuê",
+                "Cho vay",
                 style: AppTextStyles.medium14.copyWith(
                   color: controller.isLease.value != true
                       ? AppColors.green

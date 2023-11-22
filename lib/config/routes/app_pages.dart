@@ -1,4 +1,10 @@
 import 'package:get/get.dart';
+import 'package:_88credit_flutter/features/presentation/modules/blogs/blog_binding.dart';
+import 'package:_88credit_flutter/features/presentation/modules/blogs/screens/blog_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/contract_binding.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/post/post_binding.dart';
+import 'package:_88credit_flutter/features/presentation/modules/post/screens/post_screen.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/features/presentation/modules/account/account_binding.dart';
 import 'package:_88credit_flutter/features/presentation/modules/account/screens/account_screen.dart';
@@ -131,8 +137,23 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.chatDetail,
-      page: () => ChatDetailScreen(),
+      page: () => const ChatDetailScreen(),
       binding: ChatBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.post,
+      page: () => PostScreen(),
+      binding: PostBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.blog,
+      page: () => const BlogListScreen(),
+      binding: BlogBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.contract,
+      page: () => ContractScreen(),
+      binding: ContractBinding(),
     ),
   ];
 }

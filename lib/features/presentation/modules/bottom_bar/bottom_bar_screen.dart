@@ -1,13 +1,13 @@
+import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/post/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/features/presentation/modules/account/screens/account_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/blogs/screens/blog_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/bottom_bar/bottom_bar_controller.dart';
 import '../../../../config/theme/app_color.dart';
 import '../../../../config/values/asset_image.dart';
 import '../home/screens/home_screen.dart';
-import '../post_management/screens/post_management_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -28,9 +28,9 @@ class _BottomBarScreenState extends State<BottomBarScreen>
 
     _pages = [
       HomeScreen(),
-      const PostManagementScreen(),
+      PostScreen(),
       const Scaffold(),
-      const BlogListScreen(),
+      ContractScreen(),
       AccountScreen(),
     ];
 

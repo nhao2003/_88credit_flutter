@@ -32,7 +32,19 @@ class _PostManagementScreenState extends State<PostManagementScreen> {
           appBar: AppBar(
             backgroundColor: AppColors.white,
             title: const Text('Quản lý tin'),
-            leading: const SizedBox(),
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  size: 20,
+                ),
+                color: AppColors.black,
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ),
             bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50.0),
                 child: Column(
