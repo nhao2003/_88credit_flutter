@@ -44,7 +44,7 @@ class AccountScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Nguyễn Thành Trung',
+                          'Phan Văn Minh',
                           style: AppTextStyles.medium16,
                         ),
                         const SizedBox(width: 2),

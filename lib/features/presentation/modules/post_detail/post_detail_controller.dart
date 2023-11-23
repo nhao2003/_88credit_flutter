@@ -19,40 +19,40 @@ import 'widgets/house_card.dart';
 import 'widgets/land_card.dart';
 
 class PostDetailController extends GetxController {
-  final RealEstatePostEntity post = Get.arguments as RealEstatePostEntity;
-  PropertyFeature? feature;
-  late bool isYourPost = false;
+  // final RealEstatePostEntity post = Get.arguments as RealEstatePostEntity;
+  // PropertyFeature? feature;
+  // late bool isYourPost = false;
 
-  Widget getDetailCard() {
-    feature = PropertyFeature.fromJson(post.typeId!, post.features!);
-    if (feature is Apartment) {
-      return ApartmentCard(feature: feature as Apartment);
-    } else if (feature is House) {
-      return HouseCard(feature: feature as House);
-    } else if (feature is Land) {
-      return LandCard(feature: feature as Land);
-    } else if (feature is Office) {
-      return OfficeCard(feature: feature as Office);
-    } else if (feature is Motel) {
-      return MotelCard(feature: feature as Motel);
-    } else {
-      return const SizedBox();
-    }
-  }
+  // Widget getDetailCard() {
+  //   feature = PropertyFeature.fromJson(post.typeId!, post.features!);
+  //   if (feature is Apartment) {
+  //     return ApartmentCard(feature: feature as Apartment);
+  //   } else if (feature is House) {
+  //     return HouseCard(feature: feature as House);
+  //   } else if (feature is Land) {
+  //     return LandCard(feature: feature as Land);
+  //   } else if (feature is Office) {
+  //     return OfficeCard(feature: feature as Office);
+  //   } else if (feature is Motel) {
+  //     return MotelCard(feature: feature as Motel);
+  //   } else {
+  //     return const SizedBox();
+  //   }
+  // }
 
   // get all posts
-  final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
-  Future<List<RealEstatePostEntity>> getRelatePosts() async {
-    final dataState = await _getPostsUseCase();
+  // final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
+  // Future<List<RealEstatePostEntity>> getRelatePosts() async {
+  //   final dataState = await _getPostsUseCase();
 
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      return dataState.data!;
-    } else if (dataState is DataFailed) {
-      return [];
-    } else {
-      return [];
-    }
-  }
+  //   if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
+  //     return dataState.data!;
+  //   } else if (dataState is DataFailed) {
+  //     return [];
+  //   } else {
+  //     return [];
+  //   }
+  // }
 
   void likePost() async {
     // PostRepository postRepo = GetIt.instance<PostRepository>();
@@ -73,19 +73,19 @@ class PostDetailController extends GetxController {
     // }
   }
 
-  void navToChat() {
-    Get.toNamed(AppRoutes.chatDetail, arguments: post.user);
-  }
+  // void navToChat() {
+  //   Get.toNamed(AppRoutes.chatDetail, arguments: post.user);
+  // }
 
-  void navToUserProfile() {
-    Get.toNamed(AppRoutes.userProfile, arguments: post.user);
-  }
+  // void navToUserProfile() {
+  //   Get.toNamed(AppRoutes.userProfile, arguments: post.user);
+  // }
 
-  void launchPhone() {
-    launchUrl(Uri.parse("tel://${post.user!.phone}"));
-  }
+  // void launchPhone() {
+  //   launchUrl(Uri.parse("tel://${post.user!.phone}"));
+  // }
 
-  void launchSms() {
-    launchUrl(Uri.parse("sms://${post.user!.phone}"));
-  }
+  // void launchSms() {
+  //   launchUrl(Uri.parse("sms://${post.user!.phone}"));
+  // }
 }

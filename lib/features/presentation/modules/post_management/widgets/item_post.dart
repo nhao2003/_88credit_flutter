@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/features/domain/entities/posts/real_estate_post.dart';
 import 'package:_88credit_flutter/features/domain/enums/post_status_management.dart';
-
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 
@@ -89,31 +87,6 @@ class _ItemPostState extends State<ItemPost> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // image
-                  SizedBox(
-                    height: sizeImage,
-                    width: sizeImage,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.post.images![0],
-                        fit: BoxFit.cover,
-                        errorWidget: (context, error, stackTrace) {
-                          return Image.asset(
-                            "assets/images/default_image.png",
-                            fit: BoxFit.cover,
-                          );
-                        },
-                        progressIndicatorBuilder: (ctx, str, prc) {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: prc.progress,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
                   const SizedBox(width: 10),
                   Flexible(
                     child: Column(
@@ -134,23 +107,56 @@ class _ItemPostState extends State<ItemPost> {
                                 .copyWith(color: getColorStatus()),
                           ),
                         ),
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 4),
                         Text(
-                          widget.post.title!,
+                          "Cần vay gấp 5 triệu, lãi suất thỏa thuận",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.medium14.copyWith(
                             color: AppColors.grey700,
                           ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          widget.post.address!.getDetailAddress(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.regular12.copyWith(
-                            color: AppColors.grey500,
-                          ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Text(
+                              "Số tiền: ",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.medium14.copyWith(
+                                color: AppColors.grey700,
+                              ),
+                            ),
+                            Text(
+                              "5.000.000 VNĐ",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.bold14.copyWith(
+                                color: AppColors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Text(
+                              "Loại bài đăng: ",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.regular12.copyWith(
+                                color: AppColors.grey500,
+                              ),
+                            ),
+                            Text(
+                              "Vay tiền",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.bold12.copyWith(
+                                color: AppColors.grey500,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

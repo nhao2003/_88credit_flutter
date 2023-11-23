@@ -22,8 +22,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double sizeImage = 22.wp;
     return Scaffold(
-      appBar: MyAppbar(
-          title: '${controller.user!.firstName} ${controller.user!.lastName!}'),
+      appBar: MyAppbar(title: 'Nguyễn Nhật Hào'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -36,27 +35,27 @@ class UserProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     // avatar ========================================
-                    if (controller.user!.avatar != null)
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: CachedNetworkImage(
-                          imageUrl: controller.user!.avatar!,
-                          fit: BoxFit.cover,
-                          width: sizeImage,
-                          errorWidget: (context, _, __) {
-                            return CircleAvatar(
-                              radius: sizeImage / 2,
-                              backgroundImage: const AssetImage(Assets.avatar2),
-                            );
-                          },
-                        ),
-                      )
-                    else
-                      CircleAvatar(
-                        radius: sizeImage / 2,
-                        backgroundImage: const AssetImage(Assets.avatar2),
-                      ),
+                    // if (controller.user!.avatar != null)
+                    //   ClipRRect(
+                    //     borderRadius:
+                    //         const BorderRadius.all(Radius.circular(10)),
+                    //     child: CachedNetworkImage(
+                    //       imageUrl: controller.user!.avatar!,
+                    //       fit: BoxFit.cover,
+                    //       width: sizeImage,
+                    //       errorWidget: (context, _, __) {
+                    //         return CircleAvatar(
+                    //           radius: sizeImage / 2,
+                    //           backgroundImage: const AssetImage(Assets.avatar2),
+                    //         );
+                    //       },
+                    //     ),
+                    //   )
+                    // else
+                    CircleAvatar(
+                      radius: sizeImage / 2,
+                      backgroundImage: const AssetImage(Assets.avatar2),
+                    ),
                     const SizedBox(width: 10),
                     // info ========================================
                     Expanded(
@@ -136,7 +135,7 @@ class UserProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '${controller.user!.firstName} ${controller.user!.lastName!}',
+                      'Nguyễn Nhật Hào',
                       style:
                           AppTextStyles.semiBold16.colorEx(AppColors.grey700),
                     ),
@@ -159,7 +158,7 @@ class UserProfileScreen extends StatelessWidget {
                     SizedBox(
                       width: 80.wp,
                       child: Text(
-                        controller.user!.address!.getDetailAddress(),
+                        "213 CMT8, Thanh Bình, Biên Hòa, Đồng Nai",
                         style:
                             AppTextStyles.medium14.colorEx(AppColors.grey500),
                       ),
@@ -181,7 +180,7 @@ class UserProfileScreen extends StatelessWidget {
                     SizedBox(
                       width: 80.wp,
                       child: Text(
-                        "Tham gia ngày ${controller.user!.createdAt!.toDMYString()}",
+                        "Tham gia ngày 14/03/2023",
                         style:
                             AppTextStyles.medium14.colorEx(AppColors.grey500),
                       ),

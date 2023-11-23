@@ -59,6 +59,8 @@ class Assets {
   static const String eyeOff = '$iconPath/eye-off.png';
   static const String chart = '$iconPath/chart.png';
   static const String lightning = '$iconPath/lightning.png';
+  static const String slider = '$iconPath/slider.png';
+  static const String star = '$iconPath/star.png';
 
   // Ilustration
   static const String purchaseFailed = '$ilustrationPath/purchase-fail.png';

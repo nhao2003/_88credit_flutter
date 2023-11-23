@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/config/values/asset_image.dart';
-import 'package:_88credit_flutter/features/presentation/modules/user_profile/widgets/user_posts.dart';
-
 import '../../../../../config/theme/app_color.dart';
+import '../../post/screens/borrow_tab_screen.dart';
 import '../user_profile_controller.dart';
 
 class TabProfile extends StatefulWidget {
@@ -62,9 +61,9 @@ class _TabProfileState extends State<TabProfile> with TickerProviderStateMixin {
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _tabController,
-                children: [
-                  UserPosts(),
-                  const Scaffold(
+                children: const [
+                  BorrowTabScreen(),
+                  Scaffold(
                     body: Center(
                       child: Text('Chưa có tin nhắn'),
                     ),
