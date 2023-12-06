@@ -10,7 +10,7 @@ import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/purchase/purchase_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../domain/entities/nhagiare/purchase/transaction.dart';
+import '../../../../domain/entities/credit/transaction.dart';
 
 class PurchasePaymentResultScreen extends StatefulWidget {
   const PurchasePaymentResultScreen({super.key});
@@ -112,27 +112,27 @@ class _PurchasePaymentResultScreenState
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.only(
-                                right: 20, left: 20, bottom: 20),
-                            margin: const EdgeInsets.only(
-                                top: 8.0, left: 20.0, right: 20.0),
-                            child: Image.asset(transaction.isPaid
-                                ? Assets.purchaseSuccess
-                                : Assets.purchaseFailed),
-                          ),
-                          Text(
-                            'Giao dịch${transaction.isPaid ? "" : " không"} thành công',
-                            style: AppTextStyles.bold18,
-                          ),
-                          Text(
-                            "${transaction.amount.formatNumberWithCommas}đ",
-                            style: AppTextStyles.bold18.colorEx(
-                              transaction.isPaid
-                                  ? AppColors.green
-                                  : AppColors.red,
-                            ),
-                          ),
+                          // Container(
+                          //   padding: const EdgeInsets.only(
+                          //       right: 20, left: 20, bottom: 20),
+                          //   margin: const EdgeInsets.only(
+                          //       top: 8.0, left: 20.0, right: 20.0),
+                          //   child: Image.asset(transaction.isPaid
+                          //       ? Assets.purchaseSuccess
+                          //       : Assets.purchaseFailed),
+                          // ),
+                          // Text(
+                          //   'Giao dịch${transaction.isPaid ? "" : " không"} thành công',
+                          //   style: AppTextStyles.bold18,
+                          // ),
+                          // Text(
+                          //   "${transaction.amount.formatNumberWithCommas}đ",
+                          //   style: AppTextStyles.bold18.colorEx(
+                          //     transaction.isPaid
+                          //         ? AppColors.green
+                          //         : AppColors.red,
+                          //   ),
+                          // ),
                           Container(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
@@ -146,23 +146,23 @@ class _PurchasePaymentResultScreenState
                                 width: 1,
                               ),
                             ),
-                            child: Column(
+                            child: const Column(
                               children: [
-                                customText("Mã giao dịch", transaction.id),
-                                customText("Thời gian giao dịch",
-                                    transaction.timestamp.toHMDMYString()),
-                                customText("Loại giao dịch",
-                                    "Mua ${transaction.package?.name ?? "Gói Dịch Vụ"} ${transaction.numOfSubscriptionMonth} tháng"),
-                                customText(
-                                    "Ngày bắt đầu",
-                                    transaction.subscription?.startingDate
-                                            .toHMDMYString() ??
-                                        ""),
-                                customText(
-                                    "Ngày kết thúc",
-                                    transaction.subscription?.expirationDate
-                                            .toHMDMYString() ??
-                                        ""),
+                                // customText("Mã giao dịch", transaction.id),
+                                // customText("Thời gian giao dịch",
+                                //     transaction.timestamp.toHMDMYString()),
+                                // customText("Loại giao dịch",
+                                //     "Mua ${transaction.package?.name ?? "Gói Dịch Vụ"} ${transaction.numOfSubscriptionMonth} tháng"),
+                                // customText(
+                                //     "Ngày bắt đầu",
+                                //     transaction.subscription?.startingDate
+                                //             .toHMDMYString() ??
+                                //         ""),
+                                // customText(
+                                //     "Ngày kết thúc",
+                                //     transaction.subscription?.expirationDate
+                                //             .toHMDMYString() ??
+                                //         ""),
                               ],
                             ),
                           ),

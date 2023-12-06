@@ -8,7 +8,7 @@ import 'package:_88credit_flutter/injection_container.dart';
 
 import '../../../domain/entities/nhagiare/purchase/membership_package.dart';
 import '../../../domain/entities/nhagiare/purchase/order_membership_package.dart';
-import '../../../domain/entities/nhagiare/purchase/transaction.dart';
+import '../../../domain/entities/credit/transaction.dart';
 
 class CreateOrderResult {
   final String? appTransId;

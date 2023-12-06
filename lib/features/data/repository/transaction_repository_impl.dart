@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/transaction_data_source.dart';
-import '../../domain/entities/nhagiare/purchase/transaction.dart';
+import '../../domain/entities/credit/transaction.dart';
 import '../../domain/repository/transaction_repository.dart';
 
 class TranstractionRepositoryImpl implements TransactionRepository {
