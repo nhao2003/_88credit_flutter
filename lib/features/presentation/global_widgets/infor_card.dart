@@ -10,12 +10,12 @@ import 'package:_88credit_flutter/features/presentation/modules/home/widgets/ico
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../domain/entities/credit/post.dart';
 
 class InforCard extends StatelessWidget {
   const InforCard({super.key, this.width, this.height, required this.post});
 
-  final RealEstatePostEntity post;
+  final PostEntity post;
   final double? height;
   final double? width;
 
@@ -69,7 +69,7 @@ class InforCard extends StatelessWidget {
                     ),
                     IconText(
                       icon: Assets.money,
-                      text: double.parse(post.price!).toFormattedMoney(),
+                      text: post.loanAmount!.toFormattedMoney(),
                       color: AppColors.orange,
                     ),
                     const SizedBox(
@@ -77,7 +77,7 @@ class InforCard extends StatelessWidget {
                     ),
                     IconText(
                       icon: Assets.home,
-                      text: post.address!.getDetailAddress(),
+                      text: post.interestRate!.toFormattedMoney(),
                       color: AppColors.grey500,
                     ),
                     const SizedBox(
@@ -85,7 +85,7 @@ class InforCard extends StatelessWidget {
                     ),
                     IconText(
                       icon: Assets.clock,
-                      text: post.postedDate!.getTimeAgoVi(),
+                      text: post.createdAt!.getTimeAgoVi(),
                       color: AppColors.grey500,
                     ),
                   ],

@@ -3,14 +3,14 @@ import 'package:dio/dio.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/post_remote_data_sources.dart';
 import 'package:_88credit_flutter/features/domain/repository/post_repository.dart';
-import '../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../domain/entities/credit/post.dart';
 
 class PostRepositoryImpl implements PostRepository {
   final PostRemoteDataSrc _dataSrc;
   PostRepositoryImpl(this._dataSrc);
 
   @override
-  Future<DataState<List<RealEstatePostEntity>>> getPosts(String? userId) async {
+  Future<DataState<List<PostEntity>>> getPosts(String? userId) async {
     try {
       final httpResponse = await _dataSrc.getAllPosts(userId);
 
@@ -30,7 +30,7 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<void>> createPost(RealEstatePostEntity post) async {
+  Future<DataState<void>> createPost(PostEntity post) async {
     // TODO: implement createPost
     throw UnimplementedError();
   }
@@ -42,19 +42,19 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<RealEstatePostEntity>> getSinglePost(String id) async {
+  Future<DataState<PostEntity>> getSinglePost(String id) async {
     // TODO: implement getSinglePost
     throw UnimplementedError();
   }
 
   @override
-  Future<DataState<void>> updatePost(RealEstatePostEntity post) async {
+  Future<DataState<void>> updatePost(PostEntity post) async {
     // TODO: implement updatePost
     throw UnimplementedError();
   }
 
   @override
-  Future<DataState<List<RealEstatePostEntity>>> getPostsApproved() async {
+  Future<DataState<List<PostEntity>>> getPostsApproved() async {
     try {
       final httpResponse = await _dataSrc.getPostsApproved();
 
@@ -74,27 +74,7 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<RealEstatePostEntity>>> getPostsExpired() async {
-    try {
-      final httpResponse = await _dataSrc.getPostsExpired();
-
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
-      } else {
-        return DataFailed(DioException(
-          error: httpResponse.response.statusMessage,
-          response: httpResponse.response,
-          type: DioExceptionType.badResponse,
-          requestOptions: httpResponse.response.requestOptions,
-        ));
-      }
-    } on DioException catch (e) {
-      return DataFailed(e);
-    }
-  }
-
-  @override
-  Future<DataState<List<RealEstatePostEntity>>> getPostsHided() async {
+  Future<DataState<List<PostEntity>>> getPostsHided() async {
     try {
       final httpResponse = await _dataSrc.getPostsHided();
 
@@ -114,7 +94,7 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<RealEstatePostEntity>>> getPostsPending() async {
+  Future<DataState<List<PostEntity>>> getPostsPending() async {
     try {
       final httpResponse = await _dataSrc.getPostsPending();
 
@@ -134,7 +114,7 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<RealEstatePostEntity>>> getPostsRejected() async {
+  Future<DataState<List<PostEntity>>> getPostsRejected() async {
     try {
       final httpResponse = await _dataSrc.getPostsRejected();
 

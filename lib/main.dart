@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme(),
       defaultTransition: Transition.cupertino,
-      initialRoute: isLogin ? AppRoutes.bottomBar : AppRoutes.login,
+      initialRoute: AppRoutes.bottomBar,
       getPages: AppPages.pages,
     );
   }

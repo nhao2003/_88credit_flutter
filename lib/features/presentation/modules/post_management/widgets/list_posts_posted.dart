@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../../../domain/entities/credit/post.dart';
 import '../../../../domain/enums/post_status_management.dart';
-import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import '../post_management_controller.dart';
 import 'item_post.dart';
 
@@ -13,7 +12,7 @@ class ListPostsPosted extends StatelessWidget {
   final PostManagementController controller =
       Get.find<PostManagementController>();
 
-  void onSelectedMenu(int i, RealEstatePostEntity post) {
+  void onSelectedMenu(int i, PostEntity post) {
     if (i == 0) {
       controller.hidePost(post);
     } else if (i == 1) {
@@ -27,7 +26,7 @@ class ListPostsPosted extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<RealEstatePostEntity>>(
+    return FutureBuilder<List<PostEntity>>(
       future: controller.getPostsApproved(),
       builder: (context, snapShot) {
         if (!snapShot.hasData) {
@@ -35,7 +34,7 @@ class ListPostsPosted extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          List<RealEstatePostEntity> data = snapShot.data!;
+          List<PostEntity> data = snapShot.data!;
           if (data.isEmpty) {
             return Center(
               child: Text(
@@ -49,8 +48,7 @@ class ListPostsPosted extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ItemPost(
                   statusCode: PostStatusManagement.approved,
-                  status:
-                      "Hiển thị đến ${controller.approvedPosts[index].expiryDate?.toHMDMYString()}",
+                  status: "Đã được duyệt",
                   post: controller.approvedPosts[index],
                   funcs: const [
                     "Ẩn tin",

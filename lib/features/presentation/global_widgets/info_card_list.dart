@@ -1,10 +1,10 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../domain/entities/nhagiare/posts/real_estate_post.dart';
 import 'infor_card.dart';
 
 class InforCardList extends StatelessWidget {
@@ -33,7 +33,7 @@ class InforCardList extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Flexible(
-            child: FutureBuilder<List<RealEstatePostEntity>>(
+            child: FutureBuilder<List<PostEntity>>(
               future: getListFunc(),
               builder: (context, snapShot) {
                 if (!snapShot.hasData) {
@@ -41,7 +41,7 @@ class InforCardList extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  List<RealEstatePostEntity> data = snapShot.data!;
+                  List<PostEntity> data = snapShot.data!;
                   return ListView.separated(
                     shrinkWrap: true,
                     itemCount: data.length,

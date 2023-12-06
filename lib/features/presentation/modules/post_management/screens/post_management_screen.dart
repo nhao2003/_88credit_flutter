@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../post_management_controller.dart';
-import '../widgets/list_posts_expried.dart';
 import '../widgets/list_posts_hided.dart';
 import '../widgets/list_posts_pendding.dart';
 import '../widgets/list_posts_posted.dart';
@@ -80,7 +79,6 @@ class _PostManagementScreenState extends State<PostManagementScreen> {
               ListPostsPendding(),
               ListPostsReject(),
               ListPostsHided(),
-              ListPostsExpried(),
             ],
           )),
     );

@@ -1,10 +1,10 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/core/extensions/string_ex.dart';
 import 'package:_88credit_flutter/features/domain/usecases/address/get_province_names.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../injection_container.dart';
-import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
 import '../../../domain/usecases/post/remote/get_posts.dart';
 
 class MySearchController extends GetxController {
@@ -49,7 +49,7 @@ class MySearchController extends GetxController {
   final String hintText = "Mua bán văn phòng";
 
   final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
-  Future<List<RealEstatePostEntity>> getAllPosts() async {
+  Future<List<PostEntity>> getAllPosts() async {
     final dataState = await _getPostsUseCase();
 
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
@@ -64,7 +64,7 @@ class MySearchController extends GetxController {
   final RxList<String> searchStrings = <String>[].obs;
 
   Future<RxList<String>> getSearchString() async {
-    List<RealEstatePostEntity> datas = await getAllPosts();
+    List<PostEntity> datas = await getAllPosts();
     searchStrings.clear();
     for (var data in datas) {
       searchStrings.add(data.title!);
@@ -129,7 +129,7 @@ class MySearchController extends GetxController {
     Get.back();
   }
 
-  void navigateToDetailSceen(RealEstatePostEntity post) {
+  void navigateToDetailSceen(PostEntity post) {
     Get.toNamed(AppRoutes.postDetail, arguments: post);
   }
 

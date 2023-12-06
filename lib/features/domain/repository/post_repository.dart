@@ -1,18 +1,17 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
 import '../../../../core/resources/data_state.dart';
-import '../entities/nhagiare/posts/real_estate_post.dart';
 
 abstract class PostRepository {
   // API remote
-  Future<DataState<List<RealEstatePostEntity>>> getPosts(String? idUser);
-  Future<DataState<RealEstatePostEntity>> getSinglePost(String id);
-  Future<DataState<void>> createPost(RealEstatePostEntity post);
-  Future<DataState<void>> updatePost(RealEstatePostEntity post);
+  Future<DataState<List<PostEntity>>> getPosts(String? idUser);
+  Future<DataState<PostEntity>> getSinglePost(String id);
+  Future<DataState<void>> createPost(PostEntity post);
+  Future<DataState<void>> updatePost(PostEntity post);
   Future<DataState<void>> deletePost(String id);
 
   // management
-  Future<DataState<List<RealEstatePostEntity>>> getPostsApproved();
-  Future<DataState<List<RealEstatePostEntity>>> getPostsHided();
-  Future<DataState<List<RealEstatePostEntity>>> getPostsPending();
-  Future<DataState<List<RealEstatePostEntity>>> getPostsRejected();
-  Future<DataState<List<RealEstatePostEntity>>> getPostsExpired();
+  Future<DataState<List<PostEntity>>> getPostsApproved();
+  Future<DataState<List<PostEntity>>> getPostsHided();
+  Future<DataState<List<PostEntity>>> getPostsPending();
+  Future<DataState<List<PostEntity>>> getPostsRejected();
 }

@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/utils/typedef.dart';
-import '../../models/nhagiare/post/real_estate_post.dart';
+import '../../../domain/entities/credit/post.dart';
 
 class DatabaseHelper {
-  Future<HttpResponse<List<RealEstatePostModel>>> getPosts(
+  Future<HttpResponse<List<PostEntity>>> getPosts(
       String url, Dio client) async {
     try {
       final response = await client.get(url);
@@ -21,9 +21,8 @@ class DatabaseHelper {
       final List<DataMap> taskDataList =
           List<DataMap>.from(response.data["result"]);
 
-      List<RealEstatePostModel> value = taskDataList
-          .map((postJson) => RealEstatePostModel.fromJson(postJson))
-          .where((post) => post.isActive!)
+      List<PostEntity> value = taskDataList
+          .map((postJson) => PostEntity.fromJson(postJson))
           .toList();
 
       return HttpResponse(value, response);

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import 'package:_88credit_flutter/features/domain/enums/post_status_management.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../../../domain/entities/credit/post.dart';
 import '../post_management_controller.dart';
 import 'item_post.dart';
 
@@ -13,7 +12,7 @@ class ListPostsHided extends StatelessWidget {
   final PostManagementController controller =
       Get.find<PostManagementController>();
 
-  void onSelectedMenu(int i, RealEstatePostEntity post) {
+  void onSelectedMenu(int i, PostEntity post) {
     if (i == 0) {
       controller.showPost(post);
     } else if (i == 1) {
@@ -25,7 +24,7 @@ class ListPostsHided extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<RealEstatePostEntity>>(
+    return FutureBuilder<List<PostEntity>>(
       future: controller.getPostsHided(),
       builder: (context, snapShot) {
         if (!snapShot.hasData) {
@@ -33,7 +32,7 @@ class ListPostsHided extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          List<RealEstatePostEntity> data = snapShot.data!;
+          List<PostEntity> data = snapShot.data!;
           if (data.isEmpty) {
             return Center(
               child: Text(
@@ -47,8 +46,7 @@ class ListPostsHided extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ItemPost(
                   statusCode: PostStatusManagement.hided,
-                  status:
-                      "Đã ẩn tin. Hết hạn sau ${controller.hidedPosts[index].expiryDate?.toHMDMYString()}",
+                  status: "Đã ẩn tin",
                   post: controller.hidedPosts[index],
                   funcs: const [
                     "Hiện tin",
@@ -61,7 +59,7 @@ class ListPostsHided extends StatelessWidget {
                     Icons.delete_outline,
                   ],
                   onSelectedMenu: onSelectedMenu,
-                  onTap: (RealEstatePostEntity post) {},
+                  onTap: (PostEntity post) {},
                 );
               },
             );

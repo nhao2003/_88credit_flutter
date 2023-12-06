@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../injection_container.dart';
-import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../../domain/entities/credit/post.dart';
 import '../../../domain/entities/nhagiare/user/user.dart';
 import '../../../domain/usecases/post/remote/get_posts.dart';
 
@@ -16,7 +16,7 @@ class UserProfileController extends GetxController {
 
   // get all posts
   final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
-  Future<List<RealEstatePostEntity>> getAllPosts() async {
+  Future<List<PostEntity>> getAllPosts() async {
     final dataState = await _getPostsUseCase(params: user!.id);
 
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {

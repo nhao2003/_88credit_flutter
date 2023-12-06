@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/features/presentation/modules/user_profile/user_profile_controller.dart';
-
-import '../../../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../../../domain/entities/credit/post.dart';
 import '../../../global_widgets/infor_card.dart';
 
 class UserPosts extends StatelessWidget {
@@ -13,7 +12,7 @@ class UserPosts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: FutureBuilder<List<RealEstatePostEntity>>(
+      child: FutureBuilder<List<PostEntity>>(
         future: controller.getAllPosts(),
         builder: (context, snapShot) {
           if (!snapShot.hasData) {
@@ -21,7 +20,7 @@ class UserPosts extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            List<RealEstatePostEntity> data = snapShot.data!;
+            List<PostEntity> data = snapShot.data!;
             return GridView(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

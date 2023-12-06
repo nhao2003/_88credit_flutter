@@ -122,4 +122,45 @@ class PostEntity extends Equatable {
       deletedAt: deletedAt ?? this.deletedAt,
     );
   }
+
+  // from json
+  factory PostEntity.fromJson(Map<String, dynamic> json) {
+    return PostEntity(
+      id: json['post_id'] as String?,
+      userId: json['post_user_id'] as String?,
+      type: json['post_type'] as String?,
+      loanReasonType: json['post_loan_reason_type'] != null
+          ? LoanReasonTypes.values.firstWhere(
+              (element) => element.toString() == json['post_loan_reason_type'])
+          : null,
+      loanReason: json['post_loan_reason'] as String?,
+      status: json['post_status'] != null
+          ? PostStatus.values.firstWhere(
+              (element) => element.toString() == json['post_status'])
+          : null,
+      title: json['post_title'] as String?,
+      description: json['post_description'] as String?,
+      images: json['post_images'] != null
+          ? List<String>.from(json['post_images'])
+          : null,
+      createdAt: json['post_created_at'] != null
+          ? DateTime.parse(json['post_created_at'] as String)
+          : null,
+      updatedAt: json['post_updated_at'] != null
+          ? DateTime.parse(json['post_updated_at'] as String)
+          : null,
+      interestRate: json['post_interest_rate'] as double?,
+      loanAmount: json['post_loan_amount'] as double?,
+      tenureMonths: json['post_tenure_months'] as int?,
+      overdueInterestRate: json['post_overdue_interest_rate'] as double?,
+      maxInterestRate: json['post_max_interest_rate'] as double?,
+      maxLoanAmount: json['post_max_loan_amount'] as double?,
+      maxTenureMonths: json['post_max_tenure_months'] as int?,
+      maxOverdueInterestRate: json['post_max_overdue_interest_rate'] as double?,
+      rejectedReason: json['post_rejected_reason'] as String?,
+      deletedAt: json['post_deleted_at'] != null
+          ? DateTime.parse(json['post_deleted_at'] as String)
+          : null,
+    );
+  }
 }

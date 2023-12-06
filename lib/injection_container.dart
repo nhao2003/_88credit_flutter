@@ -37,7 +37,6 @@ import 'features/domain/repository/provinces_repository.dart';
 import 'features/domain/usecases/authentication/check_token.dart';
 import 'features/domain/usecases/authentication/sign_in.dart';
 import 'features/domain/usecases/authentication/sign_out.dart';
-import 'features/domain/usecases/post/remote/get_posts_expired.dart';
 import 'features/domain/usecases/post/remote/get_posts_hided.dart';
 import 'features/domain/usecases/post/remote/get_posts_pending.dart';
 
@@ -118,12 +117,6 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<GetPostsRejectUseCase>(
     GetPostsRejectUseCase(
-      sl<PostRepository>(),
-    ),
-  );
-
-  sl.registerSingleton<GetPostsExpiredUseCase>(
-    GetPostsExpiredUseCase(
       sl<PostRepository>(),
     ),
   );

@@ -1,26 +1,23 @@
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_approved.dart';
-import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_expired.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_hided.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_rejected.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../injection_container.dart';
-import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../../domain/entities/credit/post.dart';
 
 class PostManagementController extends GetxController {
-  RxList<RealEstatePostEntity> pendingPosts = <RealEstatePostEntity>[].obs;
-  RxList<RealEstatePostEntity> approvedPosts = <RealEstatePostEntity>[].obs;
-  RxList<RealEstatePostEntity> rejectedPosts = <RealEstatePostEntity>[].obs;
-  RxList<RealEstatePostEntity> hidedPosts = <RealEstatePostEntity>[].obs;
-  RxList<RealEstatePostEntity> expiredPosts = <RealEstatePostEntity>[].obs;
+  RxList<PostEntity> pendingPosts = <PostEntity>[].obs;
+  RxList<PostEntity> approvedPosts = <PostEntity>[].obs;
+  RxList<PostEntity> rejectedPosts = <PostEntity>[].obs;
+  RxList<PostEntity> hidedPosts = <PostEntity>[].obs;
 
   List<String> typePosts = [
     "Đã đăng",
     "Chờ duyệt",
     "Bị từ chối",
     "Đã ẩn",
-    "Hết hạn",
   ];
 
   // get all posts
@@ -28,13 +25,11 @@ class PostManagementController extends GetxController {
       sl<GetPostsApprovedUseCase>();
   final GetPostsPendingUseCase _getPostsPendingUseCase =
       sl<GetPostsPendingUseCase>();
-  final GetPostsExpiredUseCase _getPostsExpiredUseCase =
-      sl<GetPostsExpiredUseCase>();
   final GetPostsRejectUseCase _getPostsRejectUseCase =
       sl<GetPostsRejectUseCase>();
   final GetPostsHidedUseCase _getPostsHidedUseCase = sl<GetPostsHidedUseCase>();
 
-  Future<List<RealEstatePostEntity>> getPostsApproved() async {
+  Future<List<PostEntity>> getPostsApproved() async {
     final dataState = await _getPostsApprovedUseCase();
     approvedPosts.clear();
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
@@ -46,7 +41,7 @@ class PostManagementController extends GetxController {
     }
   }
 
-  Future<List<RealEstatePostEntity>> getPostsPending() async {
+  Future<List<PostEntity>> getPostsPending() async {
     final dataState = await _getPostsPendingUseCase();
     pendingPosts.clear();
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
@@ -58,19 +53,7 @@ class PostManagementController extends GetxController {
     }
   }
 
-  Future<List<RealEstatePostEntity>> getPostsExpired() async {
-    final dataState = await _getPostsExpiredUseCase();
-    expiredPosts.clear();
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      expiredPosts.value = dataState.data!;
-      return dataState.data!;
-    } else {
-      expiredPosts.value = [];
-      return [];
-    }
-  }
-
-  Future<List<RealEstatePostEntity>> getPostsRejected() async {
+  Future<List<PostEntity>> getPostsRejected() async {
     final dataState = await _getPostsRejectUseCase();
     rejectedPosts.clear();
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
@@ -82,7 +65,7 @@ class PostManagementController extends GetxController {
     }
   }
 
-  Future<List<RealEstatePostEntity>> getPostsHided() async {
+  Future<List<PostEntity>> getPostsHided() async {
     final dataState = await _getPostsHidedUseCase();
     hidedPosts.clear();
     if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
@@ -97,26 +80,25 @@ class PostManagementController extends GetxController {
   Future<void> getPostsInit() async {
     getPostsApproved();
     getPostsPending();
-    getPostsExpired();
     getPostsRejected();
     getPostsHided();
   }
 
-  void navigateToDetailSceen(RealEstatePostEntity post) {
+  void navigateToDetailSceen(PostEntity post) {
     //Get.toNamed(AppRoutes.post_detail, arguments: post);
   }
 
-  void showPost(RealEstatePostEntity post) async {
+  void showPost(PostEntity post) async {
     //await repository.hideOrUnHidePost(post.id, false);
     await getPostsInit();
   }
 
-  void hidePost(RealEstatePostEntity post) async {
+  void hidePost(PostEntity post) async {
     //await repository.hideOrUnHidePost(post.id, true);
     await getPostsInit();
   }
 
-  void editPost(RealEstatePostEntity post) async {
+  void editPost(PostEntity post) async {
     // TODO: implement editPost
     // edit post
 
@@ -126,12 +108,12 @@ class PostManagementController extends GetxController {
     // });
   }
 
-  void deletePost(RealEstatePostEntity post) async {
+  void deletePost(PostEntity post) async {
     //await repository.deletePost(post.id);
     await getPostsInit();
   }
 
-  void extensionPost(RealEstatePostEntity post) async {
+  void extensionPost(PostEntity post) async {
     //await repository.extendPostExpiryDate(post.id, true);
     await getPostsInit();
   }
