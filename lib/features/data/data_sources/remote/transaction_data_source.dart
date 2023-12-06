@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:_88credit_flutter/features/data/models/purchase/transaction_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:_88credit_flutter/core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/utils/typedef.dart';
+import '../../models/nhagiare/purchase/transaction_model.dart';
 
 abstract class TransactionRemoteDataSrc {
   // Future<HttpResponse<List<TransactionModel>>> getAllMembershipPackages();

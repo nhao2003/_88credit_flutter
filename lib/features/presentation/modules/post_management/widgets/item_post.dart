@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:_88credit_flutter/features/domain/entities/posts/real_estate_post.dart';
 import 'package:_88credit_flutter/features/domain/enums/post_status_management.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
+import '../../../../domain/entities/nhagiare/posts/real_estate_post.dart';
 
 class ItemPost extends StatefulWidget {
   final RealEstatePostEntity post;

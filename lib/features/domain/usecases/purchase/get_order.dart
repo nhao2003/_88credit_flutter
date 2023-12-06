@@ -1,7 +1,7 @@
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/core/usecases/usecase.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/order_membership_package.dart';
 import 'package:_88credit_flutter/features/domain/repository/membership_package_repository.dart';
+import '../../entities/nhagiare/purchase/order_membership_package.dart';
 
 class GetOrderMembershipPackageUseCase
     implements

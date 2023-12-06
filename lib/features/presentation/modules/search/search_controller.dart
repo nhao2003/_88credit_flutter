@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/core/extensions/string_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/posts/real_estate_post.dart';
 import 'package:_88credit_flutter/features/domain/usecases/address/get_province_names.dart';
-
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../injection_container.dart';
+import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
 import '../../../domain/usecases/post/remote/get_posts.dart';
 
 class MySearchController extends GetxController {

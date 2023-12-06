@@ -1,7 +1,7 @@
 import 'package:_88credit_flutter/features/data/data_sources/local/authentication_local_data_source.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/conversation_remote_data_source.dart';
-import 'package:_88credit_flutter/features/data/models/chat/conversation_model.dart';
-import 'package:_88credit_flutter/features/data/models/chat/message_model.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/conversation_model.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/message_model.dart';
 import 'package:_88credit_flutter/features/domain/repository/conversation_repository.dart';
 
 class ConversationRepositoryImpl extends ConversationRepository {

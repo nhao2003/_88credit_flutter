@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/blog_data_source.dart';
-import 'package:_88credit_flutter/features/domain/entities/blog/blog.dart';
 import 'package:_88credit_flutter/features/domain/repository/blog_repository.dart';
+import '../../domain/entities/nhagiare/blog/blog.dart';
 
 class BlogRepositoryImpl implements BlogRepository {
   final BlogRemoteDataSrc blogRemoteDataSrc;

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/double_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/membership_package.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/purchase/widgets/package_card.dart';
 import '../../../../../config/theme/app_color.dart';
+import '../../../../domain/entities/nhagiare/purchase/membership_package.dart';
 import '../purchase_controller.dart';
 
 class PurchaseScreen extends StatelessWidget {
@@ -85,19 +85,17 @@ class PurchaseScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        ...snapshot.data!
-                            .map((e) => Container(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  width: double.infinity,
-                                  child: MembershipPackageCard(
-                                    package: e,
-                                    onTapBuy: (package) {
-                                      Get.toNamed(AppRoutes.purchaseChoosePlan,
-                                          arguments: package);
-                                    },
-                                  ),
-                                ))
-                            .toList(),
+                        ...snapshot.data!.map((e) => Container(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              width: double.infinity,
+                              child: MembershipPackageCard(
+                                package: e,
+                                onTapBuy: (package) {
+                                  Get.toNamed(AppRoutes.purchaseChoosePlan,
+                                      arguments: package);
+                                },
+                              ),
+                            )),
                       ],
                     ),
                   ),

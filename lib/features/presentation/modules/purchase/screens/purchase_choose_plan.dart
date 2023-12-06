@@ -4,14 +4,15 @@ import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/membership_package.dart';
 import 'package:_88credit_flutter/features/presentation/modules/purchase/purchase_controller.dart';
 import 'package:_88credit_flutter/features/presentation/modules/purchase/screens/purchase_payment_result_screen.dart';
+
+import '../../../../domain/entities/nhagiare/purchase/membership_package.dart';
 
 class PurchaseChoosePlanScreen extends StatelessWidget {
   final MembershipPackageEntity package = Get.arguments;
 
-  PurchaseChoosePlanScreen({Key? key}) : super(key: key);
+  PurchaseChoosePlanScreen({super.key});
 
   final PurchaseController controller = Get.find<PurchaseController>();
   final RxInt selectedRadio = (-1).obs;

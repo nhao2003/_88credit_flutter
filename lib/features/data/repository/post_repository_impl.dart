@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/post_remote_data_sources.dart';
 import 'package:_88credit_flutter/features/domain/repository/post_repository.dart';
-import '../../domain/entities/posts/real_estate_post.dart';
+import '../../domain/entities/nhagiare/posts/real_estate_post.dart';
 
 class PostRepositoryImpl implements PostRepository {
   final PostRemoteDataSrc _dataSrc;

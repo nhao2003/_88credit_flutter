@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/utils/check_time_date.dart';
-import 'package:_88credit_flutter/features/domain/entities/posts/real_estate_post.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/resources/data_state.dart';
-import '../../../domain/entities/blog/blog.dart';
+import '../../../domain/entities/nhagiare/blog/blog.dart';
+import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
 import '../../../domain/usecases/blog/remote/get_all_blogs.dart';
 
 class HomeController extends GetxController {

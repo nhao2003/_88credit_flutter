@@ -1,6 +1,5 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/blog/blog.dart';
 import 'package:_88credit_flutter/features/presentation/modules/home/widgets/border_image_button.dart';
 import 'package:_88credit_flutter/features/presentation/modules/home/widgets/util_card.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:_88credit_flutter/features/presentation/modules/home/widgets/home_appbar.dart';
 import '../../../../../config/theme/text_styles.dart';
 import '../../../../../config/values/asset_image.dart';
+import '../../../../domain/entities/nhagiare/blog/blog.dart';
 import '../home_controller.dart';
 import '../../../global_widgets/carousel_ad.dart';
 import '../widgets/blog_card.dart';

@@ -5,9 +5,9 @@ import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/config/values/asset_image.dart';
 import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/chat/conversation.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/chat/screens/chat_detail_screen.dart';
+import '../../../../domain/entities/nhagiare/chat/conversation.dart';
 import '../chat_controler.dart';
 
 class ChatScreen extends StatelessWidget {

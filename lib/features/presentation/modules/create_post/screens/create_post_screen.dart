@@ -58,7 +58,7 @@ class CreatePostScreen extends StatelessWidget {
                 // card choose type property
                 BaseCard(
                   title: "Loại bất động sản",
-                  isvisible: true,
+                  isvisible: false,
                   child: ChooseTypePropertyCard(),
                 ),
                 // card choose type of user

@@ -1,5 +1,5 @@
 import '../../../../core/resources/data_state.dart';
-import '../entities/posts/real_estate_post.dart';
+import '../entities/nhagiare/posts/real_estate_post.dart';
 
 abstract class PostRepository {
   // API remote

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/utils/typedef.dart';
-import '../../models/post/real_estate_post.dart';
+import '../../models/nhagiare/post/real_estate_post.dart';
 
 class DatabaseHelper {
   Future<HttpResponse<List<RealEstatePostModel>>> getPosts(

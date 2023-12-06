@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/membership_package.dart';
 import '../../../../../config/theme/app_color.dart';
+import '../../../../domain/entities/nhagiare/purchase/membership_package.dart';
 
 class MembershipPackageCard extends StatelessWidget {
   final MembershipPackageEntity package;

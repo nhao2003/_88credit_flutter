@@ -3,11 +3,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/core/extensions/date_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/blog/blog.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/blogs/blog_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
+
+import '../../../../domain/entities/nhagiare/blog/blog.dart';
 
 class BlogDetailScreen extends StatelessWidget {
   final BlogController controller = Get.put(BlogController());

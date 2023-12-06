@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:_88credit_flutter/features/data/models/purchase/membership_package_model.dart';
-import 'package:_88credit_flutter/features/data/models/purchase/order_membership_package_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:_88credit_flutter/core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/utils/typedef.dart';
+import '../../models/nhagiare/purchase/membership_package_model.dart';
+import '../../models/nhagiare/purchase/order_membership_package_model.dart';
 
 abstract class MembershipPackageRemoteDataSrc {
   Future<HttpResponse<List<MembershipPackageModel>>> getAllMembershipPackages();

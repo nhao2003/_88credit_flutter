@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:_88credit_flutter/core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/utils/typedef.dart';
-import '../../models/post/real_estate_post.dart';
+import '../../models/nhagiare/post/real_estate_post.dart';
 import '../db/database_helper.dart';
 
 abstract class PostRemoteDataSrc {

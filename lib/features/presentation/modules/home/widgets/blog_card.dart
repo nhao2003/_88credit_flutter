@@ -1,11 +1,11 @@
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
-import 'package:_88credit_flutter/features/domain/entities/blog/blog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
+import '../../../../domain/entities/nhagiare/blog/blog.dart';
 import '../../blogs/screens/blog_detail_screen.dart';
 
 class BlogCard extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../../../domain/entities/posts/real_estate_post.dart';
+import '../../../../domain/entities/nhagiare/posts/real_estate_post.dart';
 import '../../../../domain/enums/post_status_management.dart';
 import '../post_management_controller.dart';
 import 'item_post.dart';

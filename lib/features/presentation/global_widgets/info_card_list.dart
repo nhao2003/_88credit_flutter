@@ -4,7 +4,7 @@ import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../domain/entities/posts/real_estate_post.dart';
+import '../../domain/entities/nhagiare/posts/real_estate_post.dart';
 import 'infor_card.dart';
 
 class InforCardList extends StatelessWidget {

@@ -1,17 +1,17 @@
+import 'package:_88credit_flutter/features/domain/entities/nhagiare/chat/message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
-import 'package:_88credit_flutter/features/data/models/chat/message_model.dart';
-import 'package:_88credit_flutter/features/domain/entities/chat/conversation.dart';
-import 'package:_88credit_flutter/features/domain/entities/chat/message.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/message_model.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/chat/chat_controler.dart';
+import '../../../../domain/entities/nhagiare/chat/conversation.dart';
 
 class ChatDetailScreen extends StatefulWidget {
-  const ChatDetailScreen({Key? key}) : super(key: key);
+  const ChatDetailScreen({super.key});
 
   @override
   State<ChatDetailScreen> createState() => _ChatDetailScreenState();

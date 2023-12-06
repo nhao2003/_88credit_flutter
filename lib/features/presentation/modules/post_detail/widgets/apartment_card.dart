@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:_88credit_flutter/features/domain/entities/properties/apartment.dart';
 import 'package:_88credit_flutter/features/domain/enums/apartment_types.dart';
 import 'package:_88credit_flutter/features/domain/enums/direction.dart';
 import 'package:_88credit_flutter/features/domain/enums/legal_document_status.dart';
 
 import '../../../../../config/values/asset_image.dart';
+import '../../../../domain/entities/nhagiare/properties/apartment.dart';
 import '../../../../domain/enums/furniture_status.dart';
 import 'details.dart';
 

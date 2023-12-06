@@ -1,5 +1,5 @@
-import 'package:_88credit_flutter/features/domain/entities/task/task.dart';
 import '../../../../core/resources/data_state.dart';
+import '../entities/nhagiare/task/task.dart';
 
 abstract class TaskRepository {
   // API remote

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:_88credit_flutter/features/domain/entities/posts/real_estate_post.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_approved.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_expired.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_hided.dart';
@@ -7,6 +6,7 @@ import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_rejected.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../injection_container.dart';
+import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
 
 class PostManagementController extends GetxController {
   RxList<RealEstatePostEntity> pendingPosts = <RealEstatePostEntity>[].obs;

@@ -1,8 +1,8 @@
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/core/usecases/usecase.dart';
-import 'package:_88credit_flutter/features/data/models/post/address.dart';
-import 'package:_88credit_flutter/features/domain/entities/posts/address.dart';
 import 'package:_88credit_flutter/features/domain/repository/provinces_repository.dart';
+import '../../../data/models/nhagiare/post/address.dart';
+import '../../entities/nhagiare/posts/address.dart';
 
 class GetAddressUseCase
     implements UseCaseSync<DataState<String>, AddressModel> {

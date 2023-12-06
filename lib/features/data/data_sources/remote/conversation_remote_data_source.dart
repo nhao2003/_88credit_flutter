@@ -1,6 +1,6 @@
-import 'package:_88credit_flutter/features/data/models/chat/message_model.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/message_model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:_88credit_flutter/features/data/models/chat/conversation_model.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/conversation_model.dart';
 
 abstract class ConversationRemoteDataSource {
   List<ConversationModel> getConversations();

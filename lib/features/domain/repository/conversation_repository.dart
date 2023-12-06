@@ -1,5 +1,5 @@
-import 'package:_88credit_flutter/features/data/models/chat/conversation_model.dart';
-import 'package:_88credit_flutter/features/data/models/chat/message_model.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/conversation_model.dart';
+import 'package:_88credit_flutter/features/data/models/nhagiare/chat/message_model.dart';
 
 abstract class ConversationRepository {
   void addConversationListener(Function(List<ConversationModel>) listener);

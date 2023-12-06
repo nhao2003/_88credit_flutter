@@ -1,13 +1,14 @@
 import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/membership_package.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/order_membership_package.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/transaction.dart';
 import 'package:_88credit_flutter/features/domain/usecases/purchase/get_membership_package.dart';
 import 'package:_88credit_flutter/features/domain/usecases/purchase/get_order.dart';
 import 'package:_88credit_flutter/features/domain/usecases/purchase/get_transaction.dart';
 import 'package:_88credit_flutter/injection_container.dart';
+
+import '../../../domain/entities/nhagiare/purchase/membership_package.dart';
+import '../../../domain/entities/nhagiare/purchase/order_membership_package.dart';
+import '../../../domain/entities/nhagiare/purchase/transaction.dart';
 
 class CreateOrderResult {
   final String? appTransId;

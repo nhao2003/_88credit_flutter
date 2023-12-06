@@ -1,4 +1,4 @@
-import 'package:_88credit_flutter/features/domain/entities/blog/blog.dart';
+import '../../../domain/entities/nhagiare/blog/blog.dart';
 
 class BlogModel extends BlogEntity {
   const BlogModel({

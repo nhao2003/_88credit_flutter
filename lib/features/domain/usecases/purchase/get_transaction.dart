@@ -1,7 +1,7 @@
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/core/usecases/usecase.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/transaction.dart';
 import 'package:_88credit_flutter/features/domain/repository/transaction_repository.dart';
+import '../../entities/nhagiare/purchase/transaction.dart';
 
 class GetTransactionUseCase
     implements UseCase<DataState<TransactionEntity>, String> {

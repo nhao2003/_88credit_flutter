@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/membership_package_data_source.dart';
-import 'package:_88credit_flutter/features/data/models/purchase/order_membership_package_model.dart';
-import 'package:_88credit_flutter/features/domain/entities/purchase/membership_package.dart';
 import 'package:_88credit_flutter/features/domain/repository/membership_package_repository.dart';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
+import '../../domain/entities/nhagiare/purchase/membership_package.dart';
+import '../models/nhagiare/purchase/order_membership_package_model.dart';
 
 class MembershipPackageRepositoryImpl extends MembershipPackageRepository {
   MembershipPackageRemoteDataSrc remoteDataSrc;

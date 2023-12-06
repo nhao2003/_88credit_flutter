@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
-import 'package:_88credit_flutter/features/domain/entities/user/user.dart';
-
 import '../../../../core/resources/data_state.dart';
 import '../../../../injection_container.dart';
-import '../../../domain/entities/posts/real_estate_post.dart';
+import '../../../domain/entities/nhagiare/posts/real_estate_post.dart';
+import '../../../domain/entities/nhagiare/user/user.dart';
 import '../../../domain/usecases/post/remote/get_posts.dart';
 
 class UserProfileController extends GetxController {

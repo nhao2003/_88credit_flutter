@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../config/values/asset_image.dart';
-import '../../../../domain/entities/properties/motel.dart';
+import '../../../../domain/entities/nhagiare/properties/motel.dart';
 import '../../../../domain/enums/furniture_status.dart';
 import 'details.dart';
 

@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,7 @@ import 'package:_88credit_flutter/features/presentation/modules/home/widgets/ico
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
-import '../../../../../core/extensions/date_ex.dart';
-import '../../domain/entities/posts/real_estate_post.dart';
+import '../../domain/entities/nhagiare/posts/real_estate_post.dart';
 
 class InforCard extends StatelessWidget {
   const InforCard({super.key, this.width, this.height, required this.post});
