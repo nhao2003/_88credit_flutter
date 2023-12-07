@@ -1,5 +1,6 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,9 @@ import '../../../../../config/values/asset_image.dart';
 
 // ignore: must_be_immutable
 class PostBorrowCard extends StatelessWidget {
-  PostBorrowCard({this.avatar, super.key});
+  final PostEntity post;
+
+  PostBorrowCard({required this.post, this.avatar, super.key});
 
   final String? avatar;
 
@@ -20,6 +23,14 @@ class PostBorrowCard extends StatelessWidget {
 
   toggleIsLiked() {
     isLiked.value = !isLiked.value;
+  }
+
+  onTapPost() {
+    Get.toNamed(AppRoutes.postDetail, arguments: post);
+  }
+
+  onTapAvatar() {
+    Get.toNamed(AppRoutes.userProfile);
   }
 
   Widget _buildStars() {
@@ -76,9 +87,7 @@ class PostBorrowCard extends StatelessWidget {
                     children: [
                       // Name and stars
                       GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.userProfile);
-                        },
+                        onTap: onTapAvatar,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -159,9 +168,7 @@ class PostBorrowCard extends StatelessWidget {
                   // thong tin chi tiet
                   const SizedBox(height: 10),
                   InkWell(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.postDetail);
-                    },
+                    onTap: onTapPost,
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(

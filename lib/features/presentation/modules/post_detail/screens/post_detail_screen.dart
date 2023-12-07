@@ -11,7 +11,7 @@ class PostDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar(title: "Cần vay gấp 5 triệu, lãi suất thỏa ..."),
+      appBar: MyAppbar(title: controller.post.title!),
       body: const SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(

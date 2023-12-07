@@ -12,21 +12,11 @@ import 'config/theme/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  bool isLogin = await checkIsLogin();
-  runApp(MyApp(isLogin: isLogin));
-}
-
-Future<bool> checkIsLogin() async {
-  bool isLogin = false;
-  CheckTokenUseCase checkTokenUseCase = sl<CheckTokenUseCase>();
-  final dataState = await checkTokenUseCase();
-  if (dataState is DataSuccess && dataState.data == true) isLogin = true;
-  return isLogin;
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final bool isLogin;
-  const MyApp({required this.isLogin, super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -41,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme(),
       defaultTransition: Transition.cupertino,
-      initialRoute: AppRoutes.bottomBar,
+      initialRoute: AppRoutes.splashScreen,
       getPages: AppPages.pages,
     );
   }

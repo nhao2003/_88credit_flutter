@@ -1,9 +1,13 @@
 import 'package:_88credit_flutter/features/presentation/modules/post/widgets/card_sort.dart';
 import 'package:_88credit_flutter/features/presentation/modules/post/widgets/post_lending_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../post_controler.dart';
 
 class LendingTabScreen extends StatelessWidget {
-  const LendingTabScreen({super.key});
+  LendingTabScreen({super.key});
+  final PostController controller = Get.find<PostController>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +20,11 @@ class LendingTabScreen extends StatelessWidget {
             children: [
               const CardSort(),
               const SizedBox(height: 20),
-              PostLendingCard(),
+              PostLendingCard(post: controller.getPostLending()),
               const SizedBox(height: 20),
-              PostLendingCard(),
+              PostLendingCard(post: controller.getPostLending()),
               const SizedBox(height: 20),
-              PostLendingCard(),
+              PostLendingCard(post: controller.getPostLending()),
             ],
           ),
         ),

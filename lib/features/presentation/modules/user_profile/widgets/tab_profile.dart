@@ -61,9 +61,9 @@ class _TabProfileState extends State<TabProfile> with TickerProviderStateMixin {
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _tabController,
-                children: const [
+                children: [
                   BorrowTabScreen(),
-                  Scaffold(
+                  const Scaffold(
                     body: Center(
                       child: Text('Chưa có tin nhắn'),
                     ),

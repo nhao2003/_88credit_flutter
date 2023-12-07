@@ -7,10 +7,13 @@ import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 import '../../../../../config/values/asset_image.dart';
+import '../../../../domain/entities/credit/post.dart';
 
 // ignore: must_be_immutable
 class PostLendingCard extends StatelessWidget {
-  PostLendingCard({this.avatar, super.key});
+  final PostEntity post;
+
+  PostLendingCard({required this.post, this.avatar, super.key});
 
   final String? avatar;
 
@@ -20,6 +23,14 @@ class PostLendingCard extends StatelessWidget {
 
   toggleIsLiked() {
     isLiked.value = !isLiked.value;
+  }
+
+  onTapPost() {
+    Get.toNamed(AppRoutes.postDetail, arguments: post);
+  }
+
+  onTapAvatar() {
+    Get.toNamed(AppRoutes.userProfile);
   }
 
   Widget _buildStars() {
@@ -76,9 +87,7 @@ class PostLendingCard extends StatelessWidget {
                     children: [
                       // Name and stars
                       GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.userProfile);
-                        },
+                        onTap: onTapAvatar,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -159,9 +168,7 @@ class PostLendingCard extends StatelessWidget {
                   // thong tin chi tiet
                   const SizedBox(height: 10),
                   InkWell(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.postDetail);
-                    },
+                    onTap: onTapPost,
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(

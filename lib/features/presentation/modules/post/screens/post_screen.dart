@@ -45,8 +45,8 @@ class PostScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: const TabBarView(
-          physics: NeverScrollableScrollPhysics(),
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             LendingTabScreen(),
             BorrowTabScreen(),

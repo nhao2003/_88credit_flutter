@@ -44,6 +44,9 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
   Future<HttpResponse<Map<String, String>>> login(
       String email, String password) async {
     const url = '$apiUrl$kSignIn';
+    print('url: $url');
+    print('email: $email');
+    print('password: $password');
     try {
       // Gửi yêu cầu đăng nhập
       final response = await client.post(
