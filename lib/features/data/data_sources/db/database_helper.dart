@@ -19,7 +19,7 @@ class DatabaseHelper {
       }
 
       final List<DataMap> taskDataList =
-          List<DataMap>.from(response.data["result"]);
+          List<DataMap>.from(response.data["result"]["data"]);
 
       List<PostEntity> value = taskDataList
           .map((postJson) => PostEntity.fromJson(postJson))

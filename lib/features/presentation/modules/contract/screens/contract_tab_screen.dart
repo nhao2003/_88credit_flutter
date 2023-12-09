@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:_88credit_flutter/config/values/asset_image.dart';
-import '../../../../../config/theme/app_color.dart';
-import '../../post/screens/borrow_tab_screen.dart';
 
-class TabProfile extends StatefulWidget {
-  const TabProfile({super.key});
+import '../../../../../config/theme/app_color.dart';
+
+class ContractTabScreen extends StatefulWidget {
+  const ContractTabScreen({super.key});
 
   @override
-  State<TabProfile> createState() => _TabProfileState();
+  State<ContractTabScreen> createState() => _ContractTabScreenState();
 }
 
-class _TabProfileState extends State<TabProfile> with TickerProviderStateMixin {
+class _ContractTabScreenState extends State<ContractTabScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -35,22 +35,12 @@ class _TabProfileState extends State<TabProfile> with TickerProviderStateMixin {
               controller: _tabController,
               indicatorColor: AppColors.green,
               indicatorSize: TabBarIndicatorSize.tab,
-              tabs: [
+              tabs: const [
                 Tab(
-                  icon: Image.asset(
-                    Assets.grid,
-                    width: 20,
-                    height: 20,
-                    color: _tabController.index == 0 ? AppColors.green : null,
-                  ),
+                  text: "Cho vay",
                 ),
                 Tab(
-                  icon: Image.asset(
-                    Assets.chat,
-                    width: 20,
-                    height: 20,
-                    color: _tabController.index == 1 ? AppColors.green : null,
-                  ),
+                  text: "Vay tiền",
                 ),
               ],
             ),
@@ -58,13 +48,9 @@ class _TabProfileState extends State<TabProfile> with TickerProviderStateMixin {
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _tabController,
-                children: [
-                  BorrowTabScreen(),
-                  const Scaffold(
-                    body: Center(
-                      child: Text('Chưa có tin nhắn'),
-                    ),
-                  ),
+                children: const [
+                  Scaffold(),
+                  Scaffold(),
                 ],
               ),
             ),

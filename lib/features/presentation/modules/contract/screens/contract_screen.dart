@@ -1,3 +1,5 @@
+import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_tab_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/screens/request_tab_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../global_widgets/my_tab_appbar.dart';
 import '../contract_controler.dart';
@@ -20,8 +22,8 @@ class ContractScreen extends StatelessWidget {
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: [
-            Scaffold(),
-            Scaffold(),
+            RequestTabScreen(),
+            ContractTabScreen(),
           ],
         ),
       ),
