@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/features/presentation/modules/create_post/widgets/borrowing_form.dart';
+import 'package:_88credit_flutter/features/presentation/modules/create_post/widgets/lending_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
@@ -43,8 +44,15 @@ class CreatePostScreen extends StatelessWidget {
                   isvisible: true,
                   child: PostInfoCard(),
                 ),
-                BorrowingForm(
-                  isvisible: true,
+                Obx(
+                  () => BorrowingForm(
+                    isvisible: !controller.isLending.value,
+                  ),
+                ),
+                Obx(
+                  () => LendingForm(
+                    isvisible: controller.isLending.value,
+                  ),
                 ),
                 // dang bai ============================================
                 Padding(
