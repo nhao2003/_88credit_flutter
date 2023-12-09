@@ -4,7 +4,8 @@ import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 
 class DescriptionCard extends StatefulWidget {
-  const DescriptionCard({required this.description, super.key});
+  const DescriptionCard({required this.title, required this.description, super.key});
+  final String title;
   final String description;
 
   @override
@@ -44,7 +45,7 @@ class _DescriptionCardState extends State<DescriptionCard>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Mô tả",
+            widget.title,
             style: AppTextStyles.bold14,
           ),
           const SizedBox(

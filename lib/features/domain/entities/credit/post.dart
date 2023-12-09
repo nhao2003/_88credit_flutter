@@ -1,11 +1,13 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
+import 'package:_88credit_flutter/features/domain/enums/post_type.dart';
 import 'package:equatable/equatable.dart';
 import '../../enums/loan_reason_types.dart';
 import '../../enums/post_status.dart';
 
 class PostEntity extends Equatable {
   final String? id;
-  final String? userId;
-  final String? type;
+  final UserEntity? user;
+  final PostTypes? type;
   final LoanReasonTypes? loanReasonType;
   final String? loanReason;
   final PostStatus? status;
@@ -27,7 +29,7 @@ class PostEntity extends Equatable {
 
   const PostEntity({
     this.id,
-    this.userId,
+    this.user,
     this.type,
     this.loanReasonType,
     this.loanReason,
@@ -52,7 +54,7 @@ class PostEntity extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        userId,
+        user,
         type,
         loanReasonType,
         loanReason,
@@ -76,8 +78,8 @@ class PostEntity extends Equatable {
 
   PostEntity copyWith({
     String? id,
-    String? userId,
-    String? type,
+    UserEntity? user,
+    PostTypes? type,
     LoanReasonTypes? loanReasonType,
     String? loanReason,
     PostStatus? status,
@@ -99,7 +101,7 @@ class PostEntity extends Equatable {
   }) {
     return PostEntity(
       id: id ?? this.id,
-      userId: userId ?? this.userId,
+      user: user ?? this.user,
       type: type ?? this.type,
       loanReasonType: loanReasonType ?? this.loanReasonType,
       loanReason: loanReason ?? this.loanReason,
@@ -127,8 +129,8 @@ class PostEntity extends Equatable {
   factory PostEntity.fromJson(Map<String, dynamic> json) {
     return PostEntity(
       id: json['post_id'] as String?,
-      userId: json['post_user_id'] as String?,
-      type: json['post_type'] as String?,
+      user: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
+      type: json['type'] != null ? PostTypes.parse(json['type']) : null,
       loanReasonType: json['post_loan_reason_type'] != null
           ? LoanReasonTypes.values.firstWhere(
               (element) => element.toString() == json['post_loan_reason_type'])

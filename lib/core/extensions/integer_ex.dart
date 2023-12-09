@@ -8,6 +8,7 @@ extension PercentSized on int {
 extension ResponsiveText on int {
   double get sp => (Get.width / 100 * (this / 3));
 }
+
 String formatMoney(int amount, {bool isLease = false}) {
   String suffix = '';
   if (isLease) {
@@ -29,9 +30,10 @@ extension FormatMoneyExtension on int {
   String toFormattedMoney({bool isLease = false}) {
     return formatMoney(this, isLease: isLease);
   }
-  String get formatNumberWithCommasK {
+
+  String get toformatNumberWithCommasK {
     if (this >= 1000000) {
-      final tmp = (this~/1000).formatNumberWithCommas;
+      final tmp = (this ~/ 1000).formatNumberWithCommas;
       return "${tmp}K";
     } else if (this >= 1000) {
       double value = this / 1000;
@@ -40,6 +42,7 @@ extension FormatMoneyExtension on int {
       return toString();
     }
   }
+
   String get formatNumberWithCommas {
     if (this >= 1000) {
       String strNumber = toString();

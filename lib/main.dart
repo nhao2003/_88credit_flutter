@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_pages.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/config/values/app_string.dart';
-import 'package:_88credit_flutter/core/resources/data_state.dart';
-import 'package:_88credit_flutter/features/domain/usecases/authentication/check_token.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'config/theme/app_theme.dart';
 

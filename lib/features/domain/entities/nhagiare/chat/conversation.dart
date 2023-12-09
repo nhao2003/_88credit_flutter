@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../user/user.dart';
+import '../../credit/user.dart';
 import 'message.dart';
 import 'participant.dart';
 

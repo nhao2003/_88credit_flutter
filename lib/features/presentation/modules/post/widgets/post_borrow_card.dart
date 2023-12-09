@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
+import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,9 +14,7 @@ import '../../../../../config/values/asset_image.dart';
 class PostBorrowCard extends StatelessWidget {
   final PostEntity post;
 
-  PostBorrowCard({required this.post, this.avatar, super.key});
-
-  final String? avatar;
+  PostBorrowCard({required this.post, super.key});
 
   final int numOfStars = 4;
 
@@ -57,13 +56,14 @@ class PostBorrowCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // avatar
-            if (avatar != null)
+            if (post.user!.avatar != null)
               ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
                 child: CachedNetworkImage(
-                  imageUrl: "",
+                  imageUrl: post.user!.avatar!,
                   fit: BoxFit.cover,
                   width: 50,
+                  height: 50,
                   errorWidget: (context, _, __) {
                     return const CircleAvatar(
                       radius: 25,
@@ -92,10 +92,10 @@ class PostBorrowCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Phan Văn Minh",
+                              post.user!.fullName,
                               //"Phan Văn Minh",
                               style: AppTextStyles.semiBold14.colorEx(
-                                AppColors.black,
+                                const Color.fromARGB(255, 83, 49, 49),
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -114,7 +114,7 @@ class PostBorrowCard extends StatelessWidget {
                               ),
                               const SizedBox(width: 2),
                               Text(
-                                "30-40 ngày",
+                                "${post.tenureMonths} tháng",
                                 style: AppTextStyles.regular12.colorEx(
                                   AppColors.grey400,
                                 ),
@@ -153,7 +153,7 @@ class PostBorrowCard extends StatelessWidget {
                         style: AppTextStyles.medium10,
                       ),
                       Text(
-                        "Cho vay",
+                        post.type!.getStringVi(),
                         style: AppTextStyles.bold10.colorEx(AppColors.green),
                       ),
                     ],
@@ -161,7 +161,7 @@ class PostBorrowCard extends StatelessWidget {
                   // title
                   const SizedBox(height: 10),
                   Text(
-                    "Cho Vay Tiền Gấp - Ưu Tiên Ai Cần Hỗ Trợ Khẩn Cấp",
+                    post.title!,
                     maxLines: 3,
                     style: AppTextStyles.regular12.colorEx(AppColors.black),
                   ),
@@ -192,7 +192,7 @@ class PostBorrowCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "10.000.000 - 15.000.000 VNĐ",
+                                "${post.loanAmount} VNĐ",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -210,7 +210,7 @@ class PostBorrowCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "12 - 15% / năm",
+                                "${post.interestRate} % / năm",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -222,13 +222,13 @@ class PostBorrowCard extends StatelessWidget {
                               SizedBox(
                                 width: 80,
                                 child: Text(
-                                  "Ls quá hạn:",
+                                  "Lý do vay:",
                                   style: AppTextStyles.regular12
                                       .colorEx(AppColors.black),
                                 ),
                               ),
                               Text(
-                                "16 - 18% / năm",
+                                post.loanReasonType!.toStringVi(),
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -250,7 +250,7 @@ class PostBorrowCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 2),
                           Text(
-                            "1 phút trước",
+                            post.createdAt!.getTimeAgoVi(),
                             style: AppTextStyles.regular10.colorEx(
                               AppColors.grey400,
                             ),

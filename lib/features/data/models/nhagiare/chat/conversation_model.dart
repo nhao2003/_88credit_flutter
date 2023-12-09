@@ -1,7 +1,7 @@
 import 'package:_88credit_flutter/features/data/models/nhagiare/chat/message_model.dart';
 import 'package:_88credit_flutter/features/data/models/nhagiare/chat/participant_model.dart';
 import '../../../../domain/entities/nhagiare/chat/conversation.dart';
-import '../../../../domain/entities/nhagiare/user/user.dart';
+import '../../../../domain/entities/credit/user.dart';
 
 // ignore: must_be_immutable
 class ConversationModel extends Conversation {

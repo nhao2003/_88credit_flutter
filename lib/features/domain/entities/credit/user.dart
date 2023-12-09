@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:_88credit_flutter/features/domain/enums/role.dart';
 import 'package:_88credit_flutter/features/domain/enums/user_status.dart';
-import '../posts/address.dart';
+import '../nhagiare/posts/address.dart';
 
 class UserEntity extends Equatable {
   final String? id;

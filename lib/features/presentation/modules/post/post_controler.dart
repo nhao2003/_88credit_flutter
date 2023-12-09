@@ -1,5 +1,8 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
+import 'package:_88credit_flutter/features/domain/enums/role.dart';
+import 'package:_88credit_flutter/features/domain/enums/user_status.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/enums/loan_reason_types.dart';
@@ -7,19 +10,39 @@ import '../../../domain/enums/post_status.dart';
 import '../../../domain/enums/post_type.dart';
 
 class PostController extends GetxController {
-  PostEntity getPostLending() {
+  PostEntity getPostBorrowing() {
     return PostEntity(
       id: "97f8d494-1fb9-4179-a983-8f7a47612f21",
-      userId: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
-      type: PostTypes.lending.toString(),
+      user: UserEntity(
+        id: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
+        status: UserStatus.notUpdate,
+        isIdentityVerified: false,
+        role: Role.user,
+        email: "nhao@qa.team",
+        address: null,
+        firstName: "Minh",
+        lastName: "Phan",
+        gender: false,
+        avatar: "https://picsum.photos/200/300?random=4",
+        dob: null,
+        phone: "123456789",
+        lastActiveAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        createdAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        updatedAt: null,
+        bannedUtil: null,
+        banReason: null,
+      ),
+      type: PostTypes.borrowing,
       loanReasonType: LoanReasonTypes.business,
-      loanReason: "Mua nhà",
+      loanReason:
+          "Lý do tôi cần vay là do gặp phải một số chi phí đột xuất, như sửa chữa nhà cửa hoặc chi trả y tế cho một số vấn đề khẩn cấp. Tôi hiểu rằng việc vay tiền không phải là quyết định dễ dàng, nhưng tôi cam kết sẽ trả nhanh chóng và đúng hẹn nhất có thể.",
       status: PostStatus.approved,
-      title: "Vay nóng 2tr",
-      description: "Cần vay tiền để mua ô tô",
+      title: "Cần vay gấp 5 triệu, lãi suất thỏa thuận",
+      description:
+          "Hiện đang gặp phải một số khó khăn tài chính và đang tìm kiếm sự giúp đỡ trong việc vay một khoản tiền nhỏ, khoảng 5 triệu đồng. Tôi cam đoan sẽ trả lại số tiền này đúng hẹn theo thỏa thuận. Tôi sẽ rất biết ơn mọi sự giúp đỡ. ",
       images: const [
-        "https://picsum.photos/200/300?random=1",
-        "https://picsum.photos/200/300?random=2",
+        "https://nguyenluat.vn/wp-content/uploads/2019/11/k.jpg",
+        "https://jenfi.com/wp-content/uploads/2022/03/Phan-biet-no-xau-no-tot-va-cach-giup-doanh-nghiep-toi-uu-dong-tien-1040x650.jpg",
         "https://picsum.photos/200/300?random=3"
       ],
       createdAt: DateTime.parse("2023-12-06T08:20:15.234Z"),
@@ -37,11 +60,29 @@ class PostController extends GetxController {
     );
   }
 
-  PostEntity getPostBorrowing() {
+  PostEntity getPostLending() {
     return PostEntity(
       id: "34e8502e-2fa6-41c6-b56a-b8d85126942b",
-      userId: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
-      type: PostTypes.borrowing.toString(),
+      user: UserEntity(
+        id: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
+        status: UserStatus.notUpdate,
+        isIdentityVerified: false,
+        role: Role.user,
+        email: "nhao@qa.team",
+        address: null,
+        firstName: "Minh",
+        lastName: "Phan",
+        gender: false,
+        avatar: "https://picsum.photos/200/300?random=5",
+        dob: null,
+        phone: "123456789",
+        lastActiveAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        createdAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        updatedAt: null,
+        bannedUtil: null,
+        banReason: null,
+      ),
+      type: PostTypes.lending,
       loanReasonType: LoanReasonTypes.business,
       loanReason: "Labore iriure nulla.",
       status: PostStatus.approved,

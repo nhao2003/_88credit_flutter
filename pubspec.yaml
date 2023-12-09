@@ -37,6 +37,7 @@ dependencies:
 
   #icon
   ionicons: ^0.2.2
+  heroicons: ^0.9.0
 
   #http request
   dio: ^5.3.2

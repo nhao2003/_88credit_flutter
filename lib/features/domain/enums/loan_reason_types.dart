@@ -38,8 +38,8 @@ enum LoanReasonTypes {
   }
 
   //getStringVi
-  static String getStringVi(LoanReasonTypes type) {
-    switch (type) {
+  String toStringVi() {
+    switch (this) {
       case LoanReasonTypes.business:
         return "Kinh doanh";
       case LoanReasonTypes.education:

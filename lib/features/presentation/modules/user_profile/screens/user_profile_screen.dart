@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
-import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';

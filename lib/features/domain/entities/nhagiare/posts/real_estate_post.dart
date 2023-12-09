@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:_88credit_flutter/features/domain/entities/nhagiare/posts/address.dart';
 import 'package:equatable/equatable.dart';
 import '../../../enums/post_status.dart';
-import '../user/user.dart';
+import '../../credit/user.dart';
 
 class RealEstatePostEntity extends Equatable {
   final String? id;

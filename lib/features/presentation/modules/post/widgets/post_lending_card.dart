@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
+import 'package:_88credit_flutter/core/extensions/date_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,7 @@ import '../../../../domain/entities/credit/post.dart';
 class PostLendingCard extends StatelessWidget {
   final PostEntity post;
 
-  PostLendingCard({required this.post, this.avatar, super.key});
-
-  final String? avatar;
+  PostLendingCard({required this.post, super.key});
 
   final int numOfStars = 4;
 
@@ -57,13 +56,14 @@ class PostLendingCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // avatar
-            if (avatar != null)
+            if (post.user!.avatar != null)
               ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
                 child: CachedNetworkImage(
-                  imageUrl: "",
+                  imageUrl: post.user!.avatar!,
                   fit: BoxFit.cover,
                   width: 50,
+                  height: 50,
                   errorWidget: (context, _, __) {
                     return const CircleAvatar(
                       radius: 25,
@@ -92,7 +92,7 @@ class PostLendingCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Phan Văn Minh",
+                              post.user!.fullName,
                               //"Phan Văn Minh",
                               style: AppTextStyles.semiBold14.colorEx(
                                 AppColors.black,
@@ -114,7 +114,7 @@ class PostLendingCard extends StatelessWidget {
                               ),
                               const SizedBox(width: 2),
                               Text(
-                                "30 ngày",
+                                "${post.tenureMonths} - ${post.maxTenureMonths} tháng",
                                 style: AppTextStyles.regular12.colorEx(
                                   AppColors.grey400,
                                 ),
@@ -153,7 +153,7 @@ class PostLendingCard extends StatelessWidget {
                         style: AppTextStyles.medium10,
                       ),
                       Text(
-                        "Vay tiền",
+                        post.type!.getStringVi(),
                         style: AppTextStyles.bold10.colorEx(AppColors.green),
                       ),
                     ],
@@ -161,7 +161,7 @@ class PostLendingCard extends StatelessWidget {
                   // title
                   const SizedBox(height: 10),
                   Text(
-                    "Cần vay gấp 5 triệu, lãi suất thỏa thuận",
+                    post.title!,
                     maxLines: 3,
                     style: AppTextStyles.regular12.colorEx(AppColors.black),
                   ),
@@ -192,7 +192,7 @@ class PostLendingCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "5.000.000 VNĐ",
+                                "${post.loanAmount} - ${post.maxLoanAmount} VND",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -210,7 +210,7 @@ class PostLendingCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "1% / tháng",
+                                "${post.interestRate} - ${post.maxInterestRate} %/tháng",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -222,13 +222,13 @@ class PostLendingCard extends StatelessWidget {
                               SizedBox(
                                 width: 80,
                                 child: Text(
-                                  "Lý do vay:",
+                                  "Ls quá hạn:",
                                   style: AppTextStyles.regular12
                                       .colorEx(AppColors.black),
                                 ),
                               ),
                               Text(
-                                "Trả nợ",
+                                "${post.overdueInterestRate} - ${post.maxOverdueInterestRate} %/tháng",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -250,7 +250,7 @@ class PostLendingCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 2),
                           Text(
-                            "1 phút trước",
+                            post.createdAt!.getTimeAgoVi(),
                             style: AppTextStyles.regular10.colorEx(
                               AppColors.grey400,
                             ),

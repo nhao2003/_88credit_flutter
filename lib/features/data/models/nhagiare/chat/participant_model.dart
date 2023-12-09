@@ -1,5 +1,5 @@
 import '../../../../domain/entities/nhagiare/chat/participant.dart';
-import '../user/user.dart';
+import '../../credit/user.dart';
 
 class ParticipantModel extends Participant {
   const ParticipantModel({

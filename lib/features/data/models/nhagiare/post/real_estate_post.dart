@@ -1,7 +1,7 @@
 import 'package:_88credit_flutter/features/domain/enums/post_status.dart';
 import '../../../../domain/entities/nhagiare/posts/address.dart';
 import '../../../../domain/entities/nhagiare/posts/real_estate_post.dart';
-import '../../../../domain/entities/nhagiare/user/user.dart';
+import '../../../../domain/entities/credit/user.dart';
 
 class RealEstatePostModel extends RealEstatePostEntity {
   const RealEstatePostModel({

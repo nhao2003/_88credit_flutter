@@ -1,9 +1,12 @@
 import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
+import 'package:_88credit_flutter/features/domain/enums/post_type.dart';
+
+import '../../../domain/entities/credit/user.dart';
 
 class PostModel extends PostEntity {
   const PostModel({
     super.id,
-    super.userId,
+    super.user,
     super.type,
     super.loanReasonType,
     super.loanReason,
@@ -28,8 +31,8 @@ class PostModel extends PostEntity {
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
       id: json['id'],
-      userId: json['user_id'],
-      type: json['type'],
+      user: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
+      type: json['type'] != null ? PostTypes.parse(json['type']) : null,
       loanReasonType: json['loan_reason_type'],
       loanReason: json['loan_reason'],
       status: json['status'],
@@ -54,7 +57,7 @@ class PostModel extends PostEntity {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'user_id': userId,
+      'user': user,
       'type': type,
       'loan_reason_type': loanReasonType,
       'loan_reason': loanReason,
@@ -80,7 +83,7 @@ class PostModel extends PostEntity {
   factory PostModel.fromEntity(PostEntity entity) {
     return PostModel(
       id: entity.id,
-      userId: entity.userId,
+      user: entity.user,
       type: entity.type,
       loanReasonType: entity.loanReasonType,
       loanReason: entity.loanReason,

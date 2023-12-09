@@ -1,6 +1,7 @@
-import '../../../../domain/entities/nhagiare/posts/address.dart';
-import '../../../../domain/entities/nhagiare/user/user.dart';
-import '../../../../domain/enums/role.dart';
+import '../../../domain/entities/nhagiare/posts/address.dart';
+import '../../../domain/entities/credit/user.dart';
+import '../../../domain/enums/role.dart';
+import '../../../domain/enums/user_status.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
@@ -27,11 +28,13 @@ class UserModel extends UserEntity {
     return UserModel(
       id: json['id'],
       //status: UserStatus.parse(json['status']),
-      status: null,
+      status: UserStatus.parse(json['status'] ?? ""),
       isIdentityVerified: json['is_identity_verified'],
       role: Role.parse(json['role']),
       email: json['email'],
-      address: AddressEntity.fromJson(json['address']),
+      address: json['address'] == null
+          ? AddressEntity.fromJson(json['address'])
+          : null,
       firstName: json['first_name'],
       lastName: json['last_name'],
       gender: json['gender'],
@@ -40,9 +43,15 @@ class UserModel extends UserEntity {
       phone: json['phone'],
       banReason: json['ban_reason'],
       lastActiveAt: DateTime.parse(json['last_active_at']),
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-      bannedUtil: DateTime.tryParse(json['banned_util'] ?? ""),
+      createdAt: json['created_at'] == null
+          ? DateTime.parse(json['created_at'])
+          : null,
+      updatedAt: json['updated_at'] == null
+          ? DateTime.parse(json['updated_at'])
+          : null,
+      bannedUtil: json['banned_util'] == null
+          ? DateTime.parse(json['banned_util'])
+          : null,
     );
   }
 
