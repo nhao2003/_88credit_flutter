@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
-
+import 'package:flutter/material.dart';
 import '../../../config/theme/text_styles.dart';
 
 class BaseTextField extends StatelessWidget {
@@ -50,7 +49,7 @@ class BaseTextField extends StatelessWidget {
         labelText: labelText,
         hintText: hintText,
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
@@ -62,7 +61,11 @@ class BaseTextField extends StatelessWidget {
         focusNode!.unfocus();
       },
       onSaved: onSaved,
+      onChanged: (value) {
+        onSaved!(value);
+      },
       onFieldSubmitted: (value) {
+        onSaved!(value);
         FocusScope.of(context).requestFocus(nexFocusNode);
       },
     );

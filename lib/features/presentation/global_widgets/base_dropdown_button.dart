@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
+import 'package:flutter/material.dart';
 import '../../../config/theme/app_color.dart';
 import '../../../config/theme/text_styles.dart';
 
@@ -7,6 +8,7 @@ class BaseDropdownButton extends StatelessWidget {
   const BaseDropdownButton({
     super.key,
     this.title,
+    this.width,
     this.isSetSelectedItemBuilder = false,
     required this.hint,
     required this.value,
@@ -17,6 +19,7 @@ class BaseDropdownButton extends StatelessWidget {
   });
 
   final bool isSetSelectedItemBuilder;
+  final double? width;
   final Object? value;
   final List<DropdownMenuItem<Object>>? items;
   final String? title;
@@ -45,14 +48,21 @@ class BaseDropdownButton extends StatelessWidget {
       selectedItemBuilder: isSetSelectedItemBuilder
           ? (context) {
               return items!.map<Widget>((item) {
-                return Container(
+                return SizedBox(
+                  width: width != null ? width! - 12.wp : null,
                   child: item.child,
                 );
               }).toList();
             }
           : null,
       value: value,
-      hint: Text(hint),
+      hint: SizedBox(
+          width: width != null ? width! - 12.wp : null,
+          child: Text(
+            hint,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )),
       items: items,
       onChanged: onChanged,
       onSaved: onSaved,

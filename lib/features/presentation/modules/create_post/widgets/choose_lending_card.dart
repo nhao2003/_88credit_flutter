@@ -5,8 +5,8 @@ import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 import '../create_post_controller.dart';
 
-class ChooseLeaseCard extends StatelessWidget {
-  ChooseLeaseCard({super.key});
+class ChooseLendingCard extends StatelessWidget {
+  ChooseLendingCard({super.key});
 
   final CreatePostController controller = Get.find<CreatePostController>();
 
@@ -17,7 +17,7 @@ class ChooseLeaseCard extends StatelessWidget {
         Obx(
           () => GestureDetector(
             onTap: () {
-              controller.setIsLease(true);
+              controller.setIsLending(false);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -25,7 +25,7 @@ class ChooseLeaseCard extends StatelessWidget {
                 vertical: 10,
               ),
               decoration: BoxDecoration(
-                color: controller.isLease.value == true
+                color: controller.isLending.value != true
                     ? AppColors.greenLight
                     : AppColors.grey200,
                 borderRadius: BorderRadius.circular(10),
@@ -33,7 +33,7 @@ class ChooseLeaseCard extends StatelessWidget {
               child: Text(
                 "Vay tiền",
                 style: AppTextStyles.medium14.copyWith(
-                  color: controller.isLease.value == true
+                  color: controller.isLending.value != true
                       ? AppColors.green
                       : AppColors.grey600,
                 ),
@@ -47,7 +47,7 @@ class ChooseLeaseCard extends StatelessWidget {
         Obx(
           () => GestureDetector(
             onTap: () {
-              controller.setIsLease(false);
+              controller.setIsLending(true);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -55,7 +55,7 @@ class ChooseLeaseCard extends StatelessWidget {
                 vertical: 10,
               ),
               decoration: BoxDecoration(
-                color: controller.isLease.value != true
+                color: controller.isLending.value == true
                     ? AppColors.greenLight
                     : AppColors.grey200,
                 borderRadius: BorderRadius.circular(10),
@@ -63,7 +63,7 @@ class ChooseLeaseCard extends StatelessWidget {
               child: Text(
                 "Cho vay",
                 style: AppTextStyles.medium14.copyWith(
-                  color: controller.isLease.value != true
+                  color: controller.isLending.value == true
                       ? AppColors.green
                       : AppColors.grey600,
                 ),
