@@ -1,5 +1,7 @@
 import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_detail_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/screens/request_detail_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/create_request/base_binding.dart';
+import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/base_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/splash/splash_binding.dart';
 import 'package:_88credit_flutter/features/presentation/modules/splash/splash_screen.dart';
 import 'package:get/get.dart';
@@ -173,6 +175,11 @@ abstract class AppPages {
       name: AppRoutes.splashScreen,
       page: () => const SplashScreen(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.createRequest,
+      page: () => CreateRequestScreen(),
+      binding: CreateRequestBinding(),
     ),
   ];
 }

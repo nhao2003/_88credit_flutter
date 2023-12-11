@@ -5,15 +5,15 @@ import 'package:_88credit_flutter/core/utils/add_months_date.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/base_button.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/contract_controler.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/credit_card.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/loan_amount_card.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/more_request_info_card.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/user_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/credit_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/loan_amount_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/more_request_info_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global_widgets/my_appbar.dart';
 import '../../post_detail/widgets/description_card.dart';
-import '../widgets/detail_request/received_amount_item.dart';
+import '../widgets/detail/received_amount_item.dart';
 
 class ContractDetailScreen extends StatelessWidget {
   ContractDetailScreen({super.key});
