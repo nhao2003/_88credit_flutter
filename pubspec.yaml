@@ -129,6 +129,9 @@ dependencies:
   heroicons_flutter: ^0.3.0
   socket_io_client: ^2.0.3+1
 
+  #iamge preview
+  image_preview: ^1.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
