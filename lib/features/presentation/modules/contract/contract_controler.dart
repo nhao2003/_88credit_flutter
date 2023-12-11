@@ -147,4 +147,8 @@ class ContractController extends GetxController {
   void handleRejectRequest(LoanRequestEntity request, String reason) {
     // _rejectRequestUseCase(params: request);
   }
+
+  void navToContractDetail(LoanRequestEntity request) {
+    Get.toNamed(AppRoutes.contractDetail, arguments: request);
+  }
 }

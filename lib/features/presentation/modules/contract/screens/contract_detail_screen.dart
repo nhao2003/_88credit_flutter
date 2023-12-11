@@ -6,7 +6,6 @@ import 'package:_88credit_flutter/features/presentation/global_widgets/base_butt
 import 'package:_88credit_flutter/features/presentation/global_widgets/header_title.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/contract_controler.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/credit_card.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/dialog_cancel.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/image_card.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/loan_amount_card.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail_request/more_request_info_card.dart';
@@ -17,8 +16,8 @@ import '../../../global_widgets/my_appbar.dart';
 import '../../post_detail/widgets/description_card.dart';
 import '../widgets/detail_request/received_amount_item.dart';
 
-class RequestDetailScreen extends StatelessWidget {
-  RequestDetailScreen({super.key});
+class ContractDetailScreen extends StatelessWidget {
+  ContractDetailScreen({super.key});
 
   final ContractController controller = Get.find<ContractController>();
 
@@ -26,20 +25,10 @@ class RequestDetailScreen extends StatelessWidget {
 
   final RxBool isLoading = false.obs;
 
-  void showCommentForm(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (ctx) => DialogCancel(
-        request: post,
-        handleRejectRequest: controller.handleRejectRequest,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar(title: "Chi tiết yêu cầu"),
+      appBar: MyAppbar(title: "Chi tiết hợp đồng"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
@@ -104,16 +93,14 @@ class RequestDetailScreen extends StatelessWidget {
                   width: 43.wp,
                   isLoading: isLoading,
                   onClick: () {
-                    showCommentForm(context);
+                    Get.back();
                   },
                 ),
                 BaseButton(
-                  title: "Đồng ý",
+                  title: "Thanh toán",
                   width: 43.wp,
                   isLoading: isLoading,
-                  onClick: () {
-                    controller.navToContractDetail(post);
-                  },
+                  onClick: () {},
                 ),
               ],
             )

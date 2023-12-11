@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_detail_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/screens/request_detail_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/splash/splash_binding.dart';
 import 'package:_88credit_flutter/features/presentation/modules/splash/splash_screen.dart';
@@ -161,6 +162,11 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.requestDetail,
       page: () => RequestDetailScreen(),
+      binding: ContractBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.contractDetail,
+      page: () => ContractDetailScreen(),
       binding: ContractBinding(),
     ),
     GetPage(

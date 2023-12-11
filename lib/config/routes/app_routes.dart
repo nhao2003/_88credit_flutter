@@ -26,6 +26,11 @@ abstract class AppRoutes {
     return '/contract/request/$id';
   }
 
+  static const contractDetail = '/contract/detail/:id';
+  static String getContractDetailRoute(String id) {
+    return '/contract/detail/$id';
+  }
+
   // post detail
   static const postDetail = '/post_detail/:id';
   static String getPostRoute(String id) {

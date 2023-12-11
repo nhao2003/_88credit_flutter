@@ -8,12 +8,14 @@ import '../../../../../../config/values/asset_image.dart';
 class UserCard extends StatelessWidget {
   const UserCard({
     this.avatar,
+    required this.title,
     required this.name,
     required this.navToProfile,
     super.key,
   });
 
   final String? avatar;
+  final String title;
   final String name;
   final Function navToProfile;
 
@@ -60,7 +62,7 @@ class UserCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Người gửi",
+                    title,
                     style: AppTextStyles.regular14.colorEx(
                       AppColors.grey700,
                     ),
