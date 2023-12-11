@@ -1,13 +1,15 @@
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
+import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 
 class ContractModel extends ContractEntity {
   const ContractModel({
     super.id,
     super.loanContractRequestId,
     super.contractTemplateId,
-    super.lenderId,
+    super.lender,
     super.lenderBankAccountId,
-    super.borrowerId,
+    super.borrower,
     super.borrowerBankAccountId,
     super.loanReasonType,
     super.loanReason,
@@ -24,11 +26,13 @@ class ContractModel extends ContractEntity {
       id: json['id'],
       loanContractRequestId: json['loan_contract_request_id'],
       contractTemplateId: json['contract_template_id'],
-      lenderId: json['lender_id'],
+      lender: UserEntity.fromJson(json['lender']),
       lenderBankAccountId: json['lender_bank_account_id'],
-      borrowerId: json['borrower_id'],
+      borrower: UserEntity.fromJson(json['borrower']),
       borrowerBankAccountId: json['borrower_bank_account_id'],
-      loanReasonType: json['loan_reason_type'],
+      loanReasonType: json['loan_reason_type'] != null
+          ? LoanReasonTypes.parse(json['loan_reason_type'])
+          : null,
       loanReason: json['loan_reason'],
       amount: json['amount'],
       interestRate: json['interest_rate'],
@@ -44,9 +48,9 @@ class ContractModel extends ContractEntity {
       'id': id,
       'loan_contract_request_id': loanContractRequestId,
       'contract_template_id': contractTemplateId,
-      'lender_id': lenderId,
+      'lender': lender,
       'lender_bank_account_id': lenderBankAccountId,
-      'borrower_id': borrowerId,
+      'borrower': borrower,
       'borrower_bank_account_id': borrowerBankAccountId,
       'loan_reason_type': loanReasonType,
       'loan_reason': loanReason,
@@ -65,9 +69,9 @@ class ContractModel extends ContractEntity {
       id: entity.id,
       loanContractRequestId: entity.loanContractRequestId,
       contractTemplateId: entity.contractTemplateId,
-      lenderId: entity.lenderId,
+      lender: entity.lender,
       lenderBankAccountId: entity.lenderBankAccountId,
-      borrowerId: entity.borrowerId,
+      borrower: entity.borrower,
       borrowerBankAccountId: entity.borrowerBankAccountId,
       loanReasonType: entity.loanReasonType,
       loanReason: entity.loanReason,

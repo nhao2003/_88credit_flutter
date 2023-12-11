@@ -5,9 +5,10 @@ import '../../../../../../config/theme/app_color.dart';
 import '../../../../../../config/theme/text_styles.dart';
 
 class ReceivedAmountItem extends StatelessWidget {
-  const ReceivedAmountItem({required this.moneyRequest, super.key});
+  const ReceivedAmountItem({this.title, required this.moneyRequest, super.key});
 
   final double moneyRequest;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ReceivedAmountItem extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "Tổng tiền nhận",
+            title ?? "Tổng tiền nhận",
             style: AppTextStyles.semiBold16.colorEx(AppColors.black),
           ),
           const SizedBox(height: 8),

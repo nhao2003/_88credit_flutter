@@ -1,14 +1,16 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
+import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 import 'package:equatable/equatable.dart';
 
 class ContractEntity extends Equatable {
   final String? id;
   final String? loanContractRequestId;
   final String? contractTemplateId;
-  final String? lenderId;
+  final UserEntity? lender;
   final String? lenderBankAccountId;
-  final String? borrowerId;
+  final UserEntity? borrower;
   final String? borrowerBankAccountId;
-  final String? loanReasonType;
+  final LoanReasonTypes? loanReasonType;
   final String? loanReason;
   final double? amount;
   final double? interestRate;
@@ -21,9 +23,9 @@ class ContractEntity extends Equatable {
     this.id,
     this.loanContractRequestId,
     this.contractTemplateId,
-    this.lenderId,
+    this.lender,
     this.lenderBankAccountId,
-    this.borrowerId,
+    this.borrower,
     this.borrowerBankAccountId,
     this.loanReasonType,
     this.loanReason,
@@ -40,9 +42,9 @@ class ContractEntity extends Equatable {
         id,
         loanContractRequestId,
         contractTemplateId,
-        lenderId,
+        lender,
         lenderBankAccountId,
-        borrowerId,
+        borrower,
         borrowerBankAccountId,
         loanReasonType,
         loanReason,
@@ -58,11 +60,11 @@ class ContractEntity extends Equatable {
     String? id,
     String? loanContractRequestId,
     String? contractTemplateId,
-    String? lenderId,
+    UserEntity? lender,
     String? lenderBankAccountId,
-    String? borrowerId,
+    UserEntity? borrower,
     String? borrowerBankAccountId,
-    String? loanReasonType,
+    LoanReasonTypes? loanReasonType,
     String? loanReason,
     double? amount,
     double? interestRate,
@@ -76,9 +78,9 @@ class ContractEntity extends Equatable {
       loanContractRequestId:
           loanContractRequestId ?? this.loanContractRequestId,
       contractTemplateId: contractTemplateId ?? this.contractTemplateId,
-      lenderId: lenderId ?? this.lenderId,
+      lender: lender ?? this.lender,
       lenderBankAccountId: lenderBankAccountId ?? this.lenderBankAccountId,
-      borrowerId: borrowerId ?? this.borrowerId,
+      borrower: borrower ?? this.borrower,
       borrowerBankAccountId:
           borrowerBankAccountId ?? this.borrowerBankAccountId,
       loanReasonType: loanReasonType ?? this.loanReasonType,

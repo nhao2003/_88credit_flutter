@@ -6,6 +6,7 @@ import '../../../../../../config/values/asset_image.dart';
 
 class CreditCard extends StatelessWidget {
   const CreditCard({
+    this.buttonText,
     required this.bankName,
     required this.bankNumber,
     required this.hanleChooseCard,
@@ -15,6 +16,7 @@ class CreditCard extends StatelessWidget {
   final String bankName;
   final String bankNumber;
   final Function hanleChooseCard;
+  final String? buttonText;
 
   void handleCopyBankNumber() {}
 
@@ -78,7 +80,7 @@ class CreditCard extends StatelessWidget {
                   )),
             ),
             child: Text(
-              "Sao chép",
+              buttonText ?? "Sao chép",
               style: AppTextStyles.medium14.colorEx(
                 AppColors.green,
               ),

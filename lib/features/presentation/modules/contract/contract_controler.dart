@@ -19,7 +19,7 @@ class ContractController extends GetxController {
 
   LoanRequestEntity getMockRequest(LoanContractRequestStatus status) {
     return LoanRequestEntity(
-      id: "1",
+      id: "loancontractrequestid",
       status: status,
       sender: UserEntity(
         id: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
@@ -28,8 +28,8 @@ class ContractController extends GetxController {
         role: Role.user,
         email: "nhao@qa.team",
         address: null,
-        firstName: "Minh",
-        lastName: "Phan",
+        firstName: "Nhật",
+        lastName: "Hào",
         gender: false,
         avatar:
             "https://i.pinimg.com/1200x/0e/3d/bb/0e3dbbb0a606bb4d677909a33b6f1dc6.jpg",
@@ -82,6 +82,64 @@ class ContractController extends GetxController {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       deletedAt: DateTime.now(),
+    );
+  }
+
+  ContractEntity getMockContract() {
+    return ContractEntity(
+      id: "123123123",
+      loanContractRequestId: "loanContractRequestId",
+      contractTemplateId: "contractTemplateId",
+      lender: UserEntity(
+        id: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
+        status: UserStatus.notUpdate,
+        isIdentityVerified: false,
+        role: Role.user,
+        email: "nhao@qa.team",
+        address: null,
+        firstName: "Minh",
+        lastName: "Phan",
+        gender: false,
+        avatar: "https://picsum.photos/200/300?random=4",
+        dob: null,
+        phone: "123456789",
+        lastActiveAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        createdAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        updatedAt: null,
+        bannedUtil: null,
+        banReason: null,
+      ),
+      borrower: UserEntity(
+        id: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
+        status: UserStatus.notUpdate,
+        isIdentityVerified: false,
+        role: Role.user,
+        email: "nhao@qa.team",
+        address: null,
+        firstName: "Nhật",
+        lastName: "Hào",
+        gender: false,
+        avatar:
+            "https://i.pinimg.com/1200x/0e/3d/bb/0e3dbbb0a606bb4d677909a33b6f1dc6.jpg",
+        dob: null,
+        phone: "123456789",
+        lastActiveAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        createdAt: DateTime.parse("2023-12-06T01:53:30.033Z"),
+        updatedAt: null,
+        bannedUtil: null,
+        banReason: null,
+      ),
+      lenderBankAccountId: "lenderBankAccountId",
+      borrowerBankAccountId: "borrowerBankAccountId",
+      loanReasonType: LoanReasonTypes.business,
+      loanReason:
+          "Our loan products can be used for a variety of reasons, from covering unexpected expenses to financing major purchases. Whether you're looking to consolidate high-interest debt, make home improvements, pay for medical expenses, or cover educational costs, we offer loans with flexible repayment terms and competitive interest rates. Our loan officers are available to work with you to understand your specific needs and help you select the best loan option for your situation. Contact us today to learn more about our loan products and how we can help you achieve your financial goals.",
+      amount: 5050000,
+      interestRate: 0.1,
+      tenureInMonths: 12,
+      overdueInterestRate: 0.15,
+      createdAt: DateTime.now(),
+      expiredAt: DateTime.now(),
     );
   }
 
@@ -148,7 +206,7 @@ class ContractController extends GetxController {
     // _rejectRequestUseCase(params: request);
   }
 
-  void navToContractDetail(LoanRequestEntity request) {
-    Get.toNamed(AppRoutes.contractDetail, arguments: request);
+  void navToContractDetail(ContractEntity contract) {
+    Get.toNamed(AppRoutes.contractDetail, arguments: contract);
   }
 }

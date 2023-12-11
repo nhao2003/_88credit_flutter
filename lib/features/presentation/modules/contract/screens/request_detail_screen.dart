@@ -112,7 +112,8 @@ class RequestDetailScreen extends StatelessWidget {
                   width: 43.wp,
                   isLoading: isLoading,
                   onClick: () {
-                    controller.navToContractDetail(post);
+                    controller
+                        .navToContractDetail(controller.getMockContract());
                   },
                 ),
               ],
