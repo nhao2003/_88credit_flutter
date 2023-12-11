@@ -1,11 +1,8 @@
-import 'package:_88credit_flutter/core/extensions/date_ex.dart';
-import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
-import 'package:_88credit_flutter/config/values/asset_image.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/purchase/purchase_controller.dart';
@@ -103,7 +100,7 @@ class _PurchasePaymentResultScreenState
                 ),
               ));
             }
-            TransactionEntity transaction = snapshot.data!;
+            //TransactionEntity transaction = snapshot.data!;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

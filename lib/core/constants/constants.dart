@@ -1,4 +1,4 @@
-const ipConfig = "192.168.150.225";
+const ipConfig = "10.152.35.64";
 const String apiDevUrl = "http://$ipConfig:8000/api/v1";
 const String apiProductionUrl = "https://nha-gia-re-server.onrender.com/api/v1";
 const String apiUrl = apiDevUrl;

@@ -18,7 +18,7 @@ class RequestItem extends StatelessWidget {
   final int numOfStars = 4;
 
   onTapPost() {
-    Get.toNamed(AppRoutes.postDetail, arguments: request);
+    Get.toNamed(AppRoutes.requestDetail, arguments: request);
   }
 
   onTapAvatar() {

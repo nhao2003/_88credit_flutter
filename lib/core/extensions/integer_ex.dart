@@ -59,3 +59,70 @@ extension FormatMoneyExtension on int {
     }
   }
 }
+
+extension ConvertNumberToWords on int {
+  String convertNumberToWords() {
+    if (this == 0) {
+      return 'không';
+    }
+
+    List<String> units = [
+      'nghìn',
+      'triệu',
+      'tỷ',
+      'nghìn tỷ',
+      'triệu tỷ',
+      'tỷ tỷ'
+    ];
+    List<String> words = [];
+
+    int temp = this;
+    for (int i = 0; temp > 0; i++) {
+      int chunk = temp % 1000;
+      if (chunk != 0) {
+        if (i > 0) {
+          words.insert(0, units[i - 1]);
+        }
+        words.insert(0, readChunk(chunk));
+      }
+      temp = temp ~/ 1000;
+    }
+
+    return words.join(' ');
+  }
+
+  String readChunk(int number) {
+    List<String> ones = [
+      '',
+      'một',
+      'hai',
+      'ba',
+      'bốn',
+      'năm',
+      'sáu',
+      'bảy',
+      'tám',
+      'chín'
+    ];
+    String result = '';
+
+    if (number >= 100) {
+      result += '${ones[number ~/ 100]} trăm ';
+      number %= 100;
+    }
+
+    if (number > 10 && number < 20) {
+      result += 'mười ';
+      number %= 10;
+    } else if (number >= 20) {
+      result += '${ones[number ~/ 10]} mươi ';
+      number %= 10;
+    }
+
+    if (number > 0) {
+      result += ones[number];
+    }
+
+    return result;
+  }
+}
