@@ -18,6 +18,7 @@ class Assets {
   static const String history = '$imagePath/history.png';
   static const String schedule = '$imagePath/schedule.png';
   static const String creditCard = '$imagePath/credit-card.png';
+  static const String contract = '$imagePath/contract.png';
   // icon
   static const String home = '$iconPath/home (1).png';
   static const String homeGreen = '$iconPath/home.png';

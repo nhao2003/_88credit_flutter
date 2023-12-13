@@ -2,7 +2,6 @@ import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 import 'package:_88credit_flutter/features/presentation/modules/create_post/widgets/base_row_text_dropdown.dart';
 import 'package:_88credit_flutter/features/presentation/modules/create_request/create_request_controler.dart';
-import 'package:_88credit_flutter/features/presentation/global_widgets/picker_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';

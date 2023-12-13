@@ -184,7 +184,7 @@ class ContractController extends GetxController {
     // } else {
     //   return Pair(1, []);
     // }
-    return Pair(1, []);
+    return Pair(1, [getMockContract()]);
   }
 
   Future<Pair<int, List<ContractEntity>>> getBorrowingContract(
@@ -195,7 +195,7 @@ class ContractController extends GetxController {
     // } else {
     //   return Pair(1, []);
     // }
-    return Pair(1, []);
+    return Pair(1, [getMockContract()]);
   }
 
   void navToProfile(UserEntity user) {

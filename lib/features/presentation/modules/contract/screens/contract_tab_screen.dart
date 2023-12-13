@@ -1,3 +1,5 @@
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/borrowing_contract_tab.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/lending_contract_tab.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../config/theme/app_color.dart';
@@ -48,9 +50,9 @@ class _ContractTabScreenState extends State<ContractTabScreen>
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _tabController,
-                children: const [
-                  Scaffold(),
-                  Scaffold(),
+                children: [
+                  LendingContractTab(),
+                  BorrowingContractTab(),
                 ],
               ),
             ),

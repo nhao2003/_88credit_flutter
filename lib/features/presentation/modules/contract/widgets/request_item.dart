@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/core/extensions/date_ex.dart';
+import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_contract_request_status.dart';
@@ -207,7 +208,7 @@ class RequestItem extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${request.loanAmount} VNĐ",
+                                "${request.loanAmount!.toInt().formatNumberWithCommas} VNĐ",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
