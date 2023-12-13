@@ -4,7 +4,6 @@ import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_tab_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/screens/request_tab_screen.dart';
 import 'package:flutter/material.dart';
-import '../../../../../config/values/asset_image.dart';
 import '../../../global_widgets/my_tab_appbar.dart';
 import '../contract_controler.dart';
 

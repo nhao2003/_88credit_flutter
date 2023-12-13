@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
           mainAxisSize:
               MainAxisSize.min, // Chỉ mở rộng theo chiều dọc nếu cần thiết
           children: [
-            Image.asset(Assets.addPhoto),
+            Image.asset(Assets.appLogoLight),
             const SizedBox(
                 height: 16), // Khoảng cách giữa hình ảnh và vòng tròn
             const CircularProgressIndicator(),

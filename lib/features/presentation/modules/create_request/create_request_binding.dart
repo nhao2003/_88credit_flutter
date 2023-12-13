@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'base_controler.dart';
+import 'create_request_controler.dart';
 
 class CreateRequestBinding implements Bindings {
   @override
