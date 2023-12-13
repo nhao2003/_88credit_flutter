@@ -73,9 +73,9 @@ class CreateRequestController extends GetxController {
   bool? photoController;
 
   // portrait
-  Rx<File>? portrait;
-  Rx<File>? idCardFrontPhoto;
-  Rx<File>? idCardBackPhoto;
+  Rx<File?> portrait = Rxn(null);
+  Rx<File?> idCardFrontPhoto = Rxn(null);
+  Rx<File?> idCardBackPhoto = Rxn(null);
 
   final ImagePicker _picker = ImagePicker();
 

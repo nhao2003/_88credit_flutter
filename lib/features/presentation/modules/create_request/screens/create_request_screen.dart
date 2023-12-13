@@ -1,5 +1,14 @@
+import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
+import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/credit_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/user_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/create_request/widgets/images_form.dart';
+import 'package:_88credit_flutter/features/presentation/modules/create_request/widgets/loan_info_form.dart';
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
+import 'package:get/get.dart';
+import '../../../../../config/theme/app_color.dart';
+import '../../../../../config/theme/text_styles.dart';
 import '../create_request_controler.dart';
 
 class CreateRequestScreen extends StatelessWidget {
@@ -9,10 +18,80 @@ class CreateRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
-      appBar: MyAppbar(title: "CreateRequest Screen"),
-      body: const Center(
-        child: Text('CreateRequest Screen'),
+      appBar: MyAppbar(title: "Tạo yêu cầu vay"),
+      body: ListView(
+        children: [
+          Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                  child: UserCard(
+                    title: "Người cho vay",
+                    name: controller.sender.fullName,
+                    navToProfile: () {},
+                    avatar: controller.sender.avatar,
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                  child: CreditCard(
+                    bankName: "Agribank",
+                    bankNumber: "1233456789",
+                    hanleChooseCard: () {},
+                    buttonText: "Đổi thẻ",
+                  ),
+                ),
+                // Thong tin bai dang
+                LoanInfoForm(isvisible: true),
+                // images
+                ImagesForm(isvisible: true),
+                // dang bai ============================================
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: ElevatedButton(
+                    onPressed: controller.isLoading.value
+                        ? null
+                        : () {
+                            controller.createPost();
+                          },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.green,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      textStyle: const TextStyle(color: AppColors.white),
+                      elevation: 10,
+                      minimumSize: Size(100.wp, 55),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: controller.isLoading.value
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Text(
+                            'Tạo yêu cầu'.tr,
+                            style:
+                                AppTextStyles.bold14.colorEx(AppColors.white),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
