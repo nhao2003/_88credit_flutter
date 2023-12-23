@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../config/theme/app_color.dart';
-import '../../../../../config/theme/text_styles.dart';
 import '../../../../domain/entities/credit/post.dart';
 import '../../../../domain/enums/post_status_management.dart';
 import '../post_management_controller.dart';
+import 'base_list_posts.dart';
 import 'item_post.dart';
 
 class ListPostsReject extends StatelessWidget {
@@ -19,47 +18,29 @@ class ListPostsReject extends StatelessWidget {
     }
   }
 
+  ItemPost buildItem(PostEntity post) {
+    return ItemPost(
+      statusCode: PostStatusManagement.rejected,
+      status: post.rejectedReason ?? "Bị từ chối",
+      post: post,
+      funcs: const [
+        "Xóa tin",
+      ],
+      iconFuncs: const [
+        Icons.delete_outline,
+      ],
+      onSelectedMenu: onSelectedMenu,
+      onTap: (PostEntity post) {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<PostEntity>>(
-      future: controller.getPostsRejected(),
-      builder: (context, snapShot) {
-        if (!snapShot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          List<PostEntity> data = snapShot.data!;
-          if (data.isEmpty) {
-            return Center(
-              child: Text(
-                "Chưa có tin bị từ chối",
-                style: AppTextStyles.bold20.copyWith(color: AppColors.green),
-              ),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: controller.rejectedPosts.length,
-              itemBuilder: (context, i) {
-                return ItemPost(
-                  statusCode: PostStatusManagement.rejected,
-                  status: controller.rejectedPosts[i].rejectedReason ??
-                      "Bị từ chối",
-                  post: controller.rejectedPosts[i],
-                  funcs: const [
-                    "Xóa tin",
-                  ],
-                  iconFuncs: const [
-                    Icons.delete_outline,
-                  ],
-                  onSelectedMenu: onSelectedMenu,
-                  onTap: (PostEntity post) {},
-                );
-              },
-            );
-          }
-        }
-      },
+    return BaseListPosts(
+      titleNull: "Chưa có tin bị từ chối",
+      getPosts: controller.getPostsRejected,
+      postsList: controller.rejectedPosts,
+      buildItem: buildItem,
     );
   }
 }

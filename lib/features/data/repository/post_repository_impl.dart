@@ -138,4 +138,10 @@ class PostRepositoryImpl implements PostRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<Pair<int, List<PostEntity>>>> getPostsExpired(int? page) {
+    // TODO: implement getPostsExpired
+    throw UnimplementedError();
+  }
 }
