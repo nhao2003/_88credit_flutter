@@ -5,11 +5,11 @@ import '../../../../core/errors/exceptions.dart';
 abstract class AuthenLocalDataSrc {
   Future<void> storeRefreshToken(String refreshToken);
   Future<void> storeAccessToken(String accessToken);
-  Future<String> getRefreshToken();
-  Future<String> getAccessToken();
+  String? getRefreshToken();
+  String? getAccessToken();
   Future<void> deleteRefreshToken();
   Future<void> deleteAccessToken();
-  Future<String> getUserIdFromToken();
+  String? getUserIdFromToken();
 }
 
 class AuthenLocalDataSrcImpl implements AuthenLocalDataSrc {
@@ -17,7 +17,7 @@ class AuthenLocalDataSrcImpl implements AuthenLocalDataSrc {
   AuthenLocalDataSrcImpl(this.client);
 
   @override
-  Future<String> getAccessToken() async {
+  String? getAccessToken() {
     try {
       String? token = client.getString('accessToken');
       if (token != null) {
@@ -32,7 +32,7 @@ class AuthenLocalDataSrcImpl implements AuthenLocalDataSrc {
   }
 
   @override
-  Future<String> getRefreshToken() async {
+  String? getRefreshToken() {
     try {
       String? token = client.getString('refreshToken');
       if (token != null) {
@@ -87,7 +87,7 @@ class AuthenLocalDataSrcImpl implements AuthenLocalDataSrc {
   }
 
   @override
-  Future<String> getUserIdFromToken() async {
+  String? getUserIdFromToken() {
     try {
       String? token = client.getString('accessToken');
       if (JwtDecoder.isExpired(token!)) {

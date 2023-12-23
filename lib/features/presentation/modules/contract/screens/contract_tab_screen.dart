@@ -28,36 +28,34 @@ class _ContractTabScreenState extends State<ContractTabScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            TabBar(
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          TabBar(
+            controller: _tabController,
+            indicatorColor: AppColors.green,
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: const [
+              Tab(
+                text: "Cho vay",
+              ),
+              Tab(
+                text: "Vay tiền",
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _tabController,
-              indicatorColor: AppColors.green,
-              indicatorSize: TabBarIndicatorSize.tab,
-              tabs: const [
-                Tab(
-                  text: "Cho vay",
-                ),
-                Tab(
-                  text: "Vay tiền",
-                ),
+              children: [
+                LendingContractTab(),
+                BorrowingContractTab(),
               ],
             ),
-            Expanded(
-              child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: [
-                  LendingContractTab(),
-                  BorrowingContractTab(),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -132,6 +132,10 @@ dependencies:
   #iamge preview
   image_preview: ^1.0.4
 
+  # upload image
+  http_parser: ^4.0.2
+  path_provider: ^2.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -8,7 +8,7 @@ class ConversationRepositoryImpl extends ConversationRepository {
   final ConversationRemoteDataSource _conversationRemoteDataSource;
   final AuthenLocalDataSrc _authenLocalDataSrc;
   ConversationRepositoryImpl(
-      this._conversationRemoteDataSource, this._authenLocalDataSrc) {}
+      this._conversationRemoteDataSource, this._authenLocalDataSrc);
 
   @override
   void addConversationListener(Function(List<ConversationModel> p1) listener) {
@@ -51,10 +51,9 @@ class ConversationRepositoryImpl extends ConversationRepository {
 
   @override
   void connect() {
-    _authenLocalDataSrc.getAccessToken().then((value) {
-      _conversationRemoteDataSource.setAuthToken(value);
-      _conversationRemoteDataSource.connect();
-    });
+    final token = _authenLocalDataSrc.getAccessToken();
+    _conversationRemoteDataSource.setAuthToken(token!);
+    _conversationRemoteDataSource.connect();
   }
 
   @override

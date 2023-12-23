@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:_88credit_flutter/core/resources/pair.dart';
+import 'package:_88credit_flutter/features/data/models/credit/post.dart';
 import 'package:dio/dio.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/post_remote_data_sources.dart';
@@ -34,8 +35,25 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Future<DataState<void>> createPost(PostEntity post) async {
-    // TODO: implement createPost
-    throw UnimplementedError();
+    try {
+      final httpResponse =
+          await _dataSrc.createPost(PostModel.fromEntity(post));
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+            error: httpResponse.response.statusMessage,
+            response: httpResponse.response,
+            type: DioExceptionType.badResponse,
+            requestOptions: httpResponse.response.requestOptions,
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
   }
 
   @override

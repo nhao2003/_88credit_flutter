@@ -11,7 +11,6 @@ abstract class PostRepository {
   Future<DataState<void>> createPost(PostEntity post);
   Future<DataState<void>> updatePost(PostEntity post);
   Future<DataState<void>> deletePost(String id);
-
   // management
   Future<DataState<Pair<int, List<PostEntity>>>> getPostsApproved(int? page);
   Future<DataState<Pair<int, List<PostEntity>>>> getPostsHided(int? page);

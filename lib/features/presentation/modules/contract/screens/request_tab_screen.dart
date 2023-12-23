@@ -28,40 +28,38 @@ class _RequestTabScreenState extends State<RequestTabScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            TabBar(
+    return DefaultTabController(
+      length: 3,
+      child: Column(
+        children: [
+          TabBar(
+            controller: _tabController,
+            indicatorColor: AppColors.green,
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: const [
+              Tab(
+                text: "Đã xác nhận",
+              ),
+              Tab(
+                text: "Chờ xác nhận",
+              ),
+              Tab(
+                text: "Đã hủy",
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _tabController,
-              indicatorColor: AppColors.green,
-              indicatorSize: TabBarIndicatorSize.tab,
-              tabs: const [
-                Tab(
-                  text: "Đã xác nhận",
-                ),
-                Tab(
-                  text: "Chờ xác nhận",
-                ),
-                Tab(
-                  text: "Đã hủy",
-                ),
+              children: [
+                ApprovedRequestTab(),
+                PendingRequestTab(),
+                RejectRequestTab(),
               ],
             ),
-            Expanded(
-              child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: [
-                  ApprovedRequestTab(),
-                  PendingRequestTab(),
-                  RejectRequestTab(),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

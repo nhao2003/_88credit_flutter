@@ -1,3 +1,6 @@
+import 'package:_88credit_flutter/features/data/repository/media_repository_impl.dart';
+import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
+import 'package:_88credit_flutter/features/domain/usecases/media/upload_images.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/blog_data_source.dart';
@@ -27,6 +30,7 @@ import 'package:_88credit_flutter/features/domain/usecases/purchase/get_transact
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/data/data_sources/local/authentication_local_data_source.dart';
 import 'features/data/data_sources/remote/authentication_remote_data_source.dart';
+import 'features/data/data_sources/remote/media_remote_date_source.dart';
 import 'features/data/repository/authentication_repository_impl.dart';
 import 'features/data/repository/conversation_repository_impl.dart';
 import 'features/data/repository/post_repository_impl.dart';
@@ -37,6 +41,7 @@ import 'features/domain/repository/provinces_repository.dart';
 import 'features/domain/usecases/authentication/check_token.dart';
 import 'features/domain/usecases/authentication/sign_in.dart';
 import 'features/domain/usecases/authentication/sign_out.dart';
+import 'features/domain/usecases/post/remote/create_post.dart';
 import 'features/domain/usecases/post/remote/get_posts_borrowing.dart';
 import 'features/domain/usecases/post/remote/get_posts_hided.dart';
 import 'features/domain/usecases/post/remote/get_posts_lending.dart';
@@ -91,10 +96,22 @@ Future<void> initializeDependencies() async {
       sl<Dio>(),
     ),
   );
+
+  sl.registerSingleton<MediaRemoteDataSource>(
+    MediaRemoteDataSourceImpl(
+      sl<Dio>(),
+    ),
+  );
   // post repository
   sl.registerSingleton<PostRepository>(
     PostRepositoryImpl(
       sl<PostRemoteDataSrc>(),
+    ),
+  );
+
+  sl.registerSingleton<MediaRepository>(
+    MediaRepositoryImpl(
+      sl<MediaRemoteDataSource>(),
     ),
   );
 
@@ -138,6 +155,18 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetPostsHidedUseCase>(
     GetPostsHidedUseCase(
       sl<PostRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<CreatePostsUseCase>(
+    CreatePostsUseCase(
+      sl<PostRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<UploadImagessUseCase>(
+    UploadImagessUseCase(
+      sl<MediaRepository>(),
     ),
   );
 

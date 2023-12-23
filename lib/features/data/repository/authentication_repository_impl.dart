@@ -39,8 +39,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<DataState<bool>> checkActiveToken() async {
     try {
-      String accessToken = await _dataLocalSrc.getAccessToken();
-      if (accessToken != "" && JwtDecoder.isExpired(accessToken) == false) {
+      String? accessToken = _dataLocalSrc.getAccessToken();
+      if (accessToken != "" && JwtDecoder.isExpired(accessToken!) == false) {
         return const DataSuccess(true);
       }
       return const DataSuccess(false);
@@ -52,8 +52,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<DataState<bool>> checkRefreshToken() async {
     try {
-      String refreshToken = await _dataLocalSrc.getRefreshToken();
-      if (refreshToken != "" && JwtDecoder.isExpired(refreshToken) == false) {
+      String? refreshToken = _dataLocalSrc.getRefreshToken();
+      if (refreshToken != "" && JwtDecoder.isExpired(refreshToken!) == false) {
         return const DataSuccess(true);
       }
       return const DataSuccess(false);
@@ -65,8 +65,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<DataState<void>> refreshNewAccessToken() async {
     try {
-      final refreshToken = await _dataLocalSrc.getRefreshToken();
-      final httpResponse = await _dataRemoteSrc.refreshToken(refreshToken);
+      final refreshToken = _dataLocalSrc.getRefreshToken();
+      final httpResponse = await _dataRemoteSrc.refreshToken(refreshToken!);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         String accessToken = httpResponse.data;
@@ -133,7 +133,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<DataState<String>> getUserId() async {
     try {
-      String id = await _dataLocalSrc.getUserIdFromToken();
+      String? id = _dataLocalSrc.getUserIdFromToken();
       return DataSuccess(id);
     } on DioException catch (e) {
       return DataFailed(e);
@@ -142,7 +142,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<DataState<String>> getAccessToken() async {
-    final accessToken = await _dataLocalSrc.getAccessToken();
+    final accessToken = _dataLocalSrc.getAccessToken();
     return DataSuccess(accessToken);
   }
 }

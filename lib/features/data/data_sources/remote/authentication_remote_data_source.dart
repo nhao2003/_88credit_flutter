@@ -86,7 +86,7 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
     const url = '$apiUrl$kRefreshToken';
     try {
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
-      String refreshToken = await localDataSrc.getRefreshToken();
+      String? refreshToken = localDataSrc.getRefreshToken();
       // get new access token
       final response = await client.get(url, data: {
         "refresh_token": refreshToken,
@@ -124,7 +124,7 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
     try {
       // get access token
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
-      String accessToken = await localDataSrc.getAccessToken();
+      String? accessToken = localDataSrc.getAccessToken();
       // Gửi yêu cầu đăng xuat
       final response = await client.post(
         url,
