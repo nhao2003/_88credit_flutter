@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:_88credit_flutter/core/resources/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/post_remote_data_sources.dart';
@@ -10,9 +11,10 @@ class PostRepositoryImpl implements PostRepository {
   PostRepositoryImpl(this._dataSrc);
 
   @override
-  Future<DataState<List<PostEntity>>> getPosts(String? userId) async {
+  Future<DataState<Pair<int, List<PostEntity>>>> getPosts(
+      String? userId, int? page) async {
     try {
-      final httpResponse = await _dataSrc.getAllPosts(userId);
+      final httpResponse = await _dataSrc.getAllPosts(userId, page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -54,9 +56,10 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<PostEntity>>> getPostsApproved() async {
+  Future<DataState<Pair<int, List<PostEntity>>>> getPostsApproved(
+      int? page) async {
     try {
-      final httpResponse = await _dataSrc.getPostsApproved();
+      final httpResponse = await _dataSrc.getPostsStatus("approved", page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -74,9 +77,10 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<PostEntity>>> getPostsHided() async {
+  Future<DataState<Pair<int, List<PostEntity>>>> getPostsHided(
+      int? page) async {
     try {
-      final httpResponse = await _dataSrc.getPostsHided();
+      final httpResponse = await _dataSrc.getPostsHided(page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -94,9 +98,10 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<PostEntity>>> getPostsPending() async {
+  Future<DataState<Pair<int, List<PostEntity>>>> getPostsPending(
+      int? page) async {
     try {
-      final httpResponse = await _dataSrc.getPostsPending();
+      final httpResponse = await _dataSrc.getPostsStatus("pending", page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -114,9 +119,10 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<List<PostEntity>>> getPostsRejected() async {
+  Future<DataState<Pair<int, List<PostEntity>>>> getPostsRejected(
+      int? page) async {
     try {
-      final httpResponse = await _dataSrc.getPostsRejected();
+      final httpResponse = await _dataSrc.getPostsStatus("rejected", page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

@@ -4,6 +4,7 @@ import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_rejected.dart';
 import '../../../../core/resources/data_state.dart';
+import '../../../../core/resources/pair.dart';
 import '../../../../injection_container.dart';
 import '../../../domain/entities/credit/post.dart';
 
@@ -29,51 +30,40 @@ class PostManagementController extends GetxController {
       sl<GetPostsRejectUseCase>();
   final GetPostsHidedUseCase _getPostsHidedUseCase = sl<GetPostsHidedUseCase>();
 
-  Future<List<PostEntity>> getPostsApproved() async {
-    final dataState = await _getPostsApprovedUseCase();
-    approvedPosts.clear();
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      approvedPosts.value = dataState.data!;
+  Future<Pair<int, List<PostEntity>>> getPostsApproved({int? page = 1}) async {
+    final dataState = await _getPostsApprovedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
       return dataState.data!;
     } else {
-      approvedPosts.value = [];
-      return [];
+      return Pair(1, []);
     }
   }
 
-  Future<List<PostEntity>> getPostsPending() async {
-    final dataState = await _getPostsPendingUseCase();
-    pendingPosts.clear();
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      pendingPosts.value = dataState.data!;
+  Future<Pair<int, List<PostEntity>>> getPostsPending({int? page = 1}) async {
+    final dataState = await _getPostsPendingUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      pendingPosts.value = dataState.data!.second;
       return dataState.data!;
     } else {
-      pendingPosts.value = [];
-      return [];
+      return Pair(1, []);
     }
   }
 
-  Future<List<PostEntity>> getPostsRejected() async {
-    final dataState = await _getPostsRejectUseCase();
-    rejectedPosts.clear();
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      rejectedPosts.value = dataState.data!;
+  Future<Pair<int, List<PostEntity>>> getPostsRejected({int? page = 1}) async {
+    final dataState = await _getPostsRejectUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
       return dataState.data!;
     } else {
-      rejectedPosts.value = [];
-      return [];
+      return Pair(1, []);
     }
   }
 
-  Future<List<PostEntity>> getPostsHided() async {
-    final dataState = await _getPostsHidedUseCase();
-    hidedPosts.clear();
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      hidedPosts.value = dataState.data!;
+  Future<Pair<int, List<PostEntity>>> getPostsHided({int? page = 1}) async {
+    final dataState = await _getPostsHidedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
       return dataState.data!;
     } else {
-      hidedPosts.value = [];
-      return [];
+      return Pair(1, []);
     }
   }
 

@@ -3,8 +3,12 @@ import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/role.dart';
 import 'package:_88credit_flutter/features/domain/enums/user_status.dart';
+import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/resources/data_state.dart';
+import '../../../../core/resources/pair.dart';
+import '../../../../injection_container.dart';
 import '../../../domain/enums/loan_reason_types.dart';
 import '../../../domain/enums/post_status.dart';
 import '../../../domain/enums/post_type.dart';
@@ -108,6 +112,19 @@ class PostController extends GetxController {
       rejectedReason: null,
       deletedAt: null,
     );
+  }
+
+  final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
+  Future<List<PostEntity>> getAllPosts({int? page}) async {
+    final dataState = await _getPostsUseCase(params: Pair(null, page));
+
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!.second;
+    } else if (dataState is DataFailed) {
+      return [];
+    } else {
+      return [];
+    }
   }
 
   void navigationToPostDetail(PostEntity post) {

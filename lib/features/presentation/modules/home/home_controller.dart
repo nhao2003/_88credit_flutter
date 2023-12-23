@@ -1,12 +1,9 @@
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/utils/check_time_date.dart';
-import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../core/resources/data_state.dart';
-import '../../../domain/entities/credit/post.dart';
 import '../../../domain/entities/nhagiare/blog/blog.dart';
 import '../../../domain/usecases/blog/remote/get_all_blogs.dart';
 
@@ -47,20 +44,6 @@ class HomeController extends GetxController {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
       throw Exception('Could not launch $url');
-    }
-  }
-
-  // get all posts
-  final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
-  Future<List<PostEntity>> getAllPosts() async {
-    final dataState = await _getPostsUseCase();
-
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      return dataState.data!;
-    } else if (dataState is DataFailed) {
-      return [];
-    } else {
-      return [];
     }
   }
 

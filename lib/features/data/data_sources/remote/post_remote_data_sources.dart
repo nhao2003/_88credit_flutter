@@ -1,15 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:_88credit_flutter/core/constants/constants.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/resources/pair.dart';
+import '../../../../core/utils/query_builder.dart';
+import '../../../../core/utils/typedef.dart';
 import '../../../domain/entities/credit/post.dart';
 import '../db/database_helper.dart';
 
 abstract class PostRemoteDataSrc {
-  Future<HttpResponse<List<PostEntity>>> getAllPosts(String? userId);
-  Future<HttpResponse<List<PostEntity>>> getPostsApproved();
-  Future<HttpResponse<List<PostEntity>>> getPostsHided();
-  Future<HttpResponse<List<PostEntity>>> getPostsPending();
-  Future<HttpResponse<List<PostEntity>>> getPostsRejected();
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getAllPosts(
+      String? userId, int? page);
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsStatus(
+      String status, int? page);
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsHided(int? page);
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsExpired(int? page);
 }
 
 class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
@@ -18,40 +23,89 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
   PostRemoteDataSrcImpl(this.client);
 
   @override
-  Future<HttpResponse<List<PostEntity>>> getAllPosts(String? userId) async {
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getAllPosts(
+      String? userId, int? page) async {
     var url = '$apiUrl$kGetPostEndpoint';
-    if (userId != null) url += '?post_user_id[eq]=\'$userId\'';
+
+    QueryBuilder queryBuilder = QueryBuilder();
+    int pageQuery = page ?? 1;
+    queryBuilder.addPage(pageQuery);
+
+    if (userId != null) {
+      queryBuilder.addQuery('post_user_id', Operation.equals, '\'$userId\'');
+    }
+    // post_is_active[eq]=true
+    queryBuilder.addQuery('post_is_active', Operation.equals, 'true');
+
+    url += queryBuilder.build();
     return await DatabaseHelper().getPosts(url, client);
   }
 
   @override
-  Future<HttpResponse<List<PostEntity>>> getPostsApproved() async {
-    const status = 'approved';
-    const url = '$apiUrl$kGetPostEndpoint?post_status[eq]=\'$status\'';
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsStatus(
+      String status, int? page) async {
+    int pageQuery = page ?? 1;
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(pageQuery);
+    queryBuilder.addQuery('post_status', Operation.equals, '\'$status\'');
+    queryBuilder.addQuery('post_is_active', Operation.equals, 'true');
+    queryBuilder.addOrderBy('posted_date', OrderBy.desc);
+
+    String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
 
     return await DatabaseHelper().getPosts(url, client);
   }
 
   @override
-  Future<HttpResponse<List<PostEntity>>> getPostsHided() async {
-    const status = 'hided';
-    const url = '$apiUrl$kGetPostEndpoint?post_status[eq]=\'$status\'';
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsHided(
+      int? page) async {
+    int pageQuery = page ?? 1;
+
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(pageQuery);
+    queryBuilder.addQuery('post_is_active', Operation.equals, 'false');
+    queryBuilder.addOrderBy('posted_date', OrderBy.desc);
+
+    String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
 
     return await DatabaseHelper().getPosts(url, client);
   }
 
   @override
-  Future<HttpResponse<List<PostEntity>>> getPostsPending() async {
-    const status = 'pending';
-    const url = '$apiUrl$kGetPostEndpoint?post_status[eq]=\'$status\'';
-    return await DatabaseHelper().getPosts(url, client);
-  }
+  Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsExpired(
+      int? page) async {
+    int pageQuery = page ?? 1;
+    String url = '$apiUrl$kGetPostEndpoint?page=$pageQuery';
 
-  @override
-  Future<HttpResponse<List<PostEntity>>> getPostsRejected() async {
-    const status = 'rejected';
-    const url = '$apiUrl$kGetPostEndpoint?post_status[eq]=\'$status\'';
+    try {
+      final response = await client.get(url);
+      //print('${response.statusCode} : ${response.data["message"].toString()}');
+      if (response.statusCode != 200) {
+        //print('${response.statusCode} : ${response.data["result"].toString()}');
+        throw ApiException(
+          message: response.data,
+          statusCode: response.statusCode!,
+        );
+      }
 
-    return await DatabaseHelper().getPosts(url, client);
+      final int numOfPages = response.data["num_of_pages"];
+
+      final List<DataMap> taskDataList =
+          List<DataMap>.from(response.data["result"]);
+
+      List<PostEntity> posts = taskDataList
+          .map((postJson) => PostEntity.fromJson(postJson))
+          //.where((post) => post.isActive!)
+          //.where((post) => post.expiryDate!.isBefore(DateTime.now()))
+          .toList();
+
+      final value = Pair(numOfPages, posts);
+
+      return HttpResponse(value, response);
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
   }
 }

@@ -52,13 +52,15 @@ class MySearchController extends GetxController {
   Future<List<PostEntity>> getAllPosts() async {
     final dataState = await _getPostsUseCase();
 
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      return dataState.data!;
-    } else if (dataState is DataFailed) {
-      return [];
-    } else {
-      return [];
-    }
+    return [];
+
+    // if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
+    //   return dataState.data!;
+    // } else if (dataState is DataFailed) {
+    //   return [];
+    // } else {
+    //   return [];
+    // }
   }
 
   final RxList<String> searchStrings = <String>[].obs;
