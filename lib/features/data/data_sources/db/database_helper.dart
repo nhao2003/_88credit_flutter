@@ -10,6 +10,7 @@ class DatabaseHelper {
   Future<HttpResponse<Pair<int, List<PostModel>>>> getPosts(
       String url, Dio client) async {
     try {
+      print(url);
       final response = await client.get(url);
       //print('${response.statusCode} : ${response.data["message"].toString()}');
       if (response.statusCode != 200) {
@@ -27,11 +28,7 @@ class DatabaseHelper {
 
       List<PostModel> posts = [];
       for (var element in taskDataList) {
-        try {
-          posts.add(PostModel.fromJson(element));
-        } catch (error) {
-          error.printInfo();
-        }
+        posts.add(PostModel.fromJson(element));
       }
 
       final value = Pair(numOfPages, posts);

@@ -34,8 +34,6 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
     if (userId != null) {
       queryBuilder.addQuery('post_user_id', Operation.equals, '\'$userId\'');
     }
-    // post_is_active[eq]=true
-    queryBuilder.addQuery('post_is_active', Operation.equals, 'true');
 
     url += queryBuilder.build();
     return await DatabaseHelper().getPosts(url, client);
@@ -48,8 +46,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
     queryBuilder.addQuery('post_status', Operation.equals, '\'$status\'');
-    queryBuilder.addQuery('post_is_active', Operation.equals, 'true');
-    queryBuilder.addOrderBy('posted_date', OrderBy.desc);
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
 
@@ -63,8 +60,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
 
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
-    queryBuilder.addQuery('post_is_active', Operation.equals, 'false');
-    queryBuilder.addOrderBy('posted_date', OrderBy.desc);
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
 
