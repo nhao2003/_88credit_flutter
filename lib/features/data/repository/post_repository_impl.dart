@@ -5,6 +5,7 @@ import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/post_remote_data_sources.dart';
 import 'package:_88credit_flutter/features/domain/repository/post_repository.dart';
 import '../../domain/entities/credit/post.dart';
+import '../../domain/enums/post_type.dart';
 
 class PostRepositoryImpl implements PostRepository {
   final PostRemoteDataSrc _dataSrc;
@@ -12,9 +13,9 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Future<DataState<Pair<int, List<PostEntity>>>> getPosts(
-      String? userId, int? page) async {
+      String? userId, PostTypes? postTypes, int? page) async {
     try {
-      final httpResponse = await _dataSrc.getAllPosts(userId, page);
+      final httpResponse = await _dataSrc.getAllPosts(userId, postTypes, page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

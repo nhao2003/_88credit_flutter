@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/config/values/asset_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -44,7 +45,10 @@ class _CarouselAdState extends State<CarouselAd> {
                         fit: BoxFit.cover,
                         width: 100.wp,
                         errorWidget: (context, _, __) {
-                          return const Placeholder();
+                          return Image.asset(
+                            Assets.defaultImage,
+                            fit: BoxFit.cover,
+                          );
                         },
                       ),
                     ))

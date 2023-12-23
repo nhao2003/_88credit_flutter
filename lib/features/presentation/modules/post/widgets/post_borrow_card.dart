@@ -92,7 +92,7 @@ class PostBorrowCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              post.user!.fullName,
+                              "${post.user!.firstName} ${post.user!.lastName}",
                               //"Phan Văn Minh",
                               style: AppTextStyles.semiBold14.colorEx(
                                 const Color.fromARGB(255, 83, 49, 49),

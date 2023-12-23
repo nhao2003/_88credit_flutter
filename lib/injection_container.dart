@@ -37,7 +37,9 @@ import 'features/domain/repository/provinces_repository.dart';
 import 'features/domain/usecases/authentication/check_token.dart';
 import 'features/domain/usecases/authentication/sign_in.dart';
 import 'features/domain/usecases/authentication/sign_out.dart';
+import 'features/domain/usecases/post/remote/get_posts_borrowing.dart';
 import 'features/domain/usecases/post/remote/get_posts_hided.dart';
+import 'features/domain/usecases/post/remote/get_posts_lending.dart';
 import 'features/domain/usecases/post/remote/get_posts_pending.dart';
 
 final sl = GetIt.instance;
@@ -99,6 +101,18 @@ Future<void> initializeDependencies() async {
   // use cases
   sl.registerSingleton<GetPostsUseCase>(
     GetPostsUseCase(
+      sl<PostRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetPostsLendingUseCase>(
+    GetPostsLendingUseCase(
+      sl<PostRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetPostsBorrowingUseCase>(
+    GetPostsBorrowingUseCase(
       sl<PostRepository>(),
     ),
   );

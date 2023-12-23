@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:_88credit_flutter/features/domain/enums/post_status_management.dart';
 import '../../../../domain/entities/credit/post.dart';
 import '../post_management_controller.dart';
-import 'base_list_posts.dart';
+import '../../../global_widgets/base_list_posts.dart';
 import 'item_post.dart';
 
 class ListPostsHided extends StatelessWidget {

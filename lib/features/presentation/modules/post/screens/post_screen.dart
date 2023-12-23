@@ -1,6 +1,6 @@
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_tab_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/post/screens/borrow_tab_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post/screens/leading_tab_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/post/screens/lending_tab_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../post_controler.dart';

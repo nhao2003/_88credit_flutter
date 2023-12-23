@@ -6,11 +6,12 @@ import '../../../../core/resources/pair.dart';
 import '../../../../core/utils/query_builder.dart';
 import '../../../../core/utils/typedef.dart';
 import '../../../domain/entities/credit/post.dart';
+import '../../../domain/enums/post_type.dart';
 import '../db/database_helper.dart';
 
 abstract class PostRemoteDataSrc {
   Future<HttpResponse<Pair<int, List<PostEntity>>>> getAllPosts(
-      String? userId, int? page);
+      String? userId, PostTypes? postTypes, int? page);
   Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsStatus(
       String status, int? page);
   Future<HttpResponse<Pair<int, List<PostEntity>>>> getPostsHided(int? page);
@@ -24,7 +25,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
 
   @override
   Future<HttpResponse<Pair<int, List<PostEntity>>>> getAllPosts(
-      String? userId, int? page) async {
+      String? userId, PostTypes? postTypes, int? page) async {
     var url = '$apiUrl$kGetPostEndpoint';
 
     QueryBuilder queryBuilder = QueryBuilder();
@@ -33,6 +34,10 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
 
     if (userId != null) {
       queryBuilder.addQuery('post_user_id', Operation.equals, '\'$userId\'');
+    }
+
+    if(postTypes != null) {
+      queryBuilder.addQuery('post_type', Operation.equals, '\'${postTypes.toString()}\'');
     }
 
     url += queryBuilder.build();
