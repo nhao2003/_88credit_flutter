@@ -104,34 +104,32 @@ class HomeScreen extends StatelessWidget {
               Container(
                 width: 100.wp,
                 constraints: BoxConstraints(maxHeight: 25.hp),
-                child: Flexible(
-                  child: FutureBuilder<List<BlogEntity>>(
-                    future: controller.getBlogs(),
-                    builder: (context, snapShot) {
-                      if (!snapShot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        List<BlogEntity> data = snapShot.data!;
-                        return ListView.separated(
-                          shrinkWrap: true,
-                          itemCount: data.length,
-                          scrollDirection: Axis.horizontal,
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                            width: 10,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return BlogCard(
-                              key: UniqueKey(),
-                              blog: data[index],
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
+                child: FutureBuilder<List<BlogEntity>>(
+                  future: controller.getBlogs(),
+                  builder: (context, snapShot) {
+                    if (!snapShot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      List<BlogEntity> data = snapShot.data!;
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: data.length,
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                          width: 10,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return BlogCard(
+                            key: UniqueKey(),
+                            blog: data[index],
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
               ),
 

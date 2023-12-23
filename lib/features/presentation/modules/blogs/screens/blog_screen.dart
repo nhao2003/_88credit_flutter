@@ -97,24 +97,24 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.remove_red_eye_outlined,
-                                      color: AppColors.grey500,
-                                      size: 15,
-                                    ),
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    Obx(() => Text(
-                                          "${data[index].numViews} lượt xem",
-                                          style: AppTextStyles.light12.copyWith(
-                                              color: AppColors.grey500),
-                                        )),
-                                  ],
-                                ),
-                                const SizedBox(height: 4),
+                                // Row(
+                                //   children: [
+                                //     const Icon(
+                                //       Icons.remove_red_eye_outlined,
+                                //       color: AppColors.grey500,
+                                //       size: 15,
+                                //     ),
+                                //     const SizedBox(
+                                //       width: 3,
+                                //     ),
+                                //     Obx(() => Text(
+                                //           "${data[index].numViews} lượt xem",
+                                //           style: AppTextStyles.light12.copyWith(
+                                //               color: AppColors.grey500),
+                                //         )),
+                                //   ],
+                                // ),
+                                // const SizedBox(height: 4),
                               ],
                             ),
                           ),

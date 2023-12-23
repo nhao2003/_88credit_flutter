@@ -1,5 +1,4 @@
 import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post/widgets/card_sort.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../config/theme/app_color.dart';

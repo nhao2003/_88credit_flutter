@@ -7,10 +7,8 @@ class BlogModel extends BlogEntity {
     required super.shortDescription,
     required super.content,
     required super.thumbnail,
-    required super.numViews,
     required super.createdAt,
     required super.author,
-    required super.isFavorite,
     required super.isActive,
   });
 
@@ -21,10 +19,8 @@ class BlogModel extends BlogEntity {
       shortDescription: json['short_description'],
       content: json['content'],
       thumbnail: json['thumbnail'],
-      numViews: json['num_views'],
       createdAt: DateTime.tryParse(json['created_at']) ?? DateTime.now(),
       author: json['author'],
-      isFavorite: json['is_favorite'],
       isActive: json['is_active'],
     );
   }

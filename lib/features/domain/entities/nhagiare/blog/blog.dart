@@ -7,10 +7,8 @@ class BlogEntity extends Equatable {
   final String author;
   final String content;
   final String thumbnail;
-  final int numViews;
-  final DateTime createdAt;
-  final bool isFavorite;
   final bool isActive;
+  final DateTime createdAt;
 
   const BlogEntity({
     required this.id,
@@ -18,10 +16,8 @@ class BlogEntity extends Equatable {
     required this.shortDescription,
     required this.content,
     required this.thumbnail,
-    required this.numViews,
     required this.createdAt,
     required this.author,
-    required this.isFavorite,
     required this.isActive,
   });
 
@@ -32,10 +28,8 @@ class BlogEntity extends Equatable {
         shortDescription,
         content,
         thumbnail,
-        numViews,
         createdAt,
         author,
-        isFavorite,
         isActive,
       ];
 }

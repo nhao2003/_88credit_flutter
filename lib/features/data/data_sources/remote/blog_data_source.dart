@@ -16,27 +16,26 @@ class BlogRemoteDataSrcImpl implements BlogRemoteDataSrc {
   BlogRemoteDataSrcImpl(this.client);
 
   @override
-  Future<HttpResponse<List<BlogModel>>> getAllBlogs() {
+  Future<HttpResponse<List<BlogModel>>> getAllBlogs() async {
     const url = '$apiUrl$kGetBlogEndpoint';
 
     try {
-      return client.get(url).then((response) {
-        if (response.statusCode != 200) {
-          throw ApiException(
-            message: response.data,
-            statusCode: response.statusCode!,
-          );
-        }
+      final response = await client.get(url);
 
-        final List<DataMap> taskDataList =
-            List<DataMap>.from(response.data["result"]);
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data,
+          statusCode: response.statusCode!,
+        );
+      }
 
-        List<BlogModel> value = taskDataList
-            .map((postJson) => BlogModel.fromJson(postJson))
-            .toList();
+      final List<DataMap> taskDataList =
+          List<DataMap>.from(response.data["result"]);
 
-        return HttpResponse(value, response);
-      });
+      List<BlogModel> value =
+          taskDataList.map((postJson) => BlogModel.fromJson(postJson)).toList();
+
+      return HttpResponse(value, response);
     } on ApiException {
       rethrow;
     } catch (error) {
