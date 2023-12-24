@@ -3,6 +3,7 @@ import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_hided.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_rejected.dart';
+import '../../../../config/routes/app_routes.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/resources/pair.dart';
 import '../../../../injection_container.dart';
@@ -42,7 +43,6 @@ class PostManagementController extends GetxController {
   Future<Pair<int, List<PostEntity>>> getPostsPending({int? page = 1}) async {
     final dataState = await _getPostsPendingUseCase(params: page);
     if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
-      pendingPosts.value = dataState.data!.second;
       return dataState.data!;
     } else {
       return Pair(1, []);
@@ -74,8 +74,8 @@ class PostManagementController extends GetxController {
     getPostsHided();
   }
 
-  void navigateToDetailSceen(PostEntity post) {
-    //Get.toNamed(AppRoutes.post_detail, arguments: post);
+  void navigationToPostDetail(PostEntity post) {
+    Get.toNamed(AppRoutes.postDetail, arguments: post);
   }
 
   void showPost(PostEntity post) async {

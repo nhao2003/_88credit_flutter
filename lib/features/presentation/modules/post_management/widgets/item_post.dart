@@ -109,7 +109,7 @@ class _ItemPostState extends State<ItemPost> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "Cần vay gấp 5 triệu, lãi suất thỏa thuận",
+                          widget.post.title ?? "Không có tiêu đề",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.medium14.copyWith(
@@ -128,7 +128,7 @@ class _ItemPostState extends State<ItemPost> {
                               ),
                             ),
                             Text(
-                              "5.000.000 VNĐ",
+                              "${widget.post.loanAmount}VNĐ",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: AppTextStyles.bold14.copyWith(
@@ -149,7 +149,7 @@ class _ItemPostState extends State<ItemPost> {
                               ),
                             ),
                             Text(
-                              "Vay tiền",
+                              widget.post.type.toString(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTextStyles.bold12.copyWith(

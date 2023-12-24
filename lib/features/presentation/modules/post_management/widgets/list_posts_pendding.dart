@@ -33,7 +33,7 @@ class ListPostsPendding extends StatelessWidget {
         Icons.delete_outline,
       ],
       onSelectedMenu: onSelectedMenu,
-      onTap: (PostEntity post) {},
+      onTap: controller.navigationToPostDetail,
     );
   }
 

@@ -151,6 +151,8 @@ class CreatePostController extends GetxController {
   double? borrowingLoanAmount;
   final borrowingInterestRateTextController = TextEditingController();
   double? borrowingInterestRate;
+  final borrowingOverdueInterestRateTextController = TextEditingController();
+  double? borrowingOverdueInterestRate;
   final borrowingTenureMonthsTextController = TextEditingController();
   int? borrowingTenureMonths;
   final Rxn<LoanReasonTypes> borrowingLoanReasonType = Rxn(null);

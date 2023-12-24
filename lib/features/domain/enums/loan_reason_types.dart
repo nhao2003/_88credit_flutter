@@ -5,6 +5,8 @@ enum LoanReasonTypes {
   wedding,
   medical,
   shopping,
+  houseBuying,
+  carBuying,
   other;
 
   //parse
@@ -32,6 +34,10 @@ enum LoanReasonTypes {
         return "medical";
       case LoanReasonTypes.shopping:
         return "shopping";
+      case LoanReasonTypes.houseBuying:
+        return "house-buying";
+      case LoanReasonTypes.carBuying:
+        return "car-buying";
       case LoanReasonTypes.other:
         return "other";
     }
@@ -52,6 +58,10 @@ enum LoanReasonTypes {
         return "Y tế";
       case LoanReasonTypes.shopping:
         return "Mua sắm";
+      case LoanReasonTypes.houseBuying:
+        return "Mua nhà";
+      case LoanReasonTypes.carBuying:
+        return "Mua ô tô";
       case LoanReasonTypes.other:
         return "Khác";
     }
@@ -66,6 +76,8 @@ enum LoanReasonTypes {
       LoanReasonTypes.wedding: "Cưới hỏi",
       LoanReasonTypes.medical: "Y tế",
       LoanReasonTypes.shopping: "Mua sắm",
+      LoanReasonTypes.houseBuying: "Mua nhà",
+      LoanReasonTypes.carBuying: "Mua ô tô",
       LoanReasonTypes.other: "Khác",
     };
   }

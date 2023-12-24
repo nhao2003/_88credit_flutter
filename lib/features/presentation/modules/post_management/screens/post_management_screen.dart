@@ -45,33 +45,34 @@ class _PostManagementScreenState extends State<PostManagementScreen> {
               ),
             ),
             bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50.0),
-                child: Column(
-                  children: [
-                    Container(
-                      color: AppColors.black,
-                      height: 1.0,
-                    ),
-                    ColoredBox(
-                      color: AppColors.white,
-                      child: TabBar(
-                          isScrollable: true,
-                          unselectedLabelColor:
-                              const Color.fromARGB(206, 73, 69, 79),
-                          indicator: const UnderlineTabIndicator(
-                            borderSide:
-                                BorderSide(color: AppColors.green, width: 2),
+              preferredSize: const Size.fromHeight(50.0),
+              child: Column(
+                children: [
+                  Container(
+                    color: AppColors.black,
+                    height: 1.0,
+                  ),
+                  TabBar(
+                      isScrollable: false,
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      unselectedLabelColor:
+                          const Color.fromARGB(206, 73, 69, 79),
+                      indicator: const UnderlineTabIndicator(
+                        borderSide:
+                            BorderSide(color: AppColors.green, width: 2),
+                      ),
+                      dividerColor: AppColors.green,
+                      labelColor: AppColors.black,
+                      tabs: controller.typePosts.map((e) {
+                        return SizedBox(
+                          child: Tab(
+                            child: Text(e),
                           ),
-                          dividerColor: AppColors.green,
-                          labelColor: AppColors.black,
-                          tabs: controller.typePosts.map((e) {
-                            return Tab(
-                              child: Text(e),
-                            );
-                          }).toList()),
-                    ),
-                  ],
-                )),
+                        );
+                      }).toList()),
+                ],
+              ),
+            ),
           ),
           body: TabBarView(
             children: <Widget>[

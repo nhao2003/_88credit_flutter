@@ -18,6 +18,7 @@ class BorrowingForm extends StatelessWidget {
   final CreatePostController controller = Get.find<CreatePostController>();
   final FocusNode _moneyFocusNode = FocusNode();
   final FocusNode _interestFocusNode = FocusNode();
+  final FocusNode _overdueFocusNode = FocusNode();
   final FocusNode _timeFocusNode = FocusNode();
 
   @override
@@ -66,7 +67,7 @@ class BorrowingForm extends StatelessWidget {
               const SizedBox(height: 10),
               BaseRowTextDropdown(
                 focusNode: _interestFocusNode,
-                nexFocusNode: _timeFocusNode,
+                nexFocusNode: _overdueFocusNode,
                 textInputAction: TextInputAction.next,
                 labelText: 'Lãi suất mong muốn',
                 hintText: "Nhập lãi suất mong muốn",
@@ -74,6 +75,34 @@ class BorrowingForm extends StatelessWidget {
                 onSaved: (value) {
                   try {
                     controller.borrowingInterestRate =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lãi suất không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Lãi suất quá hạn",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _overdueFocusNode,
+                nexFocusNode: _timeFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Lãi suất quá hạn',
+                hintText: "Nhập lãi suất quá hạn",
+                controller:
+                    controller.borrowingOverdueInterestRateTextController,
+                onSaved: (value) {
+                  try {
+                    controller.borrowingOverdueInterestRate =
                         double.parse(value!.trim());
                   } catch (e) {
                     print(e);

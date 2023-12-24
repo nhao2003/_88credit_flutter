@@ -46,6 +46,8 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
           'post_type', Operation.equals, '\'${postTypes.toString()}\'');
     }
 
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+
     url += queryBuilder.build();
     return await DatabaseHelper().getPosts(url, client);
   }
