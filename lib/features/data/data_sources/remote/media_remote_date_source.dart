@@ -40,12 +40,12 @@ class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
                 contentType: getMediaType(e.path)))
             .toList(),
       });
+
       final response = await client.post(
         url,
         data: formData,
       );
       if (response.statusCode != 200) {
-        print(response.data);
         throw DioException(
           error: response.data,
           response: response,
@@ -55,7 +55,8 @@ class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
       }
 
       final data = response.data;
-      final result = List<String>.from(data["result"]);
+      List<String> result = List<String>.from(data["result"]['images']);
+
       return HttpResponse(result, response);
     } on ApiException {
       rethrow;

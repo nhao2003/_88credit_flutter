@@ -32,118 +32,139 @@ class BorrowingForm extends StatelessWidget {
           color: AppColors.grey100,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Số tiền",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseTextField(
-              focusNode: _moneyFocusNode,
-              nexFocusNode: _interestFocusNode,
-              maxLines: 1,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.next,
-              controller: controller.borrowingLoanAmountTextController,
-              labelText: 'Số tiền mong muốn (VNĐ)',
-              hintText: "Nhập số tiền mong muốn",
-              onSaved: (value) {
-                controller.borrowingLoanAmount = double.parse(value!.trim());
-              },
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Lãi suất",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _interestFocusNode,
-              nexFocusNode: _timeFocusNode,
-              textInputAction: TextInputAction.next,
-              labelText: 'Lãi suất mong muốn',
-              hintText: "Nhập lãi suất mong muốn",
-              controller: controller.borrowingInterestRateTextController,
-              onSaved: (value) {
-                controller.borrowingInterestRate = double.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Kỳ hạn",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _timeFocusNode,
-              nexFocusNode: _timeFocusNode,
-              textInputAction: TextInputAction.done,
-              labelText: 'Kỳ hạn mong muốn',
-              hintText: "Nhập kỳ hạn mong muốn",
-              controller: controller.borrowingTenureMonthsTextController,
-              onSaved: (value) {
-                controller.borrowingTenureMonths = int.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Lý do vay",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseDropdownButton(
-              title: "Loại lý do vay",
-              hint: "Chọn loại lý do vay",
-              value: controller.borrowingLoanReasonType.value,
-              items: LoanReasonTypes.toMap().entries.map((entry) {
-                return DropdownMenuItem(
-                  value: entry.key,
-                  child: Text(
-                    entry.value,
-                    overflow: TextOverflow.visible,
-                  ),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  controller.setLoanReason(value as LoanReasonTypes);
-                }
-              },
-              onSaved: (value) {
-                if (value == null) return;
-              },
-            ),
-            const SizedBox(height: 15),
-            BaseTextField(
-              minLines: 3,
-              maxLines: 10,
-              maxLength: 1000,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.done,
-              controller: controller.borrowingLoanReasonTextController,
-              labelText: 'Mô tả lý do vay',
-              hintText: 'Mô tả lý do vay',
-              onSaved: (value) {
-                controller.borrowingLoanReason = value!.trim();
-              },
-              validator: (value) => (value!.trim().isNotEmpty)
-                  ? null
-                  : 'Lý do không được rỗng'.tr,
-            ),
-            const SizedBox(height: 5),
-            Text(
-              "Hình ảnh",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            const PickerImages(),
-          ],
+        child: Form(
+          key: controller.borrowingFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Số tiền",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseTextField(
+                focusNode: _moneyFocusNode,
+                nexFocusNode: _interestFocusNode,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                controller: controller.borrowingLoanAmountTextController,
+                labelText: 'Số tiền mong muốn (VNĐ)',
+                hintText: "Nhập số tiền mong muốn",
+                onSaved: (value) {
+                  controller.borrowingLoanAmount = double.parse(value!.trim());
+                },
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Số tiền không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Lãi suất",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _interestFocusNode,
+                nexFocusNode: _timeFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Lãi suất mong muốn',
+                hintText: "Nhập lãi suất mong muốn",
+                controller: controller.borrowingInterestRateTextController,
+                onSaved: (value) {
+                  try {
+                    controller.borrowingInterestRate =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lãi suất không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Kỳ hạn",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _timeFocusNode,
+                nexFocusNode: _timeFocusNode,
+                textInputAction: TextInputAction.done,
+                labelText: 'Kỳ hạn mong muốn',
+                hintText: "Nhập kỳ hạn mong muốn",
+                controller: controller.borrowingTenureMonthsTextController,
+                onSaved: (value) {
+                  try {
+                    controller.borrowingTenureMonths = int.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Kỳ hạn không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Lý do vay",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseDropdownButton(
+                title: "Loại lý do vay",
+                hint: "Chọn loại lý do vay",
+                value: controller.borrowingLoanReasonType.value,
+                items: LoanReasonTypes.toMap().entries.map((entry) {
+                  return DropdownMenuItem(
+                    value: entry.key,
+                    child: Text(
+                      entry.value,
+                      overflow: TextOverflow.visible,
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    controller.setLoanReason(value as LoanReasonTypes);
+                  }
+                },
+                onSaved: (value) {
+                  if (value == null) return;
+                },
+              ),
+              const SizedBox(height: 15),
+              BaseTextField(
+                minLines: 3,
+                maxLines: 10,
+                maxLength: 1000,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                controller: controller.borrowingLoanReasonTextController,
+                labelText: 'Mô tả lý do vay',
+                hintText: 'Mô tả lý do vay',
+                onSaved: (value) {
+                  controller.borrowingLoanReason = value!.trim();
+                },
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lý do không được rỗng'.tr,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Hình ảnh",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              const PickerImages(),
+            ],
+          ),
         ),
       ),
     );

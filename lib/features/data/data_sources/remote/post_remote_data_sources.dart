@@ -129,7 +129,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
       }
 
       // Gửi yêu cầu đến server
-      //print(postModel.toJson());
+      print(post.toJson());
 
       final response = await client.post(
         url,
@@ -150,7 +150,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
       return HttpResponse(null, response);
     } on DioException catch (e) {
       throw ApiException(
-        message: e.message!,
+        message: e.message ?? "Error when create post",
         statusCode: e.response?.statusCode ?? 505,
       );
     } on ApiException {

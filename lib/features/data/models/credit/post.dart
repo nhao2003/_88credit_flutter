@@ -62,27 +62,20 @@ class PostModel extends PostEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'user': user,
-      'type': type,
-      'loan_reason_type': loanReasonType,
+      'type': type.toString(),
+      'loan_reason_type': loanReasonType.toString(),
       'loan_reason': loanReason,
-      'status': status,
       'title': title,
       'description': description,
       'images': images,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
       'interest_rate': interestRate,
       'loan_amount': loanAmount,
       'tenure_months': tenureMonths,
-      'overdue_interest_rate': overdueInterestRate,
+      'overdue_interest_rate': overdueInterestRate ?? 0.1,
       'max_interest_rate': maxInterestRate,
       'max_loan_amount': maxLoanAmount,
       'max_tenure_months': maxTenureMonths,
       'max_overdue_interest_rate': maxOverdueInterestRate,
-      'rejected_reason': rejectedReason,
-      'deleted_at': deletedAt,
     };
   }
 

@@ -1,8 +1,15 @@
 import 'dart:io';
+import 'package:_88credit_flutter/features/domain/entities/credit/post.dart';
+import 'package:_88credit_flutter/features/domain/enums/post_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../config/theme/app_color.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../../../injection_container.dart';
 import '../../../domain/enums/loan_reason_types.dart';
+import '../../../domain/usecases/media/upload_images.dart';
+import '../../../domain/usecases/post/remote/create_post.dart';
 
 class CreatePostController extends GetxController {
   RxBool isLoading = false.obs;
@@ -11,12 +18,96 @@ class CreatePostController extends GetxController {
   }
 
   // create Post
+  final infoFormKey = GlobalKey<FormState>();
+  final lendingFormKey = GlobalKey<FormState>();
+  final borrowingFormKey = GlobalKey<FormState>();
+
   Future<void> createPost() async {
     toggleIsLoading(true);
-    Future.delayed(const Duration(seconds: 2), () {
+    CreatePostsUseCase createPostsUseCase = sl<CreatePostsUseCase>();
+
+    if (!validatorForm()) return;
+    final PostEntity post = await getNewPost();
+
+    final dataState = await createPostsUseCase(params: post);
+
+    if (dataState is DataSuccess) {
       toggleIsLoading(false);
       Get.back();
-    });
+      Get.snackbar(
+        'Đăng bài thành công',
+        'Vào mục quản lý tin để xem bài của bạn',
+        backgroundColor: AppColors.green,
+        colorText: Colors.white,
+      );
+    } else {
+      toggleIsLoading(false);
+      Get.snackbar(
+        'Đăng bài thất bại',
+        '',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  bool validatorForm() {
+    bool isValidate = true;
+    isValidate = isValidate & infoFormKey.currentState!.validate();
+    if (isLending.value) {
+      isValidate = isValidate & lendingFormKey.currentState!.validate();
+    } else {
+      isValidate = isValidate & borrowingFormKey.currentState!.validate();
+    }
+    return isValidate;
+  }
+
+  Future<PostEntity> getNewPost() async {
+    List<String> images = await uploadImages();
+
+    if (isLending.value) {
+      // Lending
+      return PostEntity(
+        type: isLending.value ? PostTypes.lending : PostTypes.borrowing,
+        title: title,
+        description: description,
+        images: images,
+        loanAmount: lendingLoanAmount,
+        maxLoanAmount: lendingMaxLoanAmount,
+        interestRate: lendingInterestRate,
+        maxInterestRate: lendingMaxInterestRate,
+        tenureMonths: lendingTenureMonths,
+        maxTenureMonths: lendingMaxTenureMonths,
+        overdueInterestRate: lendingOverdueInterestRate,
+        maxOverdueInterestRate: lendingMaxOverdueInterestRate,
+      );
+    } else {
+      return PostEntity(
+        type: isLending.value ? PostTypes.lending : PostTypes.borrowing,
+        title: title,
+        description: description,
+        images: images,
+        loanAmount: borrowingLoanAmount,
+        interestRate: borrowingInterestRate,
+        tenureMonths: borrowingTenureMonths,
+        loanReasonType: borrowingLoanReasonType.value,
+        loanReason: borrowingLoanReason,
+      );
+    }
+  }
+
+  Future<List<String>> uploadImages() async {
+    UploadImagesUseCase uploadImagessUseCase = sl<UploadImagesUseCase>();
+
+    final dataState = await uploadImagessUseCase(params: photo);
+
+    if (dataState is DataSuccess) {
+      toggleIsLoading(false);
+      return dataState.data!;
+    } else {
+      toggleIsLoading(false);
+      return [];
+    }
   }
 
   List<String> timeTypes = ["Tháng", "Năm"];

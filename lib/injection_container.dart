@@ -164,8 +164,8 @@ Future<void> initializeDependencies() async {
     ),
   );
 
-  sl.registerSingleton<UploadImagessUseCase>(
-    UploadImagessUseCase(
+  sl.registerSingleton<UploadImagesUseCase>(
+    UploadImagesUseCase(
       sl<MediaRepository>(),
     ),
   );

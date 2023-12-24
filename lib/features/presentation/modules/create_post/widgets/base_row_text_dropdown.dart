@@ -14,6 +14,7 @@ class BaseRowTextDropdown extends StatelessWidget {
     required this.onSaved,
     required this.timeValue,
     required this.onChangeTimeValue,
+    this.validator,
     super.key,
   });
 
@@ -26,6 +27,7 @@ class BaseRowTextDropdown extends StatelessWidget {
   final void Function(String?) onSaved;
   final String timeValue;
   final void Function(String?) onChangeTimeValue;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class BaseRowTextDropdown extends StatelessWidget {
             labelText: labelText,
             hintText: hintText,
             onSaved: onSaved,
+            validator: validator,
           ),
         ),
         SizedBox(

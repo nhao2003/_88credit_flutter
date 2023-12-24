@@ -35,151 +35,214 @@ class LendingForm extends StatelessWidget {
           color: AppColors.grey100,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Số tiền",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseTextField(
-              focusNode: _moneyFocusNode,
-              nexFocusNode: _maxMoneyFocusNode,
-              maxLines: 1,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.next,
-              controller: controller.lendingLoanAmountTextController,
-              labelText: 'Số tiền tối thiểu (VNĐ)',
-              hintText: "Nhập số tiền tối thiểu cho vay",
-              onSaved: (value) {
-                controller.lendingLoanAmount = double.parse(value!.trim());
-              },
-            ),
-            const SizedBox(height: 10),
-            BaseTextField(
-              focusNode: _maxMoneyFocusNode,
-              nexFocusNode: _interestFocusNode,
-              maxLines: 1,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.next,
-              controller: controller.lendingMaxLoanAmountTextController,
-              labelText: 'Số tiền tối đa (VNĐ)',
-              hintText: "Nhập số tiền tối đa cho vay",
-              onSaved: (value) {
-                controller.lendingMaxLoanAmount = double.parse(value!.trim());
-              },
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Lãi suất",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _interestFocusNode,
-              nexFocusNode: _maxInterestFocusNode,
-              textInputAction: TextInputAction.next,
-              labelText: 'Lãi suất tối thiểu',
-              hintText: "Nhập lãi suất tối thiểu",
-              controller: controller.lendingInterestRateTextController,
-              onSaved: (value) {
-                controller.lendingInterestRate = double.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _maxInterestFocusNode,
-              nexFocusNode: _timeFocusNode,
-              textInputAction: TextInputAction.next,
-              labelText: 'Lãi suất tối đa',
-              hintText: "Nhập lãi suất tối đa",
-              controller: controller.lendingMaxInterestRateTextController,
-              onSaved: (value) {
-                controller.lendingMaxInterestRate = double.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Kỳ hạn",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _timeFocusNode,
-              nexFocusNode: _maxTimeFocusNode,
-              textInputAction: TextInputAction.next,
-              labelText: 'Kỳ hạn tối thiểu',
-              hintText: "Nhập kỳ hạn tối thiểu",
-              controller: controller.lendingTenureMonthsTextController,
-              onSaved: (value) {
-                controller.lendingTenureMonths = int.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _maxTimeFocusNode,
-              nexFocusNode: _overdueFocusNode,
-              textInputAction: TextInputAction.next,
-              labelText: 'Kỳ hạn tối đa',
-              hintText: "Nhập kỳ hạn tối đa",
-              controller: controller.lendingMaxTenureMonthsTextController,
-              onSaved: (value) {
-                controller.lendingMaxTenureMonths = int.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Lãi suất quá hạn",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _overdueFocusNode,
-              nexFocusNode: _maxOverdueFocusNode,
-              textInputAction: TextInputAction.next,
-              labelText: 'Lãi suất quá hạn tối thiểu',
-              hintText: "Nhập lãi suất quá hạn tối thiểu",
-              controller: controller.lendingOverdueInterestRateTextController,
-              onSaved: (value) {
-                controller.lendingOverdueInterestRate =
-                    double.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 10),
-            BaseRowTextDropdown(
-              focusNode: _maxOverdueFocusNode,
-              nexFocusNode: _maxOverdueFocusNode,
-              textInputAction: TextInputAction.done,
-              labelText: 'Lãi suất quá hạn tối đa',
-              hintText: "Nhập lãi suất quá hạn tối đa",
-              controller:
-                  controller.lendingMaxOverdueInterestRateTextController,
-              onSaved: (value) {
-                controller.lendingMaxOverdueInterestRate =
-                    double.parse(value!.trim());
-              },
-              timeValue: controller.timeValue.value,
-              onChangeTimeValue: controller.setTimeValue,
-            ),
-            const SizedBox(height: 5),
-            Text(
-              "Hình ảnh",
-              style: AppTextStyles.bold14.colorEx(Colors.black),
-            ),
-            const SizedBox(height: 10),
-            const PickerImages(),
-          ],
+        child: Form(
+          key: controller.lendingFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Số tiền",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseTextField(
+                focusNode: _moneyFocusNode,
+                nexFocusNode: _maxMoneyFocusNode,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                controller: controller.lendingLoanAmountTextController,
+                labelText: 'Số tiền tối thiểu (VNĐ)',
+                hintText: "Nhập số tiền tối thiểu cho vay",
+                onSaved: (value) {
+                  try {
+                    controller.lendingLoanAmount = double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Số tiền không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              BaseTextField(
+                focusNode: _maxMoneyFocusNode,
+                nexFocusNode: _interestFocusNode,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                controller: controller.lendingMaxLoanAmountTextController,
+                labelText: 'Số tiền tối đa (VNĐ)',
+                hintText: "Nhập số tiền tối đa cho vay",
+                onSaved: (value) {
+                  try {
+                    controller.lendingMaxLoanAmount =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Số tiền không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Lãi suất",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _interestFocusNode,
+                nexFocusNode: _maxInterestFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Lãi suất tối thiểu',
+                hintText: "Nhập lãi suất tối thiểu",
+                controller: controller.lendingInterestRateTextController,
+                onSaved: (value) {
+                  try {
+                    controller.lendingInterestRate =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lãi suất không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _maxInterestFocusNode,
+                nexFocusNode: _timeFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Lãi suất tối đa',
+                hintText: "Nhập lãi suất tối đa",
+                controller: controller.lendingMaxInterestRateTextController,
+                onSaved: (value) {
+                  try {
+                    controller.lendingMaxInterestRate =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lãi suất không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Kỳ hạn",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _timeFocusNode,
+                nexFocusNode: _maxTimeFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Kỳ hạn tối thiểu',
+                hintText: "Nhập kỳ hạn tối thiểu",
+                controller: controller.lendingTenureMonthsTextController,
+                onSaved: (value) {
+                  try {
+                    controller.lendingTenureMonths = int.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Kỳ hạn không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _maxTimeFocusNode,
+                nexFocusNode: _overdueFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Kỳ hạn tối đa',
+                hintText: "Nhập kỳ hạn tối đa",
+                controller: controller.lendingMaxTenureMonthsTextController,
+                onSaved: (value) {
+                  try {
+                    controller.lendingMaxTenureMonths =
+                        int.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Kỳ hạn không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Lãi suất quá hạn",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _overdueFocusNode,
+                nexFocusNode: _maxOverdueFocusNode,
+                textInputAction: TextInputAction.next,
+                labelText: 'Lãi suất quá hạn tối thiểu',
+                hintText: "Nhập lãi suất quá hạn tối thiểu",
+                controller: controller.lendingOverdueInterestRateTextController,
+                onSaved: (value) {
+                  try {
+                    controller.lendingOverdueInterestRate =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lãi suất không được rỗng'.tr,
+              ),
+              const SizedBox(height: 10),
+              BaseRowTextDropdown(
+                focusNode: _maxOverdueFocusNode,
+                nexFocusNode: _maxOverdueFocusNode,
+                textInputAction: TextInputAction.done,
+                labelText: 'Lãi suất quá hạn tối đa',
+                hintText: "Nhập lãi suất quá hạn tối đa",
+                controller:
+                    controller.lendingMaxOverdueInterestRateTextController,
+                onSaved: (value) {
+                  try {
+                    controller.lendingMaxOverdueInterestRate =
+                        double.parse(value!.trim());
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                timeValue: controller.timeValue.value,
+                onChangeTimeValue: controller.setTimeValue,
+                validator: (value) => (value!.trim().isNotEmpty)
+                    ? null
+                    : 'Lãi suất không được rỗng'.tr,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Hình ảnh",
+                style: AppTextStyles.bold14.colorEx(Colors.black),
+              ),
+              const SizedBox(height: 10),
+              const PickerImages(),
+            ],
+          ),
         ),
       ),
     );

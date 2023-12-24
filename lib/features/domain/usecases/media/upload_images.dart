@@ -3,11 +3,11 @@ import 'package:_88credit_flutter/features/domain/repository/media_repository.da
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecases/usecase.dart';
 
-class UploadImagessUseCase
+class UploadImagesUseCase
     implements UseCase<DataState<List<String>>, List<File>> {
   final MediaRepository _postRepository;
 
-  UploadImagessUseCase(this._postRepository);
+  UploadImagesUseCase(this._postRepository);
 
   @override
   Future<DataState<List<String>>> call({List<File>? params}) {

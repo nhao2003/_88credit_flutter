@@ -58,7 +58,7 @@ class BaseTextField extends StatelessWidget {
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onTapOutside: (event) {
-        focusNode!.unfocus();
+        if (focusNode != null) focusNode!.unfocus();
       },
       onSaved: onSaved,
       onChanged: (value) {
@@ -68,6 +68,7 @@ class BaseTextField extends StatelessWidget {
         onSaved!(value);
         FocusScope.of(context).requestFocus(nexFocusNode);
       },
+      validator: validator,
     );
   }
 }
