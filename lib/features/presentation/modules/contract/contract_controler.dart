@@ -185,7 +185,7 @@ class ContractController extends GetxController {
   }
 
   void navToContractDetail(ContractEntity contract) {
-    Get.toNamed(AppRoutes.contractDetail, arguments: contract);
+    Get.toNamed(AppRoutes.contractDetail, arguments: [contract, true]);
   }
 
   void navToCreateRequest() {

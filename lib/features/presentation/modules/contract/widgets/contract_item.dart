@@ -43,7 +43,7 @@ class ContractItem extends StatelessWidget {
   }
 
   void navToContractDetail() {
-    Get.toNamed(AppRoutes.contractDetail, arguments: contract);
+    Get.toNamed(AppRoutes.contractDetail, arguments: [contract, false]);
   }
 
   @override

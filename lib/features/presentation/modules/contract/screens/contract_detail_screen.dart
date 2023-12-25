@@ -15,14 +15,29 @@ import '../../../global_widgets/my_appbar.dart';
 import '../../post_detail/widgets/description_card.dart';
 import '../widgets/detail/received_amount_item.dart';
 
-class ContractDetailScreen extends StatelessWidget {
-  ContractDetailScreen({super.key});
+class ContractDetailScreen extends StatefulWidget {
+  const ContractDetailScreen({super.key});
 
+  @override
+  State<ContractDetailScreen> createState() => _ContractDetailScreenState();
+}
+
+class _ContractDetailScreenState extends State<ContractDetailScreen> {
   final ContractController controller = Get.find<ContractController>();
 
-  final ContractEntity post = Get.arguments as ContractEntity;
+  late ContractEntity post;
+
+  late bool isPurchase;
 
   final RxBool isLoading = false.obs;
+
+  @override
+  void initState() {
+    var data = Get.arguments;
+    post = data[0] as ContractEntity;
+    isPurchase = data[1] as bool;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,26 +115,27 @@ class ContractDetailScreen extends StatelessWidget {
               description: post.loanReason!,
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BaseButton(
-                  title: "Từ chối",
-                  colorButton: AppColors.red,
-                  width: 43.wp,
-                  isLoading: isLoading,
-                  onClick: () {
-                    Get.back();
-                  },
-                ),
-                BaseButton(
-                  title: "Thanh toán",
-                  width: 43.wp,
-                  isLoading: isLoading,
-                  onClick: controller.payContractFee,
-                ),
-              ],
-            )
+            if (isPurchase)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BaseButton(
+                    title: "Từ chối",
+                    colorButton: AppColors.red,
+                    width: 43.wp,
+                    isLoading: isLoading,
+                    onClick: () {
+                      Get.back();
+                    },
+                  ),
+                  BaseButton(
+                    title: "Thanh toán",
+                    width: 43.wp,
+                    isLoading: isLoading,
+                    onClick: controller.payContractFee,
+                  ),
+                ],
+              )
           ],
         ),
       ),
