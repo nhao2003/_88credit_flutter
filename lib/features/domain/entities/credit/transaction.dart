@@ -9,13 +9,12 @@ class TransactionEntity extends Equatable {
   final String? title;
   final String? description;
   final String? userId;
-  final double? amount;
+  final int? amount;
   final PaymentMethods? paymentMethod;
-  final Map<String, dynamic>? items;
+  final List<dynamic>? items;
   final Map<String, dynamic>? embedData;
   final DateTime? createdAt;
   final DateTime? transactionAt;
-  final DateTime? deletedAt;
 
   const TransactionEntity({
     this.id,
@@ -30,7 +29,6 @@ class TransactionEntity extends Equatable {
     this.embedData,
     this.createdAt,
     this.transactionAt,
-    this.deletedAt,
   });
 
   @override
@@ -47,7 +45,6 @@ class TransactionEntity extends Equatable {
         embedData,
         createdAt,
         transactionAt,
-        deletedAt,
       ];
 
   TransactionEntity copyWith({
@@ -57,9 +54,9 @@ class TransactionEntity extends Equatable {
     String? title,
     String? description,
     String? userId,
-    double? amount,
+    int? amount,
     PaymentMethods? paymentMethod,
-    Map<String, dynamic>? items,
+    List<dynamic>? items,
     Map<String, dynamic>? embedData,
     DateTime? createdAt,
     DateTime? transactionAt,
@@ -78,7 +75,6 @@ class TransactionEntity extends Equatable {
       embedData: embedData ?? this.embedData,
       createdAt: createdAt ?? this.createdAt,
       transactionAt: transactionAt ?? this.transactionAt,
-      deletedAt: deletedAt ?? this.deletedAt,
     );
   }
 }

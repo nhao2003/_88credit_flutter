@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/core/resources/pair.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/transaction.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_contract_request_status.dart';
 import 'package:dio/dio.dart';
 import '../../domain/repository/request_repository.dart';
@@ -108,5 +109,25 @@ class RequestRepositoryImpl implements RequestRepository {
   Future<DataState<LoanRequestEntity>> getSingleRequest(String id) {
     // TODO: implement getSingleRequest
     throw UnimplementedError();
+  }
+
+  @override
+  Future<DataState<TransactionEntity>> payLoanRequest(String id) async {
+    try {
+      final httpResponse = await _dataSrc.payLoanRequest(id);
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(DioException(
+          error: httpResponse.response.statusMessage,
+          response: httpResponse.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResponse.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:_88credit_flutter/core/resources/pair.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import '../../../../core/resources/data_state.dart';
+import '../entities/credit/transaction.dart';
 
 abstract class RequestRepository {
   // API remote
@@ -15,4 +16,6 @@ abstract class RequestRepository {
       int? page);
   Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsRejected(
       int? page);
+
+  Future<DataState<TransactionEntity>> payLoanRequest(String id);
 }
