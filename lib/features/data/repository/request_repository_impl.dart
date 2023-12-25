@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/core/resources/pair.dart';
 import 'package:_88credit_flutter/features/data/models/credit/loan_request.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/transaction.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_contract_request_status.dart';
@@ -210,6 +211,48 @@ class RequestRepositoryImpl implements RequestRepository {
             requestOptions: httpResponse.response.requestOptions,
           ),
         );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<Pair<int, List<ContractEntity>>>> getBorrowingContract(
+      int? page) async {
+    try {
+      final httpResponse = await _dataSrc.getContracts(false, page);
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(DioException(
+          error: httpResponse.response.statusMessage,
+          response: httpResponse.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResponse.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<Pair<int, List<ContractEntity>>>> getLendingContract(
+      int? page) async {
+    try {
+      final httpResponse = await _dataSrc.getContracts(true, page);
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(DioException(
+          error: httpResponse.response.statusMessage,
+          response: httpResponse.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResponse.response.requestOptions,
+        ));
       }
     } on DioException catch (e) {
       return DataFailed(e);

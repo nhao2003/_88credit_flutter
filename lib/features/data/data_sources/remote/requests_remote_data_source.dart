@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/core/constants/constants.dart';
+import 'package:_88credit_flutter/features/data/models/credit/contract.dart';
 import 'package:_88credit_flutter/features/data/models/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/data/models/credit/transaction.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +28,9 @@ abstract class RequestRemoteDataSrc {
   Future<HttpResponse<void>> rejectRequest(
       LoanRequestModel request, String rejectedReason);
   Future<HttpResponse<TransactionModel>> payLoanRequest(String id);
+
+  Future<HttpResponse<Pair<int, List<ContractModel>>>> getContracts(
+      bool isLending, int? page);
 }
 
 class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
@@ -288,5 +292,34 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
     return await DatabaseHelper().getRequests(url, client);
+  }
+
+  @override
+  Future<HttpResponse<Pair<int, List<ContractModel>>>> getContracts(
+      bool isLending, int? page) async {
+    // get userId
+    AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+    String? userId = localDataSrc.getUserIdFromToken();
+    if (userId == null) {
+      throw const ApiException(message: 'userId is null', statusCode: 505);
+    }
+
+    int pageQuery = page ?? 1;
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(pageQuery);
+
+    if (isLending) {
+      queryBuilder.addQuery(
+          'contract_lender_id', Operation.equals, '\'$userId\'');
+    } else {
+      queryBuilder.addQuery(
+          'contract_borrower_id', Operation.equals, '\'$userId\'');
+    }
+
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+
+    String url = '$apiUrl$kGetContractEndpoint${queryBuilder.build()}';
+
+    return await DatabaseHelper().getContracts(url, client);
   }
 }

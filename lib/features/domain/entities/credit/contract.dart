@@ -7,9 +7,9 @@ class ContractEntity extends Equatable {
   final String? loanContractRequestId;
   final String? contractTemplateId;
   final UserEntity? lender;
-  final String? lenderBankAccountId;
+  final String? lenderBankCardId;
   final UserEntity? borrower;
-  final String? borrowerBankAccountId;
+  final String? borrowerBankCardId;
   final LoanReasonTypes? loanReasonType;
   final String? loanReason;
   final double? amount;
@@ -24,9 +24,9 @@ class ContractEntity extends Equatable {
     this.loanContractRequestId,
     this.contractTemplateId,
     this.lender,
-    this.lenderBankAccountId,
+    this.lenderBankCardId,
     this.borrower,
-    this.borrowerBankAccountId,
+    this.borrowerBankCardId,
     this.loanReasonType,
     this.loanReason,
     this.amount,
@@ -43,9 +43,9 @@ class ContractEntity extends Equatable {
         loanContractRequestId,
         contractTemplateId,
         lender,
-        lenderBankAccountId,
+        lenderBankCardId,
         borrower,
-        borrowerBankAccountId,
+        borrowerBankCardId,
         loanReasonType,
         loanReason,
         amount,
@@ -61,9 +61,9 @@ class ContractEntity extends Equatable {
     String? loanContractRequestId,
     String? contractTemplateId,
     UserEntity? lender,
-    String? lenderBankAccountId,
+    String? lenderBankCardId,
     UserEntity? borrower,
-    String? borrowerBankAccountId,
+    String? borrowerBankCardId,
     LoanReasonTypes? loanReasonType,
     String? loanReason,
     double? amount,
@@ -79,10 +79,10 @@ class ContractEntity extends Equatable {
           loanContractRequestId ?? this.loanContractRequestId,
       contractTemplateId: contractTemplateId ?? this.contractTemplateId,
       lender: lender ?? this.lender,
-      lenderBankAccountId: lenderBankAccountId ?? this.lenderBankAccountId,
+      lenderBankCardId: lenderBankCardId ?? this.lenderBankCardId,
       borrower: borrower ?? this.borrower,
-      borrowerBankAccountId:
-          borrowerBankAccountId ?? this.borrowerBankAccountId,
+      borrowerBankCardId:
+          borrowerBankCardId ?? this.borrowerBankCardId,
       loanReasonType: loanReasonType ?? this.loanReasonType,
       loanReason: loanReason ?? this.loanReason,
       amount: amount ?? this.amount,

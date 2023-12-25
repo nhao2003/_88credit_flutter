@@ -3,6 +3,8 @@ import 'package:_88credit_flutter/features/data/repository/media_repository_impl
 import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_borrowing_contracts.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_lending_contracts.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_sent.dart';
@@ -237,6 +239,18 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<GetRequestSentUseCase>(
     GetRequestSentUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetBorrowingContractsUseCase>(
+    GetBorrowingContractsUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetLendingContractsUseCase>(
+    GetLendingContractsUseCase(
       sl<RequestRepository>(),
     ),
   );
