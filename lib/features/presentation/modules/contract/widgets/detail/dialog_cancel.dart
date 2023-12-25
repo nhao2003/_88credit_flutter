@@ -29,7 +29,6 @@ class DialogCancel extends StatelessWidget {
 
   void onAccept() async {
     await handleRejectRequest(request, reason);
-    textController.clear();
   }
 
   @override

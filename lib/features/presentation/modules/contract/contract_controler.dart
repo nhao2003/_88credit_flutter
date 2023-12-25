@@ -7,6 +7,7 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_requ
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_approved.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_sent.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/reject_request.dart';
 import 'package:_88credit_flutter/injection_container.dart';
@@ -21,6 +22,7 @@ import '../../../domain/enums/user_status.dart';
 class ContractController extends GetxController {
   RxList<LoanRequestEntity> approvedRequests = <LoanRequestEntity>[].obs;
   RxList<LoanRequestEntity> pendingRequests = <LoanRequestEntity>[].obs;
+  RxList<LoanRequestEntity> sentRequests = <LoanRequestEntity>[].obs;
   RxList<LoanRequestEntity> rejectedRequests = <LoanRequestEntity>[].obs;
   RxList<ContractEntity> lendingContracts = <ContractEntity>[].obs;
   RxList<ContractEntity> borrowingContracts = <ContractEntity>[].obs;
@@ -109,6 +111,19 @@ class ContractController extends GetxController {
     }
   }
 
+  Future<Pair<int, List<LoanRequestEntity>>> getRequestsSent(
+      {int? page = 1}) async {
+    final GetRequestSentUseCase getPostsApprovedUseCase =
+        sl<GetRequestSentUseCase>();
+
+    final dataState = await getPostsApprovedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!;
+    } else {
+      return Pair(1, []);
+    }
+  }
+
   Future<Pair<int, List<LoanRequestEntity>>> getRequestsRejected(
       {int? page = 1}) async {
     final GetRequestRejectedUseCase getPostsApprovedUseCase =
@@ -156,7 +171,6 @@ class ContractController extends GetxController {
         backgroundColor: AppColors.green,
         colorText: Colors.white,
       );
-      Get.back();
       Get.back();
     } else {
       Get.snackbar(

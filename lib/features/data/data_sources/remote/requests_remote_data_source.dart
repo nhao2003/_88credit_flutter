@@ -18,7 +18,10 @@ abstract class RequestRemoteDataSrc {
       LoanContractRequestStatus status, int? page);
   Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequestsApproved(
       int? page);
-
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequestsPending(
+      int? page);
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequestsSent(
+      int? page);
   Future<HttpResponse<void>> createRequest(LoanRequestModel request);
   Future<HttpResponse<void>> confirmRequest(LoanRequestModel request);
   Future<HttpResponse<void>> rejectRequest(
@@ -234,5 +237,56 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     } catch (error) {
       throw ApiException(message: error.toString(), statusCode: 505);
     }
+  }
+
+  @override
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequestsPending(
+      int? page) async {
+    // get userId
+    AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+    String? userId = localDataSrc.getUserIdFromToken();
+    if (userId == null) {
+      throw const ApiException(message: 'userId is null', statusCode: 505);
+    }
+
+    int pageQuery = page ?? 1;
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(pageQuery);
+    queryBuilder.addQuery('request_status', Operation.equals,
+        '\'${LoanContractRequestStatus.pending.toString()}\'');
+
+    queryBuilder.addQuery(
+        'request_receiver_id', Operation.equals, '\'$userId\'');
+
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+
+    String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
+
+    return await DatabaseHelper().getRequests(url, client);
+  }
+
+  @override
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequestsSent(
+      int? page) async {
+    // get userId
+    AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+    String? userId = localDataSrc.getUserIdFromToken();
+    if (userId == null) {
+      throw const ApiException(message: 'userId is null', statusCode: 505);
+    }
+
+    int pageQuery = page ?? 1;
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(pageQuery);
+    queryBuilder.addQuery('request_status', Operation.equals,
+        '\'${LoanContractRequestStatus.pending.toString()}\'');
+
+    queryBuilder.addQuery('request_sender_id', Operation.equals, '\'$userId\'');
+
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+
+    String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
+
+    return await DatabaseHelper().getRequests(url, client);
   }
 }

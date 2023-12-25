@@ -18,6 +18,8 @@ abstract class RequestRepository {
       int? page);
   Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsPending(
       int? page);
+  Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsSent(
+      int? page);
   Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsRejected(
       int? page);
 

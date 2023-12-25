@@ -1,4 +1,6 @@
+import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/pending_request_tab.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/sent_request_tab.dart';
 import 'package:flutter/material.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../widgets/approved_request_tab.dart';
@@ -18,7 +20,7 @@ class _RequestTabScreenState extends State<RequestTabScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 4);
     _tabController.addListener(_handleTabSelection);
   }
 
@@ -29,22 +31,38 @@ class _RequestTabScreenState extends State<RequestTabScreen>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Column(
         children: [
           TabBar(
             controller: _tabController,
+            isScrollable: true,
             indicatorColor: AppColors.green,
             indicatorSize: TabBarIndicatorSize.tab,
-            tabs: const [
-              Tab(
-                text: "Đã xác nhận",
+            tabs: [
+              SizedBox(
+                width: 100.wp / 5,
+                child: const Tab(
+                  text: "Đã xác nhận",
+                ),
               ),
-              Tab(
-                text: "Chờ xác nhận",
+              SizedBox(
+                width: 100.wp / 4,
+                child: const Tab(
+                  text: "Chờ xác nhận",
+                ),
               ),
-              Tab(
-                text: "Đã hủy",
+              SizedBox(
+                width: 100.wp / 5,
+                child: const Tab(
+                  text: "Đã gửi",
+                ),
+              ),
+              SizedBox(
+                width: 100.wp / 5,
+                child: const Tab(
+                  text: "Đã hủy",
+                ),
               ),
             ],
           ),
@@ -55,6 +73,7 @@ class _RequestTabScreenState extends State<RequestTabScreen>
               children: [
                 ApprovedRequestTab(),
                 PendingRequestTab(),
+                SentRequestTab(),
                 RejectRequestTab(),
               ],
             ),
