@@ -49,7 +49,7 @@ class _BaseListRequestsState extends State<BaseListRequests> {
 
   Future fetchMore() async {
     page++;
-    if (page < numOfPage) {
+    if (page <= numOfPage) {
       // Fetch more data and add to the list
       await widget.getRequest(page: page).then((value) {
         numOfPage = value.first;

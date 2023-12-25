@@ -6,6 +6,8 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/resources/pair.dart';
 import '../../../../core/utils/typedef.dart';
+import '../../../../injection_container.dart';
+import '../local/authentication_local_data_source.dart';
 
 class DatabaseHelper {
   Future<HttpResponse<Pair<int, List<PostModel>>>> getPosts(
@@ -46,7 +48,20 @@ class DatabaseHelper {
   Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequests(
       String url, Dio client) async {
     try {
-      final response = await client.get(url);
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      final response = await client.get(
+        url,
+        options: Options(
+            sendTimeout: const Duration(seconds: 10),
+            headers: {'Authorization': 'Bearer $accessToken'}),
+      );
       print(url);
       //print('${response.statusCode} : ${response.data["message"].toString()}');
       if (response.statusCode != 200) {

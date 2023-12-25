@@ -244,7 +244,7 @@ class RequestItem extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${request.interestRate} % / năm",
+                                "${request.interestRate} % / tháng",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),
@@ -262,7 +262,7 @@ class RequestItem extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${request.overdueInterestRate} % / năm",
+                                "${request.overdueInterestRate} % / tháng",
                                 style: AppTextStyles.bold12
                                     .colorEx(AppColors.black),
                               ),

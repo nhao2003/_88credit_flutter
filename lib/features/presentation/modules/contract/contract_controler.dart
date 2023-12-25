@@ -3,8 +3,14 @@ import 'package:_88credit_flutter/core/resources/pair.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_approved.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_pending.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
+import 'package:_88credit_flutter/features/domain/usecases/post/remote/get_posts_approved.dart';
+import 'package:_88credit_flutter/injection_container.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/resources/data_state.dart';
 import '../../../domain/entities/credit/user.dart';
 import '../../../domain/enums/loan_contract_request_status.dart';
 import '../../../domain/enums/role.dart';
@@ -145,35 +151,41 @@ class ContractController extends GetxController {
 
   Future<Pair<int, List<LoanRequestEntity>>> getRequestsApproved(
       {int? page = 1}) async {
-    // final dataState = await _getPostsApprovedUseCase(params: page);
-    // if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
-    //   return dataState.data!;
-    // } else {
-    //   return Pair(1, []);
-    // }
-    return Pair(1, [getMockRequest(LoanContractRequestStatus.cancle)]);
+    final GetRequestApprovedUseCase getPostsApprovedUseCase =
+        sl<GetRequestApprovedUseCase>();
+
+    final dataState = await getPostsApprovedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!;
+    } else {
+      return Pair(1, []);
+    }
   }
 
   Future<Pair<int, List<LoanRequestEntity>>> getRequestsPending(
       {int? page = 1}) async {
-    // final dataState = await _getPostsApprovedUseCase(params: page);
-    // if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
-    //   return dataState.data!;
-    // } else {
-    //   return Pair(1, []);
-    // }
-    return Pair(1, [getMockRequest(LoanContractRequestStatus.pending)]);
+    final GetRequestPendingUseCase getPostsApprovedUseCase =
+        sl<GetRequestPendingUseCase>();
+
+    final dataState = await getPostsApprovedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!;
+    } else {
+      return Pair(1, []);
+    }
   }
 
   Future<Pair<int, List<LoanRequestEntity>>> getRequestsRejected(
       {int? page = 1}) async {
-    // final dataState = await _getPostsApprovedUseCase(params: page);
-    // if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
-    //   return dataState.data!;
-    // } else {
-    //   return Pair(1, []);
-    // }
-    return Pair(1, [getMockRequest(LoanContractRequestStatus.rejected)]);
+    final GetRequestRejectedUseCase getPostsApprovedUseCase =
+        sl<GetRequestRejectedUseCase>();
+
+    final dataState = await getPostsApprovedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!;
+    } else {
+      return Pair(1, []);
+    }
   }
 
   Future<Pair<int, List<ContractEntity>>> getLendingContract(

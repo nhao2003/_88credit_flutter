@@ -59,7 +59,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
         '\'${LoanContractRequestStatus.paid.toString()}\',\'${LoanContractRequestStatus.waitingForPayment.toString()}\'');
     queryBuilder.addOrderBy('created_at', OrderBy.desc);
 
-    String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
+    String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
     return await DatabaseHelper().getRequests(url, client);
   }
@@ -74,7 +74,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
         'request_status', Operation.equals, '\'${status.toString()}\'');
     queryBuilder.addOrderBy('created_at', OrderBy.desc);
 
-    String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
+    String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
     return await DatabaseHelper().getRequests(url, client);
   }

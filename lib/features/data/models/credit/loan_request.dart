@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/core/utils/convert_number.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 
@@ -41,8 +42,9 @@ class LoanRequestModel extends LoanRequestEntity {
       loanAmount: json['loan_amount'] != null
           ? double.parse(json['loan_amount'])
           : null,
-      interestRate: json['interest_rate'],
-      overdueInterestRate: json['overdue_interest_rate'],
+      interestRate: ConverNumber.convertIntToDouble(json['interest_rate']),
+      overdueInterestRate:
+          ConverNumber.convertIntToDouble(json['overdue_interest_rate']),
       loanTenureMonths: json['loan_tenure_months'],
       loanReasonType: json['loan_reason_type'] != null
           ? LoanReasonTypes.parse(json['loan_reason_type'])
