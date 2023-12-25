@@ -11,6 +11,7 @@ import 'package:_88credit_flutter/features/presentation/modules/contract/widgets
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/loan_amount_card.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/more_request_info_card.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/user_card.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/video_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global_widgets/my_appbar.dart';
@@ -76,14 +77,6 @@ class RequestDetailScreen extends StatelessWidget {
               bankNumber: "**** **** **** 3456",
               hanleChooseCard: () {},
             ),
-            const SizedBox(height: 10),
-            const HeaderTitle(title: "Ảnh chân dung"),
-            const SizedBox(height: 10),
-            ImageCard(images: [post.portaitPhoto!]),
-            const SizedBox(height: 10),
-            const HeaderTitle(title: "Ảnh căn cước / CMND:"),
-            const SizedBox(height: 10),
-            ImageCard(images: [post.idCardFrontPhoto!, post.idCardBackPhoto!]),
             const SizedBox(height: 20),
             DescriptionCard(
               title: "Mô tả yêu cầu",
@@ -94,6 +87,23 @@ class RequestDetailScreen extends StatelessWidget {
               title: "Mô tả lý do vay",
               description: post.loanReason!,
             ),
+            const SizedBox(height: 10),
+            const HeaderTitle(title: "Ảnh chân dung"),
+            const SizedBox(height: 10),
+            ImageCard(images: [post.portaitPhoto!]),
+            const SizedBox(height: 10),
+            const HeaderTitle(title: "Ảnh căn cước / CMND:"),
+            const SizedBox(height: 10),
+            ImageCard(images: [post.idCardFrontPhoto!, post.idCardBackPhoto!]),
+            if (post.videoConfirmation != null)
+              Column(
+                children: [
+                  const SizedBox(height: 10),
+                  const HeaderTitle(title: "Video minh chứng:"),
+                  const SizedBox(height: 10),
+                  VideoCard(videoUrl: post.videoConfirmation!),
+                ],
+              ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

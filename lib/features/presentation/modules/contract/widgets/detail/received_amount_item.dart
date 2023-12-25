@@ -37,6 +37,7 @@ class ReceivedAmountItem extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             "( ${moneyRequest.toInt().convertNumberToWords()} đồng )",
+            textAlign: TextAlign.center,
             style: AppTextStyles.medium16.colorEx(AppColors.grey500),
           ),
         ],
