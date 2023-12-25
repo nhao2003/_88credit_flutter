@@ -1,5 +1,8 @@
+import 'package:_88credit_flutter/features/data/data_sources/remote/requests_remote_data_source.dart';
 import 'package:_88credit_flutter/features/data/repository/media_repository_impl.dart';
 import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_images.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -35,12 +38,16 @@ import 'features/data/repository/authentication_repository_impl.dart';
 import 'features/data/repository/conversation_repository_impl.dart';
 import 'features/data/repository/post_repository_impl.dart';
 import 'features/data/repository/provinces_repository_impl.dart';
+import 'features/data/repository/request_repository_impl.dart';
 import 'features/domain/repository/authentication_repository.dart';
 import 'features/domain/repository/conversation_repository.dart';
 import 'features/domain/repository/provinces_repository.dart';
+import 'features/domain/repository/request_repository.dart';
 import 'features/domain/usecases/authentication/check_token.dart';
 import 'features/domain/usecases/authentication/sign_in.dart';
 import 'features/domain/usecases/authentication/sign_out.dart';
+import 'features/domain/usecases/contract/get_loan_requests_approved.dart';
+import 'features/domain/usecases/contract/get_loan_requests_pending.dart';
 import 'features/domain/usecases/post/remote/create_post.dart';
 import 'features/domain/usecases/post/remote/get_posts_borrowing.dart';
 import 'features/domain/usecases/post/remote/get_posts_hided.dart';
@@ -167,6 +174,46 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<UploadImagesUseCase>(
     UploadImagesUseCase(
       sl<MediaRepository>(),
+    ),
+  );
+
+  // Contract =====================================================
+  // datasource
+  sl.registerSingleton<RequestRemoteDataSrc>(
+    RequestRemoteDataSrcImpl(
+      sl<Dio>(),
+    ),
+  );
+
+  // repository
+  sl.registerSingleton<RequestRepository>(
+    RequestRepositoryImpl(
+      sl<RequestRemoteDataSrc>(),
+    ),
+  );
+
+  // use cases
+  sl.registerSingleton<GetRequestUseCase>(
+    GetRequestUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetRequestApprovedUseCase>(
+    GetRequestApprovedUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetRequestPendingUseCase>(
+    GetRequestPendingUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetRequestRejectedUseCase>(
+    GetRequestRejectedUseCase(
+      sl<RequestRepository>(),
     ),
   );
 

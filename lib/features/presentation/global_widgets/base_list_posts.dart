@@ -50,7 +50,7 @@ class _BaseListPostsState extends State<BaseListPosts> {
 
   Future fetchMore() async {
     page++;
-    if (page < numOfPage) {
+    if (page <= numOfPage) {
       // Fetch more data and add to the list
       await widget.getPosts(page: page).then((value) {
         numOfPage = value.first;
@@ -80,16 +80,16 @@ class _BaseListPostsState extends State<BaseListPosts> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: refresh,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            widget.cardSort != null
-                ? Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: widget.cardSort,
-                  )
-                : const SizedBox(),
-            Obx(
+      child: Column(
+        children: [
+          widget.cardSort != null
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: widget.cardSort,
+                )
+              : const SizedBox(),
+          Expanded(
+            child: Obx(
               () => isLoading.value
                   ? const Center(
                       child: CircularProgressIndicator(),
@@ -125,8 +125,8 @@ class _BaseListPostsState extends State<BaseListPosts> {
                           },
                         ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

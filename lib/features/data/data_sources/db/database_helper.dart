@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/features/data/models/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/data/models/credit/post.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,41 @@ class DatabaseHelper {
       List<PostModel> posts = [];
       for (var element in taskDataList) {
         posts.add(PostModel.fromJson(element));
+      }
+
+      final value = Pair(numOfPages, posts);
+
+      return HttpResponse(value, response);
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      error.printError();
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
+  }
+
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequests(
+      String url, Dio client) async {
+    try {
+      final response = await client.get(url);
+      print(url);
+      //print('${response.statusCode} : ${response.data["message"].toString()}');
+      if (response.statusCode != 200) {
+        //print('${response.statusCode} : ${response.data["result"].toString()}');
+        throw ApiException(
+          message: response.data,
+          statusCode: response.statusCode!,
+        );
+      }
+
+      final int numOfPages = response.data["num_of_pages"];
+
+      final List<DataMap> taskDataList =
+          List<DataMap>.from(response.data["result"]);
+
+      List<LoanRequestModel> posts = [];
+      for (var element in taskDataList) {
+        posts.add(LoanRequestModel.fromJson(element));
       }
 
       final value = Pair(numOfPages, posts);

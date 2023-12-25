@@ -1,4 +1,4 @@
-const ipConfig = "192.168.139.225";
+const ipConfig = "192.168.1.71";
 const String apiDevUrl = "http://$ipConfig:8000/api/v1";
 const String apiProductionUrl = "https://nha-gia-re-server.onrender.com/api/v1";
 const String apiUrl = apiDevUrl;
@@ -18,3 +18,5 @@ const String kGetMembershipPackageEndpoint = '/membership-package';
 const String kGetTransactionEndpoint = '/membership-package/transactions';
 const String kCreateOrderEndpoint = '/membership-package/check-out';
 const String kGetBlogEndpoint = '/blogs';
+
+const String kGetRequestEndpoint = '/loan-request';
