@@ -79,7 +79,7 @@ class RequestDetailScreen extends StatelessWidget {
             const SizedBox(height: 10),
             const HeaderTitle(title: "Ảnh chân dung"),
             const SizedBox(height: 10),
-            ImageCard(images: [post.portraitPhoto!]),
+            ImageCard(images: [post.portaitPhoto!]),
             const SizedBox(height: 10),
             const HeaderTitle(title: "Ảnh căn cước / CMND:"),
             const SizedBox(height: 10),

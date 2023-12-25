@@ -149,7 +149,7 @@ class _ItemPostState extends State<ItemPost> {
                               ),
                             ),
                             Text(
-                              widget.post.type.toString(),
+                              widget.post.type!.getStringVi(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTextStyles.bold12.copyWith(

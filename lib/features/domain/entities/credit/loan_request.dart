@@ -16,11 +16,11 @@ class LoanRequestEntity extends Equatable {
   final LoanReasonTypes? loanReasonType;
   final String? loanReason;
   final String? videoConfirmation;
-  final String? portraitPhoto;
+  final String? portaitPhoto;
   final String? idCardFrontPhoto;
   final String? idCardBackPhoto;
-  final String? senderBankAccountId;
-  final String? receiverBankAccountId;
+  final String? senderBankCardId;
+  final String? receiverBankCardId;
   final String? rejectedReason;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -39,11 +39,11 @@ class LoanRequestEntity extends Equatable {
     this.loanReasonType,
     this.loanReason,
     this.videoConfirmation,
-    this.portraitPhoto,
+    this.portaitPhoto,
     this.idCardFrontPhoto,
     this.idCardBackPhoto,
-    this.senderBankAccountId,
-    this.receiverBankAccountId,
+    this.senderBankCardId,
+    this.receiverBankCardId,
     this.rejectedReason,
     this.createdAt,
     this.updatedAt,
@@ -64,11 +64,11 @@ class LoanRequestEntity extends Equatable {
         loanReasonType,
         loanReason,
         videoConfirmation,
-        portraitPhoto,
+        portaitPhoto,
         idCardFrontPhoto,
         idCardBackPhoto,
-        senderBankAccountId,
-        receiverBankAccountId,
+        senderBankCardId,
+        receiverBankCardId,
         rejectedReason,
         createdAt,
         updatedAt,
@@ -88,11 +88,11 @@ class LoanRequestEntity extends Equatable {
     LoanReasonTypes? loanReasonType,
     String? loanReason,
     String? videoConfirmation,
-    String? portraitPhoto,
+    String? portaitPhoto,
     String? idCardFrontPhoto,
     String? idCardBackPhoto,
-    String? senderBankAccountId,
-    String? receiverBankAccountId,
+    String? senderBankCardId,
+    String? receiverBankCardId,
     String? rejectedReason,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -111,12 +111,11 @@ class LoanRequestEntity extends Equatable {
       loanReasonType: loanReasonType ?? this.loanReasonType,
       loanReason: loanReason ?? this.loanReason,
       videoConfirmation: videoConfirmation ?? this.videoConfirmation,
-      portraitPhoto: portraitPhoto ?? this.portraitPhoto,
+      portaitPhoto: portaitPhoto ?? this.portaitPhoto,
       idCardFrontPhoto: idCardFrontPhoto ?? this.idCardFrontPhoto,
       idCardBackPhoto: idCardBackPhoto ?? this.idCardBackPhoto,
-      senderBankAccountId: senderBankAccountId ?? this.senderBankAccountId,
-      receiverBankAccountId:
-          receiverBankAccountId ?? this.receiverBankAccountId,
+      senderBankCardId: senderBankCardId ?? this.senderBankCardId,
+      receiverBankCardId: receiverBankCardId ?? this.receiverBankCardId,
       rejectedReason: rejectedReason ?? this.rejectedReason,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,

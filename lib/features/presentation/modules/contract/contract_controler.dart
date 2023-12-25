@@ -70,14 +70,14 @@ class ContractController extends GetxController {
       loanReason:
           "Our loan products can be used for a variety of reasons, from covering unexpected expenses to financing major purchases. Whether you're looking to consolidate high-interest debt, make home improvements, pay for medical expenses, or cover educational costs, we offer loans with flexible repayment terms and competitive interest rates. Our loan officers are available to work with you to understand your specific needs and help you select the best loan option for your situation. Contact us today to learn more about our loan products and how we can help you achieve your financial goals.",
       videoConfirmation: "videoConfirmation",
-      portraitPhoto:
+      portaitPhoto:
           "https://img.freepik.com/premium-photo/anime-male-avatar_950633-956.jpg",
       idCardFrontPhoto:
           "https://congan.tiengiang.gov.vn/documents/2261410/29734928/image005.jpg/a25a6795-e346-4d5c-9fc8-ad977f68c258?t=1615901441563",
       idCardBackPhoto:
           "https://ims.baoyenbai.com.vn/NewsImg/3_2023/260633_5-3-mau-the.jpg",
-      senderBankAccountId: "senderBankAccountId",
-      receiverBankAccountId: "receiverBankAccountId",
+      senderBankCardId: "senderBankCardId",
+      receiverBankCardId: "receiverBankCardId",
       rejectedReason: "rejectedReason",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
