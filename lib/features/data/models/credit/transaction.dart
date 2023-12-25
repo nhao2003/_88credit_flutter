@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
 import 'package:_88credit_flutter/features/domain/entities/credit/transaction.dart';
+import 'package:_88credit_flutter/features/domain/enums/payment_methods.dart';
+import 'package:_88credit_flutter/features/domain/enums/transaction_status.dart';
 
 class TransactionModel extends TransactionEntity {
   const TransactionModel({
@@ -14,24 +18,22 @@ class TransactionModel extends TransactionEntity {
     super.embedData,
     super.createdAt,
     super.transactionAt,
-    super.deletedAt,
   });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
       id: json['id'],
       idThirdParty: json['id_third_party'],
-      status: json['status'],
+      status: TransactionStatus.fromString(json['status']),
       title: json['title'],
       description: json['description'],
       userId: json['user_id'],
-      amount: json['amount'],
-      paymentMethod: json['payment_method'],
+      amount: int.tryParse(json['amount'].toString()),
+      paymentMethod: PaymentMethods.fromString(json['payment_method']),
       items: json['items'],
       embedData: json['embed_data'],
-      createdAt: DateTime.parse(json['created_at']),
-      transactionAt: DateTime.parse(json['transaction_at']),
-      deletedAt: json['deleted_at'],
+      createdAt: DateTime.tryParse(json['created_at'] ?? ""),
+      transactionAt: DateTime.tryParse(json['transaction_at'] ?? ""),
     );
   }
 
@@ -49,7 +51,6 @@ class TransactionModel extends TransactionEntity {
       'embed_data': embedData,
       'created_at': createdAt,
       'transaction_at': transactionAt,
-      'deleted_at': deletedAt,
     };
   }
 
@@ -68,7 +69,6 @@ class TransactionModel extends TransactionEntity {
       embedData: entity.embedData,
       createdAt: entity.createdAt,
       transactionAt: entity.transactionAt,
-      deletedAt: entity.deletedAt,
     );
   }
 }

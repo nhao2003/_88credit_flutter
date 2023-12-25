@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:_88credit_flutter/core/constants/constants.dart';
 import 'package:_88credit_flutter/features/data/models/credit/loan_request.dart';
+import 'package:_88credit_flutter/features/data/models/credit/transaction.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/dio.dart';
 import '../../../../core/errors/exceptions.dart';
@@ -19,6 +22,7 @@ abstract class RequestRemoteDataSrc {
       int? page);
 
   Future<HttpResponse<void>> createRequest(LoanRequestModel request);
+  Future<HttpResponse<TransactionModel>> payLoanRequest(String id);
 }
 
 class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
@@ -118,5 +122,27 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
     return await DatabaseHelper().getRequests(url, client);
+  }
+
+  @override
+  Future<HttpResponse<TransactionModel>> payLoanRequest(String id) {
+    var url = '$apiUrl$kPayLoanRequestEndpoint/$id';
+    AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+    String? accessToken = localDataSrc.getAccessToken();
+    if (accessToken == null) {
+      throw const ApiException(
+          message: 'Access token is null', statusCode: 505);
+    }
+    return client
+        .patch(url,
+            options: Options(
+                sendTimeout: const Duration(seconds: 10),
+                headers: {'Authorization': 'Bearer $accessToken'}))
+        .then((value) {
+      return HttpResponse<TransactionModel>(
+          TransactionModel.fromJson(value.data["result"]), value);
+    }).catchError((error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    });
   }
 }

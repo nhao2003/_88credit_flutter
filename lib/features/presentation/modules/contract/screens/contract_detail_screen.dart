@@ -116,7 +116,7 @@ class ContractDetailScreen extends StatelessWidget {
                   title: "Thanh toán",
                   width: 43.wp,
                   isLoading: isLoading,
-                  onClick: () {},
+                  onClick: controller.payContractFee,
                 ),
               ],
             )

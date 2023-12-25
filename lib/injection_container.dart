@@ -4,6 +4,7 @@ import 'package:_88credit_flutter/features/domain/repository/media_repository.da
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_images.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_videos.dart';
 import 'package:dio/dio.dart';
@@ -345,6 +346,12 @@ Future<void> initializeDependencies() async {
     SignUpUseCase(
       sl<AuthenticationRepository>(),
       sl<ConversationRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<PayLoanRequestUsecase>(
+    PayLoanRequestUsecase(
+      sl<RequestRepository>(),
     ),
   );
 }
