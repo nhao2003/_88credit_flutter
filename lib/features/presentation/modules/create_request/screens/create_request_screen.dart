@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/credit_card.dart';
@@ -35,7 +36,9 @@ class CreateRequestScreen extends StatelessWidget {
                     name: controller.receiver.fullName,
                     avatar: controller.receiver.avatar,
                     buttonText: "Thay đổi",
-                    navToProfile: () {},
+                    navToProfile: () {
+                      Get.toNamed(AppRoutes.changeUser);
+                    },
                   ),
                 ),
 
