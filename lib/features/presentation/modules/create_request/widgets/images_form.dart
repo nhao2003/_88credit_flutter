@@ -1,8 +1,6 @@
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/picker_images.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 import '../create_request_controler.dart';
@@ -10,10 +8,10 @@ import '../create_request_controler.dart';
 class ImagesForm extends StatelessWidget {
   final bool isvisible;
 
-  ImagesForm({required this.isvisible, super.key});
+  const ImagesForm(
+      {required this.isvisible, required this.controller, super.key});
 
-  final CreateRequestController controller =
-      Get.find<CreateRequestController>();
+  final CreateRequestController controller;
 
   @override
   Widget build(BuildContext context) {

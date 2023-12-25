@@ -18,13 +18,12 @@ class CreateRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: MyAppbar(title: "Tạo yêu cầu vay"),
       body: ListView(
         children: [
           Form(
-            key: formKey,
+            key: controller.requestFormKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -33,9 +32,9 @@ class CreateRequestScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: UserCard(
                     title: "Người cho vay",
-                    name: controller.sender.fullName,
+                    name: controller.receiver.fullName,
                     navToProfile: () {},
-                    avatar: controller.sender.avatar,
+                    avatar: controller.receiver.avatar,
                   ),
                 ),
 
@@ -49,9 +48,15 @@ class CreateRequestScreen extends StatelessWidget {
                   ),
                 ),
                 // Thong tin bai dang
-                LoanInfoForm(isvisible: true),
+                LoanInfoForm(
+                  isvisible: true,
+                  controller: controller,
+                ),
                 // images
-                ImagesForm(isvisible: true),
+                ImagesForm(
+                  isvisible: true,
+                  controller: controller,
+                ),
                 // dang bai ============================================
                 Padding(
                   padding:
@@ -60,7 +65,7 @@ class CreateRequestScreen extends StatelessWidget {
                     onPressed: controller.isLoading.value
                         ? null
                         : () {
-                            controller.createPost();
+                            controller.createRequest();
                           },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.green,

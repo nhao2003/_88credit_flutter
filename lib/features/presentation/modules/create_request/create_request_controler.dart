@@ -1,13 +1,18 @@
 import 'dart:io';
-
+import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
+import '../../../../config/theme/app_color.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../../../injection_container.dart';
 import '../../../domain/entities/credit/user.dart';
+import '../../../domain/enums/loan_contract_request_status.dart';
 import '../../../domain/enums/loan_reason_types.dart';
 import '../../../domain/enums/role.dart';
 import '../../../domain/enums/user_status.dart';
+import '../../../domain/usecases/media/upload_images.dart';
 
 class CreateRequestController extends GetxController {
   RxBool isLoading = false.obs;
@@ -15,16 +20,104 @@ class CreateRequestController extends GetxController {
     isLoading.value = value;
   }
 
+  // create Request
+  final requestFormKey = GlobalKey<FormState>();
+
+  Future<void> createRequest() async {
+    toggleIsLoading(true);
+    CreateRequestsUseCase createRequestsUseCase = sl<CreateRequestsUseCase>();
+
+    if (!validatorForm()) return;
+    final LoanRequestEntity requestEntity = await getNewRequest();
+
+    final dataState = await createRequestsUseCase(params: requestEntity);
+
+    if (dataState is DataSuccess) {
+      toggleIsLoading(false);
+      Get.back();
+      Get.snackbar(
+        'Tạo yêu cầu thành công',
+        'Vào mục hợp đồng để xem yêu cầu của bạn',
+        backgroundColor: AppColors.green,
+        colorText: Colors.white,
+      );
+    } else {
+      toggleIsLoading(false);
+      Get.snackbar(
+        'Tạo yêu cầu thất bại',
+        '',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  bool validatorForm() {
+    return requestFormKey.currentState!.validate();
+  }
+
+  Future<LoanRequestEntity> getNewRequest() async {
+    if (portrait.value == null ||
+        idCardFrontPhoto.value == null ||
+        idCardBackPhoto.value == null) {
+      Get.snackbar(
+        'Vui lòng chọn ảnh',
+        '',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return Future.error('Vui lòng chọn ảnh');
+    }
+    List responses = await Future.wait([
+      uploadImages(portrait.value!),
+      uploadImages(idCardFrontPhoto.value!),
+      uploadImages(idCardBackPhoto.value!)
+    ]);
+
+    String portraitUrl = responses[0][0];
+    String idCardFrontPhotoUrl = responses[1][0];
+    String idCardBackPhotoUrl = responses[2][0];
+
+    return LoanRequestEntity(
+      receiver: receiver,
+      description: discription,
+      loanAmount: loanAmount,
+      interestRate: interestRate,
+      overdueInterestRate: overdueInterestRate,
+      loanTenureMonths: tenureMonths,
+      loanReasonType: loanReasonType.value,
+      loanReason: loanReason,
+      portaitPhoto: portraitUrl,
+      idCardFrontPhoto: idCardFrontPhotoUrl,
+      idCardBackPhoto: idCardBackPhotoUrl,
+      status: LoanContractRequestStatus.pending,
+      createdAt: DateTime.now(),
+    );
+  }
+
+  UploadImagesUseCase uploadImagessUseCase = sl<UploadImagesUseCase>();
+  Future<List<String>> uploadImages(File image) async {
+    final dataState = await uploadImagessUseCase(params: [image]);
+
+    if (dataState is DataSuccess) {
+      toggleIsLoading(false);
+      return dataState.data!;
+    } else {
+      toggleIsLoading(false);
+      return [];
+    }
+  }
+
   // vaule
-  final sender = UserEntity(
-    id: "fec2579d-fe55-4da6-874a-dd5bab669cf8",
-    status: UserStatus.notUpdate,
-    isIdentityVerified: false,
+  final receiver = UserEntity(
+    id: "3b05eb4a-346f-481c-a682-58e24e06d32e",
+    status: UserStatus.verified,
+    isIdentityVerified: true,
     role: Role.user,
-    email: "nhao@qa.team",
+    email: "user3@example.com",
     address: null,
-    firstName: "Minh",
-    lastName: "Phan",
+    firstName: "Alex",
+    lastName: "Johnson",
     gender: false,
     avatar: "https://picsum.photos/200/300?random=4",
     dob: null,
@@ -35,6 +128,7 @@ class CreateRequestController extends GetxController {
     bannedUtil: null,
     banReason: null,
   );
+
   final loanAmountTextController = TextEditingController();
   double? loanAmount;
   final interestRateTextController = TextEditingController();
@@ -53,15 +147,6 @@ class CreateRequestController extends GetxController {
 
   final discriptionTextController = TextEditingController();
   String? discription;
-
-  // create Post
-  Future<void> createPost() async {
-    toggleIsLoading(true);
-    Future.delayed(const Duration(seconds: 2), () {
-      toggleIsLoading(false);
-      Get.back();
-    });
-  }
 
   List<String> timeTypes = ["Tháng", "Năm"];
   RxString timeValue = 'Tháng'.obs;

@@ -68,19 +68,22 @@ class LoanRequestModel extends LoanRequestEntity {
   Map<String, dynamic> toJson() {
     return {
       'receiver_id': receiver!.id,
-      'description': description,
       'loan_amount': loanAmount,
+      'description': description,
       'interest_rate': interestRate,
       'overdue_interest_rate': overdueInterestRate,
       'loan_tenure_months': loanTenureMonths,
       'loan_reason_type': loanReasonType.toString(),
       'loan_reason': loanReason,
-      'video_confirmation': videoConfirmation,
+      //'video_confirmation': videoConfirmation,
+      'video_confirmation':
+          "https://res.cloudinary.com/devfdx8fs/video/upload/v1/videos/291533f8-3425-4b09-8860-d5197def01f2",
       'portait_photo': portaitPhoto,
       'id_card_front_photo': idCardFrontPhoto,
       'id_card_back_photo': idCardBackPhoto,
-      'sender_bank_account_id': senderBankCardId,
-      'receiver_bank_account_id': receiverBankCardId,
+      //'sender_bank_account_id': senderBankCardId,
+      "sender_bank_card_id": "71b5f5ff-b399-42f9-909a-420629baef9a"
+      //'receiver_bank_account_id': receiverBankCardId,
     };
   }
 

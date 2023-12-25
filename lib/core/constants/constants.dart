@@ -21,3 +21,4 @@ const String kGetBlogEndpoint = '/blogs';
 
 const String kGetRequestEndpoint = '/loan-request';
 const String kPayLoanRequestEndpoint = '/loan-request/lender-pay';
+const String kCreateRequestEndpoint = '/loan-request/create';
