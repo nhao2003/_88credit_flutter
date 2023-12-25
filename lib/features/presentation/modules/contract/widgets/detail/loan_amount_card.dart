@@ -46,9 +46,11 @@ class LoanAmountCard extends StatelessWidget {
                         style: AppTextStyles.regular12.colorEx(AppColors.black),
                       ),
                     ),
-                    Text(
-                      contractId!,
-                      style: AppTextStyles.bold12.colorEx(AppColors.black),
+                    Expanded(
+                      child: Text(
+                        contractId!,
+                        style: AppTextStyles.bold12.colorEx(AppColors.black),
+                      ),
                     ),
                   ],
                 ),

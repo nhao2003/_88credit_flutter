@@ -191,10 +191,12 @@ class PostBorrowCard extends StatelessWidget {
                                       .colorEx(AppColors.black),
                                 ),
                               ),
-                              Text(
-                                "${post.loanAmount} VNĐ",
-                                style: AppTextStyles.bold12
-                                    .colorEx(AppColors.black),
+                              Expanded(
+                                child: Text(
+                                  "${post.loanAmount} VNĐ",
+                                  style: AppTextStyles.bold12
+                                      .colorEx(AppColors.black),
+                                ),
                               ),
                             ],
                           ),

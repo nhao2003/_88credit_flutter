@@ -24,9 +24,11 @@ class InfoRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 2),
-        Text(
-          value,
-          style: AppTextStyles.bold12.colorEx(AppColors.black),
+        Expanded(
+          child: Text(
+            value,
+            style: AppTextStyles.bold12.colorEx(AppColors.black),
+          ),
         ),
       ],
     );
