@@ -12,10 +12,9 @@ import '../../../global_widgets/base_textfield.dart';
 class LoanInfoForm extends StatelessWidget {
   final bool isvisible;
 
-  LoanInfoForm({required this.isvisible, super.key});
+  LoanInfoForm({required this.isvisible, required this.controller, super.key});
 
-  final CreateRequestController controller =
-      Get.find<CreateRequestController>();
+  final CreateRequestController controller;
 
   final FocusNode _discriptionFocusNode = FocusNode();
   final FocusNode _moneyFocusNode = FocusNode();
@@ -78,8 +77,15 @@ class LoanInfoForm extends StatelessWidget {
               labelText: 'Số tiền cần vay (VNĐ)',
               hintText: "Nhập số tiền mong muốn",
               onSaved: (value) {
-                controller.loanAmount = double.parse(value!.trim());
+                try {
+                  controller.loanAmount = double.parse(value!.trim());
+                } catch (e) {
+                  controller.tenureMonths = 0;
+                }
               },
+              validator: (value) => (value!.trim().isNotEmpty)
+                  ? null
+                  : 'Số tiền không được rỗng'.tr,
             ),
             const SizedBox(height: 10),
             Text(
@@ -95,10 +101,17 @@ class LoanInfoForm extends StatelessWidget {
               hintText: "Nhập lãi suất mong muốn",
               controller: controller.interestRateTextController,
               onSaved: (value) {
-                controller.interestRate = double.parse(value!.trim());
+                try {
+                  controller.interestRate = double.parse(value!.trim());
+                } catch (e) {
+                  controller.tenureMonths = 0;
+                }
               },
               timeValue: controller.timeValue.value,
               onChangeTimeValue: controller.setTimeValue,
+              validator: (value) => (value!.trim().isNotEmpty)
+                  ? null
+                  : 'Lãi suất không được rỗng'.tr,
             ),
             const SizedBox(height: 10),
             Text(
@@ -114,10 +127,17 @@ class LoanInfoForm extends StatelessWidget {
               hintText: "Nhập lãi suất quá hạn",
               controller: controller.overdueInterestRateTextController,
               onSaved: (value) {
-                controller.overdueInterestRate = double.parse(value!.trim());
+                try {
+                  controller.overdueInterestRate = double.parse(value!.trim());
+                } catch (e) {
+                  controller.tenureMonths = 0;
+                }
               },
               timeValue: controller.timeValue.value,
               onChangeTimeValue: controller.setTimeValue,
+              validator: (value) => (value!.trim().isNotEmpty)
+                  ? null
+                  : 'Lãi suất quá hạn không được rỗng'.tr,
             ),
             const SizedBox(height: 10),
             Text(
@@ -133,10 +153,17 @@ class LoanInfoForm extends StatelessWidget {
               hintText: "Nhập kỳ hạn mong muốn",
               controller: controller.tenureMonthsTextController,
               onSaved: (value) {
-                controller.tenureMonths = int.parse(value!.trim());
+                try {
+                  controller.tenureMonths = int.parse(value!.trim());
+                } catch (e) {
+                  controller.tenureMonths = 0;
+                }
               },
               timeValue: controller.timeValue.value,
               onChangeTimeValue: controller.setTimeValue,
+              validator: (value) => (value!.trim().isNotEmpty)
+                  ? null
+                  : 'Kỳ hạn không được rỗng'.tr,
             ),
             const SizedBox(height: 10),
             Text(

@@ -1,6 +1,7 @@
 import 'package:_88credit_flutter/features/data/data_sources/remote/requests_remote_data_source.dart';
 import 'package:_88credit_flutter/features/data/repository/media_repository_impl.dart';
 import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_images.dart';
@@ -213,6 +214,12 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<GetRequestRejectedUseCase>(
     GetRequestRejectedUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<CreateRequestsUseCase>(
+    CreateRequestsUseCase(
       sl<RequestRepository>(),
     ),
   );

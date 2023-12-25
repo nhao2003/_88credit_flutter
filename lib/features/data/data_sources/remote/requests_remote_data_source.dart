@@ -2,10 +2,13 @@ import 'package:_88credit_flutter/core/constants/constants.dart';
 import 'package:_88credit_flutter/features/data/models/credit/loan_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/dio.dart';
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/resources/pair.dart';
 import '../../../../core/utils/query_builder.dart';
+import '../../../../injection_container.dart';
 import '../../../domain/enums/loan_contract_request_status.dart';
 import '../db/database_helper.dart';
+import '../local/authentication_local_data_source.dart';
 
 abstract class RequestRemoteDataSrc {
   Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getAllRequests(
@@ -25,8 +28,46 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
 
   @override
   Future<HttpResponse<void>> createRequest(LoanRequestModel request) async {
-    // TODO: implement createRequest
-    throw UnimplementedError();
+    const url = '$apiUrl$kCreateRequestEndpoint';
+    try {
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      // Gửi yêu cầu đến server
+      print(request.toJson());
+
+      final response = await client.post(
+        url,
+        options: Options(
+            sendTimeout: const Duration(seconds: 10),
+            headers: {'Authorization': 'Bearer $accessToken'}),
+        data: request.toJson(),
+      );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      // Nếu yêu cầu thành công, giải mã dữ liệu JSON
+      return HttpResponse(null, response);
+    } on DioException catch (e) {
+      throw ApiException(
+        message: e.message ?? "Error when create post",
+        statusCode: e.response?.statusCode ?? 505,
+      );
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
   }
 
   @override

@@ -20,3 +20,4 @@ const String kCreateOrderEndpoint = '/membership-package/check-out';
 const String kGetBlogEndpoint = '/blogs';
 
 const String kGetRequestEndpoint = '/loan-request';
+const String kCreateRequestEndpoint = '/loan-request/create';
