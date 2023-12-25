@@ -33,8 +33,9 @@ class CreateRequestScreen extends StatelessWidget {
                   child: UserCard(
                     title: "Người cho vay",
                     name: controller.receiver.fullName,
-                    navToProfile: () {},
                     avatar: controller.receiver.avatar,
+                    buttonText: "Thay đổi",
+                    navToProfile: () {},
                   ),
                 ),
 

@@ -8,6 +8,7 @@ import '../../../../../../config/values/asset_image.dart';
 class UserCard extends StatelessWidget {
   const UserCard({
     this.avatar,
+    this.buttonText,
     required this.title,
     required this.name,
     required this.navToProfile,
@@ -18,6 +19,7 @@ class UserCard extends StatelessWidget {
   final String title;
   final String name;
   final Function navToProfile;
+  final String? buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,7 @@ class UserCard extends StatelessWidget {
                   )),
             ),
             child: Text(
-              "Xem hồ sơ",
+              buttonText ?? "Xem hồ sơ",
               style: AppTextStyles.medium14.colorEx(
                 AppColors.green,
               ),

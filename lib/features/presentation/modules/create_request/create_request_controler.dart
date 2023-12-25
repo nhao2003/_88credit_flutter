@@ -178,4 +178,21 @@ class CreateRequestController extends GetxController {
       return File('');
     }
   }
+
+  // video
+  Rx<File?> video = Rxn(null);
+  Future<File> videoFromCamera() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickVideo(source: ImageSource.camera);
+    if (image != null) {
+      return File(image.path);
+    } else {
+      return File('');
+    }
+  }
+
+  Future<File> videoFromGallery() async {
+    final pickedImages = await _picker.pickVideo(source: ImageSource.gallery);
+    return File(pickedImages!.path);
+  }
 }

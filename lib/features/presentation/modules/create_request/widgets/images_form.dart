@@ -1,5 +1,6 @@
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/picker_images.dart';
+import 'package:_88credit_flutter/features/presentation/global_widgets/picker_video.dart';
 import 'package:flutter/material.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
@@ -81,6 +82,25 @@ class ImagesForm extends StatelessWidget {
               imgFromGallery: () {
                 controller.imgFromGallery().then((value) {
                   controller.idCardBackPhoto.value = value;
+                });
+              },
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Video minh chứng",
+              style: AppTextStyles.bold14.colorEx(Colors.black),
+            ),
+            const SizedBox(height: 10),
+            PickerVideo(
+              videoFile: controller.video,
+              videoFromCamera: () async {
+                controller.videoFromCamera().then((value) {
+                  controller.video.value = value;
+                });
+              },
+              videoFromGallery: () async {
+                controller.videoFromGallery().then((value) {
+                  controller.video.value = value;
                 });
               },
             ),
