@@ -1,7 +1,9 @@
 import 'package:_88credit_flutter/features/data/data_sources/remote/requests_remote_data_source.dart';
+import 'package:_88credit_flutter/features/data/data_sources/remote/user_remote_data_source.dart';
 import 'package:_88credit_flutter/features/data/repository/media_repository_impl.dart';
 import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_request.dart';
+import 'package:_88credit_flutter/features/domain/repository/user_repository.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_borrowing_contracts.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_lending_contracts.dart';
@@ -46,6 +48,7 @@ import 'features/data/repository/conversation_repository_impl.dart';
 import 'features/data/repository/post_repository_impl.dart';
 import 'features/data/repository/provinces_repository_impl.dart';
 import 'features/data/repository/request_repository_impl.dart';
+import 'features/data/repository/user_remote_repository_impl.dart';
 import 'features/domain/repository/authentication_repository.dart';
 import 'features/domain/repository/conversation_repository.dart';
 import 'features/domain/repository/provinces_repository.dart';
@@ -61,6 +64,7 @@ import 'features/domain/usecases/post/remote/get_posts_borrowing.dart';
 import 'features/domain/usecases/post/remote/get_posts_hided.dart';
 import 'features/domain/usecases/post/remote/get_posts_lending.dart';
 import 'features/domain/usecases/post/remote/get_posts_pending.dart';
+import 'features/domain/usecases/user/search_user_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -386,6 +390,24 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<PayLoanRequestUsecase>(
     PayLoanRequestUsecase(
       sl<RequestRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<UserRemoteDataSrc>(
+    UserRemoteDataSrcImpl(
+      sl<Dio>(),
+    ),
+  );
+
+  sl.registerSingleton<UserRepository>(
+    UserRepositoryImpl(
+      sl<UserRemoteDataSrc>(),
+    ),
+  );
+
+  sl.registerSingleton<SearchUserUseCase>(
+    SearchUserUseCase(
+      sl<UserRepository>(),
     ),
   );
 }

@@ -25,4 +25,6 @@ const String kCreateRequestEndpoint = '/loan-request/create';
 const String kConfirmRequestEndpoint = '/loan-request/lender-accept';
 const String kRejectRequestEndpoint = '/loan-request/reject-request';
 
+const String kGetUserEndpoint = '/user';
+
 const String kGetContractEndpoint = '/contract';

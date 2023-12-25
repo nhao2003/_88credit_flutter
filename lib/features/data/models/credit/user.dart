@@ -32,7 +32,7 @@ class UserModel extends UserEntity {
       isIdentityVerified: json['is_identity_verified'],
       role: Role.parse(json['role']),
       email: json['email'],
-      address: json['address'] == null
+      address: json['address'] != null
           ? AddressEntity.fromJson(json['address'])
           : null,
       firstName: json['first_name'],
@@ -43,14 +43,14 @@ class UserModel extends UserEntity {
       phone: json['phone'],
       banReason: json['ban_reason'],
       lastActiveAt: DateTime.parse(json['last_active_at']),
-      createdAt: json['created_at'] == null
+      createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,
-      updatedAt: json['updated_at'] == null
+      updatedAt: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'])
           : null,
-      bannedUtil: json['banned_util'] == null
-          ? DateTime.parse(json['banned_util'])
+      bannedUtil: json['banned_util'] != null
+          ? DateTime.tryParse(json['banned_util'] ?? "")
           : null,
     );
   }

@@ -1,13 +1,16 @@
 import 'dart:io';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/user/search_user_usecase.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_videos.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../config/theme/app_color.dart';
 import '../../../../core/resources/data_state.dart';
+import '../../../../core/resources/pair.dart';
 import '../../../../injection_container.dart';
+import '../../../data/models/credit/user.dart';
 import '../../../domain/entities/credit/user.dart';
 import '../../../domain/enums/loan_contract_request_status.dart';
 import '../../../domain/enums/loan_reason_types.dart';
@@ -212,5 +215,12 @@ class CreateRequestController extends GetxController {
   Future<File> videoFromGallery() async {
     final pickedImages = await _picker.pickVideo(source: ImageSource.gallery);
     return File(pickedImages!.path);
+  }
+
+  final SearchUserUseCase searchUserUseCase = sl<SearchUserUseCase>();
+
+  Future<Pair<int, List<UserModel>>> searchUser(String value, int page) async {
+    final dataState = await searchUserUseCase.call(params: Pair(value, page));
+    return dataState;
   }
 }

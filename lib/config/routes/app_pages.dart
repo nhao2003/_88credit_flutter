@@ -1,47 +1,49 @@
-import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_detail_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/screens/request_detail_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/create_request/create_request_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/create_request_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/splash/splash_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/splash/splash_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/change_user_screen.dart';
+
+import '../../features/presentation/modules/contract/screens/contract_detail_screen.dart';
+import '../../features/presentation/modules/contract/screens/request_detail_screen.dart';
+import '../../features/presentation/modules/create_request/create_request_binding.dart';
+import '../../features/presentation/modules/create_request/screens/create_request_screen.dart';
+import '../../features/presentation/modules/splash/splash_binding.dart';
+import '../../features/presentation/modules/splash/splash_screen.dart';
 import 'package:get/get.dart';
-import 'package:_88credit_flutter/features/presentation/modules/blogs/blog_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/blogs/screens/blog_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/contract_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/screens/contract_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post/post_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post/screens/post_screen.dart';
-import 'package:_88credit_flutter/config/routes/app_routes.dart';
-import 'package:_88credit_flutter/features/presentation/modules/account/account_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/account/screens/account_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/bottom_bar/bottom_bar_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/bottom_bar/bottom_bar_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/chat/chat_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/chat/screens/chat_detail_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/chat/screens/chat_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/create_post/create_post_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/create_post/screens/create_post_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/home/home_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/home/screens/home_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/login/login_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/login/screens/forgot_password.dart';
-import 'package:_88credit_flutter/features/presentation/modules/login/screens/login_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/login/screens/register_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/login/screens/update_info_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/login/screens/update_password.dart';
-import 'package:_88credit_flutter/features/presentation/modules/notification/notification_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/notification/screens/notification_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post_detail/post_detail_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post_detail/screens/post_detail_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post_management/post_management_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/post_management/screens/post_management_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/purchase/purchase_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/purchase/screens/purchase_choose_plan.dart';
-import 'package:_88credit_flutter/features/presentation/modules/search/screens/search_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/search/search_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/setting/screens/setting_screen.dart';
-import 'package:_88credit_flutter/features/presentation/modules/setting/setting_binding.dart';
-import 'package:_88credit_flutter/features/presentation/modules/user_profile/screens/user_profile_screen.dart';
+import '../../features/presentation/modules/blogs/blog_binding.dart';
+import '../../features/presentation/modules/blogs/screens/blog_screen.dart';
+import '../../features/presentation/modules/contract/contract_binding.dart';
+import '../../features/presentation/modules/contract/screens/contract_screen.dart';
+import '../../features/presentation/modules/post/post_binding.dart';
+import '../../features/presentation/modules/post/screens/post_screen.dart';
+import '../../config/routes/app_routes.dart';
+import '../../features/presentation/modules/account/account_binding.dart';
+import '../../features/presentation/modules/account/screens/account_screen.dart';
+import '../../features/presentation/modules/bottom_bar/bottom_bar_binding.dart';
+import '../../features/presentation/modules/bottom_bar/bottom_bar_screen.dart';
+import '../../features/presentation/modules/chat/chat_binding.dart';
+import '../../features/presentation/modules/chat/screens/chat_detail_screen.dart';
+import '../../features/presentation/modules/chat/screens/chat_screen.dart';
+import '../../features/presentation/modules/create_post/create_post_binding.dart';
+import '../../features/presentation/modules/create_post/screens/create_post_screen.dart';
+import '../../features/presentation/modules/home/home_binding.dart';
+import '../../features/presentation/modules/home/screens/home_screen.dart';
+import '../../features/presentation/modules/login/login_binding.dart';
+import '../../features/presentation/modules/login/screens/forgot_password.dart';
+import '../../features/presentation/modules/login/screens/login_screen.dart';
+import '../../features/presentation/modules/login/screens/register_screen.dart';
+import '../../features/presentation/modules/login/screens/update_info_screen.dart';
+import '../../features/presentation/modules/login/screens/update_password.dart';
+import '../../features/presentation/modules/notification/notification_binding.dart';
+import '../../features/presentation/modules/notification/screens/notification_screen.dart';
+import '../../features/presentation/modules/post_detail/post_detail_binding.dart';
+import '../../features/presentation/modules/post_detail/screens/post_detail_screen.dart';
+import '../../features/presentation/modules/post_management/post_management_binding.dart';
+import '../../features/presentation/modules/post_management/screens/post_management_screen.dart';
+import '../../features/presentation/modules/purchase/purchase_binding.dart';
+import '../../features/presentation/modules/purchase/screens/purchase_choose_plan.dart';
+import '../../features/presentation/modules/search/screens/search_screen.dart';
+import '../../features/presentation/modules/search/search_binding.dart';
+import '../../features/presentation/modules/setting/screens/setting_screen.dart';
+import '../../features/presentation/modules/setting/setting_binding.dart';
+import '../../features/presentation/modules/user_profile/screens/user_profile_screen.dart';
 import '../../features/presentation/modules/purchase/screens/purchase_screen.dart';
 import '../../features/presentation/modules/user_profile/user_profile_binding.dart';
 
@@ -179,6 +181,11 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.createRequest,
       page: () => CreateRequestScreen(),
+      binding: CreateRequestBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.changeUser,
+      page: () => ChangeUserScreen(),
       binding: CreateRequestBinding(),
     ),
   ];
