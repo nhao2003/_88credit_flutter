@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/media/upload_videos.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -59,7 +60,8 @@ class CreateRequestController extends GetxController {
   Future<LoanRequestEntity> getNewRequest() async {
     if (portrait.value == null ||
         idCardFrontPhoto.value == null ||
-        idCardBackPhoto.value == null) {
+        idCardBackPhoto.value == null ||
+        video.value == null) {
       Get.snackbar(
         'Vui lòng chọn ảnh',
         '',
@@ -71,12 +73,14 @@ class CreateRequestController extends GetxController {
     List responses = await Future.wait([
       uploadImages(portrait.value!),
       uploadImages(idCardFrontPhoto.value!),
-      uploadImages(idCardBackPhoto.value!)
+      uploadImages(idCardBackPhoto.value!),
+      uploadVideos(video.value!),
     ]);
 
     String portraitUrl = responses[0][0];
     String idCardFrontPhotoUrl = responses[1][0];
     String idCardBackPhotoUrl = responses[2][0];
+    String videoUrl = responses[3][0];
 
     return LoanRequestEntity(
       receiver: receiver,
@@ -90,6 +94,7 @@ class CreateRequestController extends GetxController {
       portaitPhoto: portraitUrl,
       idCardFrontPhoto: idCardFrontPhotoUrl,
       idCardBackPhoto: idCardBackPhotoUrl,
+      videoConfirmation: videoUrl,
       status: LoanContractRequestStatus.pending,
       createdAt: DateTime.now(),
     );
@@ -98,6 +103,19 @@ class CreateRequestController extends GetxController {
   UploadImagesUseCase uploadImagessUseCase = sl<UploadImagesUseCase>();
   Future<List<String>> uploadImages(File image) async {
     final dataState = await uploadImagessUseCase(params: [image]);
+
+    if (dataState is DataSuccess) {
+      toggleIsLoading(false);
+      return dataState.data!;
+    } else {
+      toggleIsLoading(false);
+      return [];
+    }
+  }
+
+  UploadVideosUseCase uploadVideosUseCase = sl<UploadVideosUseCase>();
+  Future<List<String>> uploadVideos(File image) async {
+    final dataState = await uploadVideosUseCase(params: [image]);
 
     if (dataState is DataSuccess) {
       toggleIsLoading(false);

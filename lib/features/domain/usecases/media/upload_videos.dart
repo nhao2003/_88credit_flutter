@@ -3,14 +3,14 @@ import 'package:_88credit_flutter/features/domain/repository/media_repository.da
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecases/usecase.dart';
 
-class UploadImagesUseCase
+class UploadVideosUseCase
     implements UseCase<DataState<List<String>>, List<File>> {
   final MediaRepository _postRepository;
 
-  UploadImagesUseCase(this._postRepository);
+  UploadVideosUseCase(this._postRepository);
 
   @override
   Future<DataState<List<String>>> call({List<File>? params}) {
-    return _postRepository.uploadMedia(params!, "image");
+    return _postRepository.uploadMedia(params!, 'video');
   }
 }

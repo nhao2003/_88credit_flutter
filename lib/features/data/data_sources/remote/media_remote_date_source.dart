@@ -6,7 +6,7 @@ import 'package:retrofit/dio.dart';
 import '../../../../core/errors/exceptions.dart';
 
 abstract class MediaRemoteDataSource {
-  Future<HttpResponse<List<String>>> uploadMedia(List<File> media);
+  Future<HttpResponse<List<String>>> uploadMedia(List<File> media, String typeMedia);
 }
 
 class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
@@ -31,7 +31,7 @@ class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
   }
 
   @override
-  Future<HttpResponse<List<String>>> uploadMedia(List<File> media) async {
+  Future<HttpResponse<List<String>>> uploadMedia(List<File> media, String typeMedia) async {
     const url = '$apiUrl/media/upload';
     try {
       final formData = FormData.fromMap({
@@ -55,7 +55,12 @@ class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
       }
 
       final data = response.data;
-      List<String> result = List<String>.from(data["result"]['images']);
+      List<String> result = [];
+      if(typeMedia == "image") {
+        result = List<String>.from(data["result"]['images']);
+      } else {
+        result = List<String>.from(data["result"]['videos']); 
+      }
 
       return HttpResponse(result, response);
     } on ApiException {

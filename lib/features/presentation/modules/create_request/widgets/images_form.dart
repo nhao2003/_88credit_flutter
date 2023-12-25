@@ -94,12 +94,12 @@ class ImagesForm extends StatelessWidget {
             PickerVideo(
               videoFile: controller.video,
               videoFromCamera: () async {
-                controller.videoFromCamera().then((value) {
+                await controller.videoFromCamera().then((value) {
                   controller.video.value = value;
                 });
               },
               videoFromGallery: () async {
-                controller.videoFromGallery().then((value) {
+                await controller.videoFromGallery().then((value) {
                   controller.video.value = value;
                 });
               },

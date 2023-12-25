@@ -12,21 +12,21 @@ class MediaRepositoryImpl implements MediaRepository {
   MediaRepositoryImpl(this.mediaDataSource);
 
   @override
-  Future<DataState<List<String>>> uploadMedia(List<File> media) async {
+  Future<DataState<List<String>>> uploadMedia(List<File> media, String typeMedia) async {
     try {
-      final response = await mediaDataSource.uploadMedia(media);
+      final response = await mediaDataSource.uploadMedia(media, typeMedia);
       if (response.response.statusCode == HttpStatus.ok) {
-        return Future.value(DataSuccess(response.data));
+        return DataSuccess(response.data);
       } else {
-        return Future.value(DataFailed(DioException(
+        return DataFailed(DioException(
           error: response.response.statusMessage,
           response: response.response,
           type: DioExceptionType.badResponse,
           requestOptions: response.response.requestOptions,
-        )));
+        ));
       }
-    } catch (e) {
-      return Future.value(DataFailed(e as DioException));
+    } on DioException catch (e) {
+      return DataFailed(e);
     }
   }
 }

@@ -75,9 +75,7 @@ class LoanRequestModel extends LoanRequestEntity {
       'loan_tenure_months': loanTenureMonths,
       'loan_reason_type': loanReasonType.toString(),
       'loan_reason': loanReason,
-      //'video_confirmation': videoConfirmation,
-      'video_confirmation':
-          "https://res.cloudinary.com/devfdx8fs/video/upload/v1/videos/291533f8-3425-4b09-8860-d5197def01f2",
+      'video_confirmation': videoConfirmation,
       'portait_photo': portaitPhoto,
       'id_card_front_photo': idCardFrontPhoto,
       'id_card_back_photo': idCardBackPhoto,

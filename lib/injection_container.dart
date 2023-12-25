@@ -5,6 +5,7 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_images.dart';
+import 'package:_88credit_flutter/features/domain/usecases/media/upload_videos.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/blog_data_source.dart';
@@ -174,6 +175,12 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<UploadImagesUseCase>(
     UploadImagesUseCase(
+      sl<MediaRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<UploadVideosUseCase>(
+    UploadVideosUseCase(
       sl<MediaRepository>(),
     ),
   );

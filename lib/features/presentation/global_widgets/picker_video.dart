@@ -35,9 +35,7 @@ class _PickerVideoState extends State<PickerVideo> {
   }
 
   void initVideoController() {
-    print("adadadasdasdasd");
     if (widget.videoFile.value == null) return;
-    print("avxcvxcvxcvxcvxcvxcvxcv");
     _controller =
         VideoPlayerController.file(File(widget.videoFile.value!.path));
 
