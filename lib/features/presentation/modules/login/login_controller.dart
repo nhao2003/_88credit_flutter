@@ -15,7 +15,7 @@ import '../../../../core/resources/data_state.dart';
 import '../../../../core/service/device_service.dart';
 
 class LoginController extends GetxController {
-  var loginEmail = TextEditingController(text: "nhao@qa.team");
+  var loginEmail = TextEditingController(text: "user@example.com");
   var loginPassword = TextEditingController(text: "haonek2003");
   var forgotPassEmail = TextEditingController();
   var registerEmail = TextEditingController();

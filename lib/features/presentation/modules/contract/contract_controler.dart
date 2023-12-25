@@ -8,6 +8,7 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_req
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/reject_request.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -143,6 +144,30 @@ class ContractController extends GetxController {
     return Pair(1, [getMockContract()]);
   }
 
+  Future<void> rejectRequest(LoanRequestEntity request, String reason) async {
+    // reject request => call api reject
+    RejectRequestUseCase rejectRequestUseCase = sl<RejectRequestUseCase>();
+    final dataState = await rejectRequestUseCase(params: Pair(request, reason));
+
+    if (dataState is DataSuccess) {
+      Get.snackbar(
+        'Từ chối yêu cầu thành công',
+        'Xem thông tin trong mục từ chối',
+        backgroundColor: AppColors.green,
+        colorText: Colors.white,
+      );
+      Get.back();
+      Get.back();
+    } else {
+      Get.snackbar(
+        'Từ chối yêu cầu thất bại',
+        '',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
   Future<void> acceptRequest(LoanRequestEntity request) async {
     // confirm request => call api confirm
     bool isConfirmed = await confirmRequest(request);
@@ -198,10 +223,6 @@ class ContractController extends GetxController {
 
   void navToProfile(UserEntity user) {
     Get.toNamed(AppRoutes.userProfile, arguments: user);
-  }
-
-  void handleRejectRequest(LoanRequestEntity request, String reason) {
-    // _rejectRequestUseCase(params: request);
   }
 
   void navToContractDetail(ContractEntity contract) {

@@ -11,6 +11,8 @@ abstract class RequestRepository {
   Future<DataState<void>> createRequest(LoanRequestEntity request);
 
   Future<DataState<void>> confirmRequest(LoanRequestEntity request);
+  Future<DataState<void>> rejectRequest(
+      LoanRequestEntity request, String reason);
   // management
   Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsApproved(
       int? page);

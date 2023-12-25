@@ -171,4 +171,28 @@ class RequestRepositoryImpl implements RequestRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<void>> rejectRequest(
+      LoanRequestEntity request, String reason) async {
+    try {
+      final httpResponse = await _dataSrc.rejectRequest(
+          LoanRequestModel.fromEntity(request), reason);
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+            error: httpResponse.response.statusMessage,
+            response: httpResponse.response,
+            type: DioExceptionType.badResponse,
+            requestOptions: httpResponse.response.requestOptions,
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }

@@ -20,16 +20,15 @@ class DialogCancel extends StatelessWidget {
   final TextEditingController textController = TextEditingController();
 
   final RxBool isLoading = false.obs;
+  String reason = "";
 
   void onCancel() {
     Get.back();
     textController.clear();
   }
 
-  void onAccept() {
-    handleRejectRequest(request, textController.text);
-    Get.back();
-    Get.back();
+  void onAccept() async {
+    await handleRejectRequest(request, reason);
     textController.clear();
   }
 
@@ -63,7 +62,7 @@ class DialogCancel extends StatelessWidget {
               labelText: 'Lý do hủy',
               hintText: 'Mô tả lý do hủy',
               onSaved: (value) {
-                handleRejectRequest(request, value!);
+                reason = value!;
               },
               validator: (value) =>
                   (value!.trim().isNotEmpty) ? null : 'Mô tả không được rỗng',

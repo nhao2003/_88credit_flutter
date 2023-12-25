@@ -14,6 +14,7 @@ import 'package:_88credit_flutter/features/presentation/modules/contract/widgets
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/video_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../domain/enums/loan_contract_request_status.dart';
 import '../../../global_widgets/my_appbar.dart';
 import '../../post_detail/widgets/description_card.dart';
 import '../widgets/detail/received_amount_item.dart';
@@ -32,7 +33,7 @@ class RequestDetailScreen extends StatelessWidget {
       context: context,
       builder: (ctx) => DialogCancel(
         request: post,
-        handleRejectRequest: controller.handleRejectRequest,
+        handleRejectRequest: controller.rejectRequest,
       ),
     );
   }
@@ -87,6 +88,13 @@ class RequestDetailScreen extends StatelessWidget {
               title: "Mô tả lý do vay",
               description: post.loanReason!,
             ),
+            const SizedBox(height: 20),
+            if (post.status == LoanContractRequestStatus.rejected &&
+                post.rejectedReason != null)
+              DescriptionCard(
+                title: "Lý do hủy yêu cầu",
+                description: post.rejectedReason!,
+              ),
             const SizedBox(height: 10),
             const HeaderTitle(title: "Ảnh chân dung"),
             const SizedBox(height: 10),
@@ -105,28 +113,29 @@ class RequestDetailScreen extends StatelessWidget {
                 ],
               ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BaseButton(
-                  title: "Từ chối",
-                  colorButton: AppColors.red,
-                  width: 43.wp,
-                  isLoading: isLoading,
-                  onClick: () {
-                    showCommentForm(context);
-                  },
-                ),
-                BaseButton(
-                  title: "Đồng ý",
-                  width: 43.wp,
-                  isLoading: isLoading,
-                  onClick: () {
-                    controller.acceptRequest(post);
-                  },
-                ),
-              ],
-            )
+            if (post.status == LoanContractRequestStatus.pending)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BaseButton(
+                    title: "Từ chối",
+                    colorButton: AppColors.red,
+                    width: 43.wp,
+                    isLoading: isLoading,
+                    onClick: () {
+                      showCommentForm(context);
+                    },
+                  ),
+                  BaseButton(
+                    title: "Đồng ý",
+                    width: 43.wp,
+                    isLoading: isLoading,
+                    onClick: () {
+                      controller.acceptRequest(post);
+                    },
+                  ),
+                ],
+              )
           ],
         ),
       ),

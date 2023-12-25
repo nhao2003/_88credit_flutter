@@ -155,7 +155,10 @@ class RequestItem extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Text(
-                              "Xác nhận",
+                              request.status ==
+                                      LoanContractRequestStatus.pending
+                                  ? "Xác nhận"
+                                  : "Chi tiết",
                               style: AppTextStyles.semiBold12.colorEx(
                                 AppColors.green,
                               ),

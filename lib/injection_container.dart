@@ -52,6 +52,7 @@ import 'features/domain/usecases/authentication/sign_in.dart';
 import 'features/domain/usecases/authentication/sign_out.dart';
 import 'features/domain/usecases/contract/get_loan_requests_approved.dart';
 import 'features/domain/usecases/contract/get_loan_requests_pending.dart';
+import 'features/domain/usecases/contract/reject_request.dart';
 import 'features/domain/usecases/post/remote/create_post.dart';
 import 'features/domain/usecases/post/remote/get_posts_borrowing.dart';
 import 'features/domain/usecases/post/remote/get_posts_hided.dart';
@@ -239,6 +240,11 @@ Future<void> initializeDependencies() async {
     ),
   );
 
+  sl.registerSingleton<RejectRequestUseCase>(
+    RejectRequestUseCase(
+      sl<RequestRepository>(),
+    ),
+  );
   //MembershipPackage=====================================================
   // datasource
   sl.registerSingleton<MembershipPackageRemoteDataSrc>(

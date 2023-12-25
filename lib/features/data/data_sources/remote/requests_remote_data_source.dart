@@ -21,6 +21,8 @@ abstract class RequestRemoteDataSrc {
 
   Future<HttpResponse<void>> createRequest(LoanRequestModel request);
   Future<HttpResponse<void>> confirmRequest(LoanRequestModel request);
+  Future<HttpResponse<void>> rejectRequest(
+      LoanRequestModel request, String rejectedReason);
   Future<HttpResponse<TransactionModel>> payLoanRequest(String id);
 }
 
@@ -167,6 +169,51 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
             sendTimeout: const Duration(seconds: 10),
             headers: {'Authorization': 'Bearer $accessToken'}),
       );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      // Nếu yêu cầu thành công, giải mã dữ liệu JSON
+      return HttpResponse(null, response);
+    } on DioException catch (e) {
+      throw ApiException(
+        message: e.message ?? "Error when create post",
+        statusCode: e.response?.statusCode ?? 505,
+      );
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
+  }
+
+  @override
+  Future<HttpResponse<void>> rejectRequest(
+      LoanRequestModel request, String rejectedReason) async {
+    String url = '$apiUrl$kRejectRequestEndpoint/${request.id}';
+    print(url);
+    try {
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      // Gửi yêu cầu đến server
+
+      final response = await client.patch(url,
+          options: Options(
+              sendTimeout: const Duration(seconds: 10),
+              headers: {'Authorization': 'Bearer $accessToken'}),
+          data: {
+            "rejected_reason": rejectedReason,
+          });
 
       if (response.statusCode != 200) {
         throw ApiException(
