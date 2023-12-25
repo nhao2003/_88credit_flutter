@@ -20,6 +20,7 @@ class Assets {
   static const String creditCard = '$imagePath/credit-card.png';
   static const String contract = '$imagePath/contract.png';
   static const String defaultImage = '$imagePath/default-image.jpg';
+  static const String addVideo = '$imagePath/add-video.png';
 
   // icon
   static const String home = '$iconPath/home (1).png';
