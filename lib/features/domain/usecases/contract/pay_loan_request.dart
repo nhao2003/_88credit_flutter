@@ -1,5 +1,4 @@
 import 'package:_88credit_flutter/core/resources/data_state.dart';
-import 'package:_88credit_flutter/features/domain/entities/credit/transaction.dart';
 import 'package:_88credit_flutter/features/domain/repository/request_repository.dart';
 import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import '../../../../core/usecases/usecase.dart';

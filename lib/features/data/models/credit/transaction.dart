@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:_88credit_flutter/features/domain/entities/credit/transaction.dart';
 import 'package:_88credit_flutter/features/domain/enums/payment_methods.dart';
 import 'package:_88credit_flutter/features/domain/enums/transaction_status.dart';

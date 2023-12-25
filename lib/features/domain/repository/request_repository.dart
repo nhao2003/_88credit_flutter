@@ -9,6 +9,8 @@ abstract class RequestRepository {
       String? idUser, int? page);
   Future<DataState<LoanRequestEntity>> getSingleRequest(String id);
   Future<DataState<void>> createRequest(LoanRequestEntity request);
+
+  Future<DataState<void>> confirmRequest(LoanRequestEntity request);
   // management
   Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsApproved(
       int? page);

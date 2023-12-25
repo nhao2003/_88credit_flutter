@@ -3,13 +3,15 @@ import 'package:_88credit_flutter/core/resources/pair.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_approved.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/injection_container.dart';
-import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../config/theme/app_color.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../domain/entities/credit/user.dart';
 import '../../../domain/enums/role.dart';
@@ -139,6 +141,59 @@ class ContractController extends GetxController {
     //   return Pair(1, []);
     // }
     return Pair(1, [getMockContract()]);
+  }
+
+  Future<void> acceptRequest(LoanRequestEntity request) async {
+    // confirm request => call api confirm
+    bool isConfirmed = await confirmRequest(request);
+    if (!isConfirmed) return;
+    // create new contract
+    ContractEntity contract = createContractFromRequest(request);
+    // navigate to contract detail
+    navToContractDetail(contract);
+  }
+
+  Future<bool> confirmRequest(LoanRequestEntity request) async {
+    ConfirmRequestUseCase confirmRequestUseCase = sl<ConfirmRequestUseCase>();
+    final dataState = await confirmRequestUseCase(params: request);
+
+    if (dataState is DataSuccess) {
+      Get.snackbar(
+        'Xác nhận yêu cầu thành công',
+        'Đã tạo hợp đồng',
+        backgroundColor: AppColors.green,
+        colorText: Colors.white,
+      );
+      return true;
+    } else {
+      Get.snackbar(
+        'Xác nhận yêu cầu thất bại',
+        '',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return false;
+    }
+  }
+
+  ContractEntity createContractFromRequest(LoanRequestEntity request) {
+    return ContractEntity(
+      id: "123123123",
+      loanContractRequestId: request.id,
+      contractTemplateId: "contractTemplateId",
+      lender: request.receiver,
+      borrower: request.sender,
+      lenderBankAccountId: request.receiverBankCardId,
+      borrowerBankAccountId: request.senderBankCardId,
+      loanReasonType: request.loanReasonType,
+      loanReason: request.loanReason,
+      amount: request.loanAmount,
+      interestRate: request.interestRate,
+      tenureInMonths: request.loanTenureMonths,
+      overdueInterestRate: request.overdueInterestRate,
+      createdAt: DateTime.now(),
+      expiredAt: DateTime.now().add(const Duration(days: 30)),
+    );
   }
 
   void navToProfile(UserEntity user) {

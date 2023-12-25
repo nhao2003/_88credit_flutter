@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:_88credit_flutter/core/constants/constants.dart';
 import 'package:_88credit_flutter/features/data/models/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/data/models/credit/transaction.dart';
@@ -22,6 +20,7 @@ abstract class RequestRemoteDataSrc {
       int? page);
 
   Future<HttpResponse<void>> createRequest(LoanRequestModel request);
+  Future<HttpResponse<void>> confirmRequest(LoanRequestModel request);
   Future<HttpResponse<TransactionModel>> payLoanRequest(String id);
 }
 
@@ -144,5 +143,49 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     }).catchError((error) {
       throw ApiException(message: error.toString(), statusCode: 505);
     });
+  }
+
+  @override
+  Future<HttpResponse<void>> confirmRequest(LoanRequestModel request) async {
+    String url = '$apiUrl$kConfirmRequestEndpoint/${request.id}';
+    print(url);
+    try {
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      // Gửi yêu cầu đến server
+      print(request.toJson());
+
+      final response = await client.patch(
+        url,
+        options: Options(
+            sendTimeout: const Duration(seconds: 10),
+            headers: {'Authorization': 'Bearer $accessToken'}),
+      );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      // Nếu yêu cầu thành công, giải mã dữ liệu JSON
+      return HttpResponse(null, response);
+    } on DioException catch (e) {
+      throw ApiException(
+        message: e.message ?? "Error when create post",
+        statusCode: e.response?.statusCode ?? 505,
+      );
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
   }
 }
