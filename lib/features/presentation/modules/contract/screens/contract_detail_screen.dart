@@ -132,7 +132,9 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
                     title: "Thanh toán",
                     width: 43.wp,
                     isLoading: isLoading,
-                    onClick: controller.payContractFee,
+                    onClick: () async => {
+                      await controller.payContractFee(),
+                    },
                   ),
                 ],
               )

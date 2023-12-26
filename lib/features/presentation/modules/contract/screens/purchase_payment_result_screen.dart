@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
-import 'package:_88credit_flutter/features/presentation/modules/purchase/purchase_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../../config/values/asset_image.dart';
 import '../../../../domain/entities/credit/transaction.dart';
+import '../../../../domain/enums/transaction_status.dart';
 
 class PurchasePaymentResultScreen extends StatefulWidget {
-  const PurchasePaymentResultScreen({super.key});
+  FlutterZaloPayStatus status;
+  PurchasePaymentResultScreen(this.status, {super.key});
 
   @override
   State<PurchasePaymentResultScreen> createState() =>
@@ -46,8 +49,6 @@ class _PurchasePaymentResultScreenState
     );
   }
 
-  PurchaseController controller = Get.find<PurchaseController>();
-
   @override
   Widget build(BuildContext context) {
     bool isBack = Get.arguments is String == false;
@@ -58,7 +59,7 @@ class _PurchasePaymentResultScreenState
       ),
       backgroundColor: AppColors.white,
       body: FutureBuilder<TransactionEntity?>(
-          future: controller.getTransaction(Get.arguments),
+          future: Future.value(TransactionEntity()),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -100,7 +101,7 @@ class _PurchasePaymentResultScreenState
                 ),
               ));
             }
-            //TransactionEntity transaction = snapshot.data!;
+            TransactionEntity transaction = snapshot.data!;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -109,27 +110,28 @@ class _PurchasePaymentResultScreenState
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          // Container(
-                          //   padding: const EdgeInsets.only(
-                          //       right: 20, left: 20, bottom: 20),
-                          //   margin: const EdgeInsets.only(
-                          //       top: 8.0, left: 20.0, right: 20.0),
-                          //   child: Image.asset(transaction.isPaid
-                          //       ? Assets.purchaseSuccess
-                          //       : Assets.purchaseFailed),
-                          // ),
-                          // Text(
-                          //   'Giao dịch${transaction.isPaid ? "" : " không"} thành công',
-                          //   style: AppTextStyles.bold18,
-                          // ),
-                          // Text(
-                          //   "${transaction.amount.formatNumberWithCommas}đ",
-                          //   style: AppTextStyles.bold18.colorEx(
-                          //     transaction.isPaid
-                          //         ? AppColors.green
-                          //         : AppColors.red,
-                          //   ),
-                          // ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                right: 20, left: 20, bottom: 20),
+                            margin: const EdgeInsets.only(
+                                top: 8.0, left: 20.0, right: 20.0),
+                            child: Image.asset(
+                                widget.status == FlutterZaloPayStatus.success
+                                    ? Assets.purchaseSuccess
+                                    : Assets.purchaseFailed),
+                          ),
+                          Text(
+                            'Giao dịch${transaction.status == TransactionStatus.success ? "" : " không"} thành công',
+                            style: AppTextStyles.bold18,
+                          ),
+                          Text(
+                            "${200000}đ",
+                            style: AppTextStyles.bold18.colorEx(
+                              transaction.status == TransactionStatus.success
+                                  ? AppColors.green
+                                  : AppColors.red,
+                            ),
+                          ),
                           Container(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),

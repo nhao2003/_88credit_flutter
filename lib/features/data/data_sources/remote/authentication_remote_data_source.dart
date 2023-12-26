@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:_88credit_flutter/features/data/data_sources/local/authentication_local_data_source.dart';
-import 'package:_88credit_flutter/injection_container.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/utils/typedef.dart';
+import '../../../../injection_container.dart';
+import '../../models/credit/user.dart';
+import '../local/authentication_local_data_source.dart';
 
 abstract class AuthenRemoteDataSrc {
   Future<HttpResponse<Map<String, String>>> login(
@@ -19,6 +20,7 @@ abstract class AuthenRemoteDataSrc {
       String email, String password, String code);
   Future<HttpResponse<void>> resendOTP(String email);
   Future<HttpResponse<String>> refreshToken(String refreshToken);
+  Future<HttpResponse<UserModel>> getMe();
 }
 
 class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
@@ -43,7 +45,7 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
   @override
   Future<HttpResponse<Map<String, String>>> login(
       String email, String password) async {
-    const url = '$apiUrl$kSignIn';
+    const url = '$apiAppUrl$kSignIn';
     try {
       // Gửi yêu cầu đăng nhập
       final response = await client.post(
@@ -80,14 +82,27 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
 
   @override
   Future<HttpResponse<String>> refreshToken(String refreshToken) async {
-    const url = '$apiUrl$kRefreshToken';
+    const url = '$apiAppUrl$kRefreshToken';
     try {
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
       String? refreshToken = localDataSrc.getRefreshToken();
+
+      if (refreshToken == null) {
+        throw const ApiException(
+            message: 'Refresh token is null', statusCode: 505);
+      }
+
       // get new access token
-      final response = await client.get(url, data: {
-        "refresh_token": refreshToken,
-      });
+      final response = await client.get(
+        url,
+        data: {"refresh_token": refreshToken},
+        options: Options(
+          receiveTimeout: const Duration(
+            milliseconds: 5000,
+          ), // Tăng thời gian chờ (milliseconds)
+        ),
+      );
+
       if (response.statusCode != 200) {
         throw ApiException(
           message: response.data,
@@ -117,11 +132,15 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
 
   @override
   Future<HttpResponse<void>> signOut() async {
-    const url = '$apiUrl$kSignOut';
+    const url = '$apiAppUrl$kSignOut';
     try {
       // get access token
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
       String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
       // Gửi yêu cầu đăng xuat
       final response = await client.post(
         url,
@@ -151,7 +170,7 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
   @override
   Future<HttpResponse<String>> signUp(
       String email, String password, String confirmPassword) async {
-    const url = '$apiUrl$kSignUp';
+    const url = '$apiAppUrl$kSignUp';
     try {
       // Gửi yêu cầu đăng ky
       final response = await client.post(
@@ -187,5 +206,34 @@ class AuthenRemoteDataSrcImpl implements AuthenRemoteDataSrc {
     } catch (error) {
       throw ApiException(message: error.toString(), statusCode: 505);
     }
+  }
+
+  @override
+  Future<HttpResponse<UserModel>> getMe() {
+    const url = '$apiAppUrl$kGetMe';
+    AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+    String? accessToken = localDataSrc.getAccessToken();
+    if (accessToken == null) {
+      throw const ApiException(
+          message: 'Access token is null', statusCode: 505);
+    }
+    return client
+        .get(url,
+            options: Options(headers: {'Authorization': 'Bearer $accessToken'}))
+        .then((response) {
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      // Nếu yêu cầu thành công, giải mã dữ liệu JSON
+      final DataMap data = DataMap.from(response.data["result"]);
+
+      UserModel user = UserModel.fromJson(data);
+
+      return HttpResponse(user, response);
+    });
   }
 }

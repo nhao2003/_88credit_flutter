@@ -11,8 +11,10 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_req
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_sent.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/reject_request.dart';
+import 'package:_88credit_flutter/features/presentation/modules/contract/screens/purchase_payment_result_screen.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:get/get.dart';
 import '../../../../config/theme/app_color.dart';
 import '../../../../core/resources/data_state.dart';
@@ -194,7 +196,18 @@ class ContractController extends GetxController {
 
   PayLoanRequestUsecase get _payLoanRequestUsecase =>
       sl<PayLoanRequestUsecase>();
-  void payContractFee() {
-    _payLoanRequestUsecase(params: "52e5d5f0-7cb8-49de-be39-67936e115db9");
+  Future<void> payContractFee() async {
+    final value = await _payLoanRequestUsecase.call(
+        params: "52e5d5f0-7cb8-49de-be39-67936e115db9");
+    FlutterZaloPayStatus status;
+    print("value: $value");
+    if (value is DataSuccess) {
+      status = value.data ?? FlutterZaloPayStatus.failed;
+    } else {
+      status = FlutterZaloPayStatus.failed;
+    }
+    if (status == FlutterZaloPayStatus.success) {
+      Get.offAndToNamed(AppRoutes.bottomBar);
+    }
   }
 }

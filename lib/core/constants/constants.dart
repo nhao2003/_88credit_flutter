@@ -1,8 +1,9 @@
-const ipConfig = "192.168.1.71";
+const ipConfig = "192.168.137.1";
+const bool isProduction = false;
 const String apiDevUrl = "http://$ipConfig:8000/api/v1";
 const String apiProductionUrl = "https://nha-gia-re-server.onrender.com/api/v1";
 const String apiUrl = apiDevUrl;
-
+const String apiAppUrl = isProduction ? apiProductionUrl : apiDevUrl;
 const String kSignIn = '/auth/sign-in';
 const String kSignUp = '/auth/sign-up';
 const String kChangePassword = '/auth/change-password';
@@ -28,3 +29,4 @@ const String kRejectRequestEndpoint = '/loan-request/reject-request';
 const String kGetUserEndpoint = '/user';
 
 const String kGetContractEndpoint = '/contract';
+const String kGetMe = '/me';
