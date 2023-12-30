@@ -1,8 +1,5 @@
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/core/usecases/usecase.dart';
-import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
-
-import '../../../../core/errors/failures.dart';
 import '../../../../core/resources/pair.dart';
 import '../../../data/models/credit/user.dart';
 import '../../repository/user_repository.dart';

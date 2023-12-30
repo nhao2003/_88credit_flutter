@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/dio.dart';
-
 import '../../../../core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/resources/pair.dart';
-import '../../../../core/utils/typedef.dart';
 import '../../models/credit/user.dart';
 
 abstract class UserRemoteDataSrc {

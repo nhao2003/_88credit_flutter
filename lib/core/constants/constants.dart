@@ -1,7 +1,7 @@
-const ipConfig = "192.168.137.1";
+const ipConfig = "192.168.139.225";
 const bool isProduction = false;
 const String apiDevUrl = "http://$ipConfig:8000/api/v1";
-const String apiProductionUrl = "https://nha-gia-re-server.onrender.com/api/v1";
+const String apiProductionUrl = "https://eight8credit.onrender.com/api/v1";
 const String apiUrl = apiDevUrl;
 const String apiAppUrl = isProduction ? apiProductionUrl : apiDevUrl;
 const String kSignIn = '/auth/sign-in';
