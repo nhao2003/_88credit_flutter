@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:_88credit_flutter/features/domain/entities/credit/bank.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/user/search_user_usecase.dart';
@@ -16,6 +17,7 @@ import '../../../domain/enums/loan_contract_request_status.dart';
 import '../../../domain/enums/loan_reason_types.dart';
 import '../../../domain/enums/role.dart';
 import '../../../domain/enums/user_status.dart';
+import '../../../domain/usecases/bank/get_all_banks.dart';
 import '../../../domain/usecases/media/upload_images.dart';
 
 class CreateRequestController extends GetxController {
@@ -221,10 +223,19 @@ class CreateRequestController extends GetxController {
     return File(pickedImages!.path);
   }
 
+  // user list
   final SearchUserUseCase searchUserUseCase = sl<SearchUserUseCase>();
 
   Future<Pair<int, List<UserModel>>> searchUser(String value, int page) async {
     final dataState = await searchUserUseCase.call(params: Pair(value, page));
+    return dataState;
+  }
+
+  // bank list
+  final GetAllbankUseCase getAllbankUseCase = sl<GetAllbankUseCase>();
+
+  Future<Pair<int, List<BankEntity>>> searchBank(String value, int page) async {
+    final dataState = await getAllbankUseCase.call(params: Pair(value, page));
     return dataState;
   }
 }

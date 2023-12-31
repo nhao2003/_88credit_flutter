@@ -63,7 +63,9 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   child: CreditCard(
                     bankName: "Agribank",
                     bankNumber: "1233456789",
-                    hanleChooseCard: () {},
+                    hanleChooseCard: () {
+                      Get.toNamed(AppRoutes.bankList);
+                    },
                     buttonText: "Đổi thẻ",
                   ),
                 ),

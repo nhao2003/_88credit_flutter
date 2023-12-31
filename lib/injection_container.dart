@@ -1,7 +1,11 @@
+import 'package:_88credit_flutter/features/data/data_sources/remote/bank_remote_data_source.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/requests_remote_data_source.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/user_remote_data_source.dart';
+import 'package:_88credit_flutter/features/data/repository/bank_repository_impl.dart';
 import 'package:_88credit_flutter/features/data/repository/media_repository_impl.dart';
+import 'package:_88credit_flutter/features/domain/repository/bank_repository.dart';
 import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
+import 'package:_88credit_flutter/features/domain/usecases/bank/get_all_banks.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_request.dart';
 import 'package:_88credit_flutter/features/domain/repository/user_repository.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
@@ -408,6 +412,25 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<SearchUserUseCase>(
     SearchUserUseCase(
       sl<UserRepository>(),
+    ),
+  );
+
+  // bank =====================================================
+  sl.registerSingleton<BankRemoteDataSrc>(
+    BankRemoteDataSrcImpl(
+      sl<Dio>(),
+    ),
+  );
+
+  sl.registerSingleton<BankRepository>(
+    BankRepositoryImpl(
+      sl<BankRemoteDataSrc>(),
+    ),
+  );
+
+  sl.registerSingleton<GetAllbankUseCase>(
+    GetAllbankUseCase(
+      sl<BankRepository>(),
     ),
   );
 }

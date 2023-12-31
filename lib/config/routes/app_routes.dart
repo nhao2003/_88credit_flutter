@@ -28,6 +28,8 @@ abstract class AppRoutes {
     return '/contract/request/$id';
   }
 
+  static const bankList = '/contract/bankList';
+
   static const changeUser = '/changeUser';
 
   static const contractDetail = '/contract/detail/:id';

@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/bank_list_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/change_user_screen.dart';
 
 import '../../features/presentation/modules/contract/screens/contract_detail_screen.dart';
@@ -118,12 +119,12 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.userProfile,
-      page: () => UserProfileScreen(),
+      page: () => const UserProfileScreen(),
       binding: UserProfileBinding(),
     ),
     GetPage(
       name: AppRoutes.userProfile,
-      page: () => UserProfileScreen(),
+      page: () => const UserProfileScreen(),
       binding: UserProfileBinding(),
     ),
     GetPage(
@@ -158,7 +159,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.contractDetail,
-      page: () => ContractDetailScreen(),
+      page: () => const ContractDetailScreen(),
       binding: ContractBinding(),
     ),
     GetPage(
@@ -168,12 +169,17 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.createRequest,
-      page: () => CreateRequestScreen(),
+      page: () => const CreateRequestScreen(),
       binding: CreateRequestBinding(),
     ),
     GetPage(
       name: AppRoutes.changeUser,
-      page: () => ChangeUserScreen(),
+      page: () => const ChangeUserScreen(),
+      binding: CreateRequestBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.bankList,
+      page: () => const BankListScreen(),
       binding: CreateRequestBinding(),
     ),
   ];
