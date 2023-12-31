@@ -12,8 +12,8 @@ import '../../../../domain/entities/credit/transaction.dart';
 import '../../../../domain/enums/transaction_status.dart';
 
 class PurchasePaymentResultScreen extends StatefulWidget {
-  FlutterZaloPayStatus status;
-  PurchasePaymentResultScreen(this.status, {super.key});
+  final FlutterZaloPayStatus status;
+  const PurchasePaymentResultScreen(this.status, {super.key});
 
   @override
   State<PurchasePaymentResultScreen> createState() =>
@@ -59,7 +59,7 @@ class _PurchasePaymentResultScreenState
       ),
       backgroundColor: AppColors.white,
       body: FutureBuilder<TransactionEntity?>(
-          future: Future.value(TransactionEntity()),
+          future: Future.value(const TransactionEntity()),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());

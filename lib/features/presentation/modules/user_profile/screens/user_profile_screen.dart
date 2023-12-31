@@ -10,6 +10,7 @@ import 'package:_88credit_flutter/features/presentation/modules/user_profile/use
 import 'package:_88credit_flutter/features/presentation/modules/user_profile/widgets/button_follow.dart';
 import 'package:_88credit_flutter/features/presentation/modules/user_profile/widgets/tab_profile.dart';
 import 'package:_88credit_flutter/features/presentation/modules/user_profile/widgets/verify_component.dart';
+import 'package:get/get.dart';
 
 import '../../../../../config/values/asset_image.dart';
 
@@ -128,10 +129,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                           const SizedBox(height: 5),
                           // button follow
-                          ButtonFollow(
-                            isFollow: false,
-                            isMe: controller.isYourPost,
-                          )
+                          Obx(
+                            () => ButtonFollow(
+                              isFollow: controller.isFollow.value,
+                              isMe: controller.isYourPost,
+                              onTap: controller.toggleIsFollow,
+                            ),
+                          ),
                         ],
                       ),
                     )

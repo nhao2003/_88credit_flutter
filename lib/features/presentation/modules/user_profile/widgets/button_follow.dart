@@ -4,15 +4,20 @@ import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 
 class ButtonFollow extends StatelessWidget {
-  const ButtonFollow({required this.isFollow, required this.isMe, super.key});
+  const ButtonFollow(
+      {required this.isFollow,
+      required this.isMe,
+      required this.onTap,
+      super.key});
 
   final bool isFollow;
   final bool isMe;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 10),

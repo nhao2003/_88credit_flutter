@@ -7,6 +7,7 @@ import '../../../../global_widgets/base_button.dart';
 import '../../../../global_widgets/base_textfield.dart';
 import '../../../../global_widgets/header_title.dart';
 
+// ignore: must_be_immutable
 class DialogCancel extends StatelessWidget {
   DialogCancel({
     required this.request,

@@ -14,11 +14,16 @@ class UserProfileController extends GetxController {
   int numberFollower = 332;
   int numberFollowing = 94;
 
-  bool isFollow = false;
+  RxBool isFollow = false.obs;
 
   late bool isYourPost = false;
 
   RxString numOfPosts = "-".obs;
+
+  void toggleIsFollow() {
+    isFollow.value = !isFollow.value;
+    update();
+  }
 
   GetUserIdUseCase get _getUserIdUseCase => sl<GetUserIdUseCase>();
   @override

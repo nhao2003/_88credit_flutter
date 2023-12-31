@@ -4,6 +4,7 @@ import 'package:_88credit_flutter/core/extensions/string_ex.dart';
 import 'package:_88credit_flutter/features/domain/usecases/address/get_province_names.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/resources/data_state.dart';
+import '../../../../core/resources/pair.dart';
 import '../../../../injection_container.dart';
 import '../../../domain/usecases/post/remote/get_posts.dart';
 
@@ -48,27 +49,28 @@ class MySearchController extends GetxController {
   /// hint text int textField
   final String hintText = "Mua bán văn phòng";
 
+  RxList<PostEntity> searchPosts = <PostEntity>[].obs;
   final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
-  Future<List<PostEntity>> getAllPosts() async {
-    final dataState = await _getPostsUseCase();
+  Future<Pair<int, List<PostEntity>>> getAllPosts({int? page = 1}) async {
+    final dataState = await _getPostsUseCase(
+      params: Pair(null, page),
+    );
 
-    return [];
-
-    // if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
-    //   return dataState.data!;
-    // } else if (dataState is DataFailed) {
-    //   return [];
-    // } else {
-    //   return [];
-    // }
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!;
+    } else if (dataState is DataFailed) {
+      return Pair(1, []);
+    } else {
+      return Pair(1, []);
+    }
   }
 
   final RxList<String> searchStrings = <String>[].obs;
 
   Future<RxList<String>> getSearchString() async {
-    List<PostEntity> datas = await getAllPosts();
+    Pair<int, List<PostEntity>> datas = await getAllPosts();
     searchStrings.clear();
-    for (var data in datas) {
+    for (var data in datas.second) {
       searchStrings.add(data.title!);
     }
     return searchStrings;
