@@ -111,7 +111,10 @@ class UserEntity extends Equatable {
     );
   }
 
-  String getFullName() {
+  String? getFullName() {
+    if (firstName == "" || lastName == "") {
+      return null;
+    }
     return "$firstName $lastName";
   }
 }

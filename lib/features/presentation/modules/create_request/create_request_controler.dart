@@ -86,7 +86,7 @@ class CreateRequestController extends GetxController {
     String videoUrl = responses[3][0];
 
     return LoanRequestEntity(
-      receiver: receiver,
+      receiver: receiver.value,
       description: discription,
       loanAmount: loanAmount,
       interestRate: interestRate,
@@ -130,7 +130,7 @@ class CreateRequestController extends GetxController {
   }
 
   // vaule
-  UserEntity receiver = UserEntity(
+  Rx<UserEntity> receiver = UserEntity(
     id: "3b05eb4a-346f-481c-a682-58e24e06d32e",
     status: UserStatus.verified,
     isIdentityVerified: true,
@@ -148,7 +148,11 @@ class CreateRequestController extends GetxController {
     updatedAt: null,
     bannedUtil: null,
     banReason: null,
-  );
+  ).obs;
+
+  changeReceiver(UserEntity user) {
+    receiver.value = user;
+  }
 
   final loanAmountTextController = TextEditingController();
   double? loanAmount;

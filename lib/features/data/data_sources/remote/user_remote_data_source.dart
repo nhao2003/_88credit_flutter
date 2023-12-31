@@ -3,6 +3,7 @@ import 'package:retrofit/dio.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/resources/pair.dart';
+import '../../../../core/utils/query_builder.dart';
 import '../../models/credit/user.dart';
 
 abstract class UserRemoteDataSrc {
@@ -19,9 +20,15 @@ class UserRemoteDataSrcImpl extends UserRemoteDataSrc {
   Future<HttpResponse<Pair<int, List<UserModel>>>> searchUsers(
       String query, int page) {
     String url = '$apiUrl$kGetUserEndpoint';
+
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(page);
+
     if (query.trim().isNotEmpty) {
       url += '?search=$query';
     }
+
+    url += queryBuilder.build();
     try {
       return client.get(url).then((response) {
         List<UserModel> users = [];

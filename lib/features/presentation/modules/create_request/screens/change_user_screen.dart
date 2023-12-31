@@ -1,9 +1,11 @@
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:_88credit_flutter/features/presentation/modules/create_request/create_request_controler.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../config/values/asset_image.dart';
 import '../../../../../core/resources/pair.dart';
 import '../../../../data/models/credit/user.dart';
 
@@ -60,8 +62,7 @@ class _ChangeUserScreenState extends State<ChangeUserScreen> {
     }
   }
 
-  final CreateRequestController createRequestController =
-      Get.put(CreateRequestController());
+  final CreateRequestController createRequestController = Get.find();
   Future<Pair<int, List<UserModel>>> getListUser(int page) async {
     assert(page >= 1);
     final data =
@@ -109,14 +110,32 @@ class _ChangeUserScreenState extends State<ChangeUserScreen> {
                 itemBuilder: (context, index) {
                   if (index < listUser.length) {
                     return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(listUser[index].avatar ?? ""),
-                      ),
-                      title: Text(listUser[index].fullName),
-                      subtitle: Text(listUser[index].phone ?? ""),
+                      leading: listUser[index].avatar != null
+                          ? ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(50)),
+                              child: CachedNetworkImage(
+                                imageUrl: listUser[index].avatar!,
+                                fit: BoxFit.cover,
+                                width: 50,
+                                height: 50,
+                                errorWidget: (context, _, __) {
+                                  return const CircleAvatar(
+                                    radius: 25,
+                                    backgroundImage: AssetImage(Assets.avatar2),
+                                  );
+                                },
+                              ),
+                            )
+                          : const CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage(Assets.avatar2),
+                            ),
+                      title: Text(listUser[index].getFullName() ?? "unknown"),
+                      subtitle: Text(listUser[index].email ?? ""),
                       onTap: () {
-                        Get.back(result: listUser[index]);
+                        createRequestController.changeReceiver(listUser[index]);
+                        Get.back();
                       },
                     );
                   } else {

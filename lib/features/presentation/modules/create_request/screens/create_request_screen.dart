@@ -20,7 +20,7 @@ class CreateRequestScreen extends StatefulWidget {
 }
 
 class _CreateRequestScreenState extends State<CreateRequestScreen> {
-  final CreateRequestController controller = CreateRequestController();
+  final CreateRequestController controller = Get.find();
 
   @override
   void initState() {
@@ -42,16 +42,19 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                  child: UserCard(
-                    title: "Người cho vay",
-                    name: controller.receiver.fullName,
-                    avatar: controller.receiver.avatar,
-                    buttonText: "Thay đổi",
-                    navToProfile: () {
-                      Get.toNamed(AppRoutes.changeUser);
-                    },
+                Obx(
+                  () => Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 10),
+                    child: UserCard(
+                      title: "Người cho vay",
+                      name: controller.receiver.value.fullName,
+                      avatar: controller.receiver.value.avatar,
+                      buttonText: "Thay đổi",
+                      navToProfile: () {
+                        Get.toNamed(AppRoutes.changeUser);
+                      },
+                    ),
                   ),
                 ),
 
