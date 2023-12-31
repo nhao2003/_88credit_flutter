@@ -130,7 +130,7 @@ class CreateRequestController extends GetxController {
   }
 
   // vaule
-  final receiver = UserEntity(
+  UserEntity receiver = UserEntity(
     id: "3b05eb4a-346f-481c-a682-58e24e06d32e",
     status: UserStatus.verified,
     isIdentityVerified: true,

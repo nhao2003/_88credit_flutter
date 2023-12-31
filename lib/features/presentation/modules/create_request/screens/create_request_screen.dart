@@ -12,10 +12,23 @@ import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 import '../create_request_controler.dart';
 
-class CreateRequestScreen extends StatelessWidget {
-  CreateRequestScreen({super.key});
+class CreateRequestScreen extends StatefulWidget {
+  const CreateRequestScreen({super.key});
 
+  @override
+  State<CreateRequestScreen> createState() => _CreateRequestScreenState();
+}
+
+class _CreateRequestScreenState extends State<CreateRequestScreen> {
   final CreateRequestController controller = CreateRequestController();
+
+  @override
+  void initState() {
+    if (Get.arguments != null) {
+      controller.receiver = Get.arguments;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

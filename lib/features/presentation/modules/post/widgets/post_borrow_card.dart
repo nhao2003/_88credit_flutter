@@ -29,7 +29,7 @@ class PostBorrowCard extends StatelessWidget {
   }
 
   onTapAvatar() {
-    Get.toNamed(AppRoutes.userProfile);
+    Get.toNamed(AppRoutes.userProfile, arguments: post.user);
   }
 
   Widget _buildStars() {

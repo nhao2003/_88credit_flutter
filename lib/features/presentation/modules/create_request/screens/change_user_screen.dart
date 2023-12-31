@@ -8,9 +8,10 @@ import '../../../../../core/resources/pair.dart';
 import '../../../../data/models/credit/user.dart';
 
 class ChangeUserScreen extends StatefulWidget {
-  ChangeUserScreen({super.key});
+  const ChangeUserScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChangeUserScreenState createState() => _ChangeUserScreenState();
 }
 
@@ -19,7 +20,7 @@ class _ChangeUserScreenState extends State<ChangeUserScreen> {
   int currentPage = 1;
   int maxPages = 1; // Set your maximum number of pages
   bool isLoading = false;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   RxString searchQuery = "".obs;
   @override
   void initState() {
@@ -85,7 +86,7 @@ class _ChangeUserScreenState extends State<ChangeUserScreen> {
               },
               decoration: InputDecoration(
                 hintText: "Tìm kiếm",
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

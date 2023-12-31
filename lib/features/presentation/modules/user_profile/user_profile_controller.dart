@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../../../config/routes/app_routes.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/resources/pair.dart';
 import '../../../../injection_container.dart';
@@ -9,6 +10,17 @@ import '../../../domain/usecases/post/remote/get_posts.dart';
 
 class UserProfileController extends GetxController {
   UserEntity? user = Get.arguments;
+
+  GetUserIdUseCase get _getUserIdUseCase => sl<GetUserIdUseCase>();
+  @override
+  onInit() async {
+    super.onInit();
+    isYourPost = (user!.id == await _getUserIdUseCase());
+  }
+
+  void navToCreateRequest() {
+    Get.toNamed(AppRoutes.createRequest, arguments: user);
+  }
 
   int numberPost = 122;
   int numberFollower = 332;
@@ -23,13 +35,6 @@ class UserProfileController extends GetxController {
   void toggleIsFollow() {
     isFollow.value = !isFollow.value;
     update();
-  }
-
-  GetUserIdUseCase get _getUserIdUseCase => sl<GetUserIdUseCase>();
-  @override
-  onInit() async {
-    super.onInit();
-    isYourPost = (user!.id == await _getUserIdUseCase());
   }
 
   // get all posts

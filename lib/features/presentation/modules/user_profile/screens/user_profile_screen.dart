@@ -206,6 +206,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           const TabProfile(),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          controller.navToCreateRequest();
+        },
+        backgroundColor: AppColors.green,
+        extendedPadding:
+            const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+        label: Text(
+          "Tạo yêu cầu",
+          style: AppTextStyles.bold12.colorEx(
+            AppColors.white,
+          ),
+        ),
+      ),
     );
   }
 }
