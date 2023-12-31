@@ -157,7 +157,6 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
   @override
   Future<HttpResponse<void>> confirmRequest(LoanRequestModel request) async {
     String url = '$apiUrl$kConfirmRequestEndpoint/${request.id}';
-    print(url);
     try {
       // get access token
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
@@ -202,7 +201,6 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
   Future<HttpResponse<void>> rejectRequest(
       LoanRequestModel request, String rejectedReason) async {
     String url = '$apiUrl$kRejectRequestEndpoint/${request.id}';
-    print(url);
     try {
       // get access token
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
@@ -249,9 +247,6 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     // get userId
     AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
     String? userId = localDataSrc.getUserIdFromToken();
-    if (userId == null) {
-      throw const ApiException(message: 'userId is null', statusCode: 505);
-    }
 
     int pageQuery = page ?? 1;
     QueryBuilder queryBuilder = QueryBuilder();
@@ -275,9 +270,6 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     // get userId
     AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
     String? userId = localDataSrc.getUserIdFromToken();
-    if (userId == null) {
-      throw const ApiException(message: 'userId is null', statusCode: 505);
-    }
 
     int pageQuery = page ?? 1;
     QueryBuilder queryBuilder = QueryBuilder();
@@ -300,9 +292,6 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     // get userId
     AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
     String? userId = localDataSrc.getUserIdFromToken();
-    if (userId == null) {
-      throw const ApiException(message: 'userId is null', statusCode: 505);
-    }
 
     int pageQuery = page ?? 1;
     QueryBuilder queryBuilder = QueryBuilder();

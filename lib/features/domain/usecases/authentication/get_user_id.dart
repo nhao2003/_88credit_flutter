@@ -8,7 +8,7 @@ class GetUserIdUseCase implements UseCase<String?, void> {
 
   @override
   Future<String?> call({void params}) async {
-    final userId = await _authenRepository.getUserId();
+    final userId = _authenRepository.getUserId();
     if (userId is DataSuccess) {
       return userId.data!;
     } else {

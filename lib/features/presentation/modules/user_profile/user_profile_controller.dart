@@ -4,6 +4,7 @@ import '../../../../core/resources/pair.dart';
 import '../../../../injection_container.dart';
 import '../../../domain/entities/credit/post.dart';
 import '../../../domain/entities/credit/user.dart';
+import '../../../domain/usecases/authentication/get_user_id.dart';
 import '../../../domain/usecases/post/remote/get_posts.dart';
 
 class UserProfileController extends GetxController {
@@ -15,22 +16,32 @@ class UserProfileController extends GetxController {
 
   bool isFollow = false;
 
+  late bool isYourPost = false;
+
   RxString numOfPosts = "-".obs;
 
+  GetUserIdUseCase get _getUserIdUseCase => sl<GetUserIdUseCase>();
+  @override
+  onInit() async {
+    super.onInit();
+    isYourPost = (user!.id == await _getUserIdUseCase());
+  }
+
   // get all posts
+  RxList<PostEntity> userPosts = <PostEntity>[].obs;
   final GetPostsUseCase _getPostsUseCase = sl<GetPostsUseCase>();
-  Future<List<PostEntity>> getAllPosts({int? page = 1}) async {
+  Future<Pair<int, List<PostEntity>>> getAllPosts({int? page = 1}) async {
     final dataState = await _getPostsUseCase(
       params: Pair(user!.id, page),
     );
 
     if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
       numOfPosts.value = dataState.data!.second.length.toString();
-      return dataState.data!.second;
+      return dataState.data!;
     } else if (dataState is DataFailed) {
-      return [];
+      return Pair(1, []);
     } else {
-      return [];
+      return Pair(1, []);
     }
   }
 }

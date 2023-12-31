@@ -110,4 +110,8 @@ class UserEntity extends Equatable {
       bannedUtil: DateTime.tryParse(json['banned_util'] ?? ""),
     );
   }
+
+  String getFullName() {
+    return "$firstName $lastName";
+  }
 }

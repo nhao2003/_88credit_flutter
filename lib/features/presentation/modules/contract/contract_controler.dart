@@ -11,7 +11,6 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_req
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_sent.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/reject_request.dart';
-import 'package:_88credit_flutter/features/presentation/modules/contract/screens/purchase_payment_result_screen.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';

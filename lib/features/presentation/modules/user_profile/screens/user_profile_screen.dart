@@ -1,3 +1,5 @@
+import 'package:_88credit_flutter/core/extensions/date_ex.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
@@ -11,16 +13,23 @@ import 'package:_88credit_flutter/features/presentation/modules/user_profile/wid
 
 import '../../../../../config/values/asset_image.dart';
 
-class UserProfileScreen extends StatelessWidget {
-  UserProfileScreen({super.key});
+class UserProfileScreen extends StatefulWidget {
+  const UserProfileScreen({super.key});
 
+  @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
   final UserProfileController controller = UserProfileController();
 
   @override
   Widget build(BuildContext context) {
     double sizeImage = 22.wp;
     return Scaffold(
-      appBar: MyAppbar(title: 'Nguyễn Nhật Hào'),
+      appBar: MyAppbar(
+        title: controller.user!.fullName,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -32,28 +41,29 @@ class UserProfileScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // avatar ========================================
-                    // if (controller.user!.avatar != null)
-                    //   ClipRRect(
-                    //     borderRadius:
-                    //         const BorderRadius.all(Radius.circular(10)),
-                    //     child: CachedNetworkImage(
-                    //       imageUrl: controller.user!.avatar!,
-                    //       fit: BoxFit.cover,
-                    //       width: sizeImage,
-                    //       errorWidget: (context, _, __) {
-                    //         return CircleAvatar(
-                    //           radius: sizeImage / 2,
-                    //           backgroundImage: const AssetImage(Assets.avatar2),
-                    //         );
-                    //       },
-                    //     ),
-                    //   )
-                    // else
-                    CircleAvatar(
-                      radius: sizeImage / 2,
-                      backgroundImage: const AssetImage(Assets.avatar2),
-                    ),
+                    //avatar ========================================
+                    if (controller.user!.avatar != null)
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50)),
+                        child: CachedNetworkImage(
+                          imageUrl: controller.user!.avatar!,
+                          fit: BoxFit.cover,
+                          width: sizeImage,
+                          height: sizeImage,
+                          errorWidget: (context, _, __) {
+                            return CircleAvatar(
+                              radius: sizeImage / 2,
+                              backgroundImage: const AssetImage(Assets.avatar2),
+                            );
+                          },
+                        ),
+                      )
+                    else
+                      CircleAvatar(
+                        radius: sizeImage / 2,
+                        backgroundImage: const AssetImage(Assets.avatar2),
+                      ),
                     const SizedBox(width: 10),
                     // info ========================================
                     Expanded(
@@ -118,9 +128,9 @@ class UserProfileScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           // button follow
-                          const ButtonFollow(
+                          ButtonFollow(
                             isFollow: false,
-                            isMe: true,
+                            isMe: controller.isYourPost,
                           )
                         ],
                       ),
@@ -133,7 +143,7 @@ class UserProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Nguyễn Nhật Hào',
+                      controller.user!.fullName,
                       style:
                           AppTextStyles.semiBold16.colorEx(AppColors.grey700),
                     ),
@@ -156,7 +166,7 @@ class UserProfileScreen extends StatelessWidget {
                     SizedBox(
                       width: 80.wp,
                       child: Text(
-                        "213 CMT8, Thanh Bình, Biên Hòa, Đồng Nai",
+                        controller.user!.address!.getDetailAddress(),
                         style:
                             AppTextStyles.medium14.colorEx(AppColors.grey500),
                       ),
@@ -178,7 +188,7 @@ class UserProfileScreen extends StatelessWidget {
                     SizedBox(
                       width: 80.wp,
                       child: Text(
-                        "Tham gia ngày 14/03/2023",
+                        "Tham gia ngày ${(controller.user!.createdAt!.toDMYString())}",
                         style:
                             AppTextStyles.medium14.colorEx(AppColors.grey500),
                       ),
