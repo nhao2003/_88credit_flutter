@@ -8,26 +8,45 @@ import '../../../../../config/theme/app_color.dart';
 import '../../../../../config/theme/text_styles.dart';
 import '../bank_controller.dart';
 
-class BankScreen extends StatelessWidget {
-  BankScreen({super.key});
+class BankScreen extends StatefulWidget {
+  const BankScreen({super.key});
 
+  @override
+  State<BankScreen> createState() => _BankScreenState();
+}
+
+class _BankScreenState extends State<BankScreen> {
   final BankController controller = BankController();
+
+  @override
+  void initState() {
+    controller.getBankCards();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppbar(title: "Thay đổi thẻ ngân hàng"),
-      body: FutureBuilder(
-        future: controller.getBankCards(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return BankCardList(listBanks: snapshot.data!);
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: RefreshIndicator(
+        onRefresh: controller.getBankCards,
+        child: Obx(
+          () => controller.isLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : controller.listBankCards.isEmpty
+                  ? Center(
+                      child: Text("Bạn chưa có thẻ ngân hàng nào",
+                          style: AppTextStyles.bold16.colorEx(
+                            AppColors.green,
+                          )),
+                    )
+                  : BankCardList(
+                      listBanks: controller.listBankCards,
+                      onTap: controller.setPrimaryCard,
+                    ),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

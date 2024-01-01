@@ -33,3 +33,4 @@ const String kGetMe = '/me';
 
 const String kGetBankEndpoint = '/bank';
 const String kGetBankCardEndpoint = '/bank-card';
+const String kGetMarkPrimaryEndpoint = '/mark-as-primary';

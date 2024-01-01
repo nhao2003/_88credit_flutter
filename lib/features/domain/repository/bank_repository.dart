@@ -8,4 +8,6 @@ abstract class BankRepository {
       String query, int page);
 
   Future<DataState<List<BankCardEntity>>> getBankCards();
+
+  Future<DataState<void>> markAsPrimaryBankCard(String id);
 }

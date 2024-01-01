@@ -8,9 +8,10 @@ import '../../../../../config/theme/text_styles.dart';
 import '../../../../../config/values/asset_image.dart';
 
 class BankCardList extends StatelessWidget {
-  const BankCardList({required this.listBanks, super.key});
+  const BankCardList({required this.listBanks, required this.onTap, super.key});
 
   final List<BankCardEntity> listBanks;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,9 @@ class BankCardList extends StatelessWidget {
                   : null,
               onTap: () {
                 // change card primary
+                if (!listBanks[index].isPrimary!) {
+                  onTap(listBanks[index].id!);
+                }
               },
             ),
           ),

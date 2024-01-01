@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:_88credit_flutter/core/constants/constants.dart';
-import 'package:_88credit_flutter/features/domain/entities/credit/contract_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -172,7 +170,7 @@ class PdfViewerScreen extends StatelessWidget {
               icon: const Icon(Icons.download_rounded),
               onPressed: () async {
                 // final path = await saveDocument(name: 'test.pdf', pdf: pdf);
-                final path = '/storage/emulated/0/Download/test.pdf';
+                const path = '/storage/emulated/0/Download/test.pdf';
                 Get.snackbar('Download', 'Downloaded to $path');
               },
             ),
