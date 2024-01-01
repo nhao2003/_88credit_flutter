@@ -15,6 +15,7 @@ abstract class BankRemoteDataSrc {
   Future<HttpResponse<void>> markAsPrimaryBankCard(String id);
   Future<HttpResponse<void>> addBankCard(BankCardModel bankCardModel);
   Future<HttpResponse<void>> deleteBankCard(String id);
+  Future<HttpResponse<BankCardModel>> getPrimaryBankCard();
 }
 
 class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
@@ -205,6 +206,49 @@ class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
 
       return HttpResponse<void>(
         null,
+        response,
+      );
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
+  }
+
+  @override
+  Future<HttpResponse<BankCardModel>> getPrimaryBankCard() async {
+    String url = '$apiUrl$kGetPrimaryBankCardEndpoint';
+
+    try {
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      final response = await client.get(
+        url,
+        options: Options(
+            sendTimeout: const Duration(seconds: 10),
+            headers: {'Authorization': 'Bearer $accessToken'}),
+      );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      BankCardModel bankCard = const BankCardModel();
+      if (response.data['result'] != null) {
+        bankCard = BankCardModel.fromJson(response.data['result']);
+      }
+
+      return HttpResponse<BankCardModel>(
+        bankCard,
         response,
       );
     } on ApiException {
