@@ -35,11 +35,8 @@ class BankCardModel extends BankCardEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'is_primary': isPrimary,
-      'user_id': userId,
-      'bank_id': bank,
+      'bank_id': bank!.id,
       'card_number': cardNumber,
-      'branch': branch,
     };
   }
 

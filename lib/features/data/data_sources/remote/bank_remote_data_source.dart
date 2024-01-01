@@ -13,6 +13,7 @@ abstract class BankRemoteDataSrc {
       String query, int page);
   Future<HttpResponse<List<BankCardModel>>> getBankCards();
   Future<HttpResponse<void>> markAsPrimaryBankCard(String id);
+  Future<HttpResponse<void>> addBankCard(BankCardModel bankCardModel);
 }
 
 class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
@@ -127,6 +128,50 @@ class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
       return HttpResponse<void>(
         null,
         response,
+      );
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
+  }
+
+  @override
+  Future<HttpResponse<void>> addBankCard(BankCardModel bankCardModel) async {
+    const url = '$apiUrl$kGetBankCardEndpoint';
+    try {
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      // Gửi yêu cầu đến server
+      print(bankCardModel.toJson());
+
+      final response = await client.post(
+        url,
+        options: Options(
+            sendTimeout: const Duration(seconds: 10),
+            headers: {'Authorization': 'Bearer $accessToken'}),
+        data: bankCardModel.toJson(),
+      );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      // Nếu yêu cầu thành công, giải mã dữ liệu JSON
+      return HttpResponse(null, response);
+    } on DioException catch (e) {
+      throw ApiException(
+        message: e.message ?? "Error when create bank card",
+        statusCode: e.response?.statusCode ?? 505,
       );
     } on ApiException {
       rethrow;

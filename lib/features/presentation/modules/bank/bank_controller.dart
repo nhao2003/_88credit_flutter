@@ -1,5 +1,8 @@
+import 'package:_88credit_flutter/config/routes/app_routes.dart';
+import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/bank.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/bank_card.dart';
+import 'package:_88credit_flutter/features/domain/usecases/bank/add_bank_card.dart';
 import 'package:_88credit_flutter/features/domain/usecases/bank/get_bank_cards.dart';
 import 'package:_88credit_flutter/features/domain/usecases/bank/mark_as_primary_bank_card.dart';
 import 'package:_88credit_flutter/injection_container.dart';
@@ -39,6 +42,10 @@ class BankController extends GetxController {
     isLoading.value = false;
   }
 
+  void navigateToAddBankCard() async {
+    Get.toNamed(AppRoutes.bankList)!.then((value) => getBankCards());
+  }
+
   // add bank Card
   RxBool isLoadingAddBankCard = false.obs;
   final formKey = GlobalKey<FormState>();
@@ -47,6 +54,7 @@ class BankController extends GetxController {
   final TextEditingController cardNumberController = TextEditingController();
   String cardNumber = "";
 
+  AddBankCardUseCase addBankCardUseCase = sl<AddBankCardUseCase>();
   Future<void> addBankCard() async {
     isLoadingAddBankCard.value = true;
     // validate number card
@@ -55,10 +63,23 @@ class BankController extends GetxController {
       return;
     }
     // call api
-    await Future.delayed(const Duration(seconds: 2));
-    isLoadingAddBankCard.value = false;
-    // back
-    Get.back();
-    Get.back();
+    final datastate = await addBankCardUseCase(params: createBankCardEntity());
+    if (datastate is DataSuccess) {
+      isLoadingAddBankCard.value = false;
+      // back
+      Get.back();
+      Get.back();
+    } else {
+      isLoadingAddBankCard.value = false;
+    }
+  }
+
+  BankCardEntity createBankCardEntity() {
+    return BankCardEntity(
+      bank: selectedBank,
+      bankId: selectedBank!.id,
+      cardNumber: cardNumber,
+      isPrimary: false,
+    );
   }
 }

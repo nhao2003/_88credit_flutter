@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:_88credit_flutter/core/resources/data_state.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/bank_remote_data_source.dart';
+import 'package:_88credit_flutter/features/data/models/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/bank.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/repository/bank_repository.dart';
@@ -57,6 +58,27 @@ class BankRepositoryImpl implements BankRepository {
   Future<DataState<void>> markAsPrimaryBankCard(String id) async {
     try {
       final httpResponse = await _bankRemoteDataSrc.markAsPrimaryBankCard(id);
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(DioException(
+          error: httpResponse.response.statusMessage,
+          response: httpResponse.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResponse.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<void>> addBankCard(BankCardEntity bankCardEntity) async {
+    try {
+      final httpResponse = await _bankRemoteDataSrc
+          .addBankCard(BankCardModel.fromEntity(bankCardEntity));
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

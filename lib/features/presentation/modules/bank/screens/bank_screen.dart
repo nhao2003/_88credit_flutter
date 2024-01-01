@@ -1,4 +1,3 @@
-import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
 import 'package:_88credit_flutter/features/presentation/modules/bank/widgets/bank_card_list.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,7 @@ class _BankScreenState extends State<BankScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.toNamed(AppRoutes.bankList);
+          controller.navigateToAddBankCard();
         },
         backgroundColor: AppColors.green,
         extendedPadding:

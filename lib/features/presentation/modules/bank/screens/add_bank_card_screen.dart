@@ -11,12 +11,23 @@ import '../../../../../config/theme/text_styles.dart';
 import '../../../../../config/values/asset_image.dart';
 import '../../../global_widgets/base_textfield.dart';
 
-class AddBankCardScreen extends StatelessWidget {
-  AddBankCardScreen({super.key});
+class AddBankCardScreen extends StatefulWidget {
+  const AddBankCardScreen({super.key});
 
+  @override
+  State<AddBankCardScreen> createState() => _AddBankCardScreenState();
+}
+
+class _AddBankCardScreenState extends State<AddBankCardScreen> {
   final BankController controller = Get.find();
 
   final FocusNode _moneyFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    controller.cardNumberController.text = controller.selectedBank!.bin;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +118,16 @@ class AddBankCardScreen extends StatelessWidget {
                             }
                             // check card number
                             if (value.trim().length < 16) {
-                              return "Số thẻ/tài khoản không hợp lệ";
+                              return "Số thẻ/tài khoản ít hơn 16 ký tự";
                             }
                             // validate all is number
                             if (!value.isNum) {
-                              return "Số thẻ/tài khoản không hợp lệ";
+                              return "Số thẻ/tài khoản phải là số";
+                            }
+                            // check bank number is begin with bin
+                            if (!value
+                                .startsWith(controller.selectedBank!.bin)) {
+                              return "Số thẻ/tài khoản phải bắt đầu bằng ${controller.selectedBank!.bin}";
                             }
                             return null;
                           }),

@@ -10,4 +10,5 @@ abstract class BankRepository {
   Future<DataState<List<BankCardEntity>>> getBankCards();
 
   Future<DataState<void>> markAsPrimaryBankCard(String id);
+  Future<DataState<void>> addBankCard(BankCardEntity bankCardEntity);
 }
