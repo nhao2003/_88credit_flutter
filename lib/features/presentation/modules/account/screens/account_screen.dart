@@ -1,5 +1,4 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
-import 'package:_88credit_flutter/features/presentation/modules/pdf_view/pdf_viewer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
@@ -71,27 +70,27 @@ class AccountScreen extends StatelessWidget {
                 ),
               ),
               // favorite
-              ListTile(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
-                title: Text(
-                  'Đã lưu',
-                  style: AppTextStyles.medium16,
-                ),
-                onTap: () {},
-                leading: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Icon(
-                    Icons.favorite,
-                    color: AppColors.red,
-                    size: 25,
-                  ),
-                ),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 18,
-                ),
-              ),
+              // ListTile(
+              //   contentPadding:
+              //       const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+              //   title: Text(
+              //     'Đã lưu',
+              //     style: AppTextStyles.medium16,
+              //   ),
+              //   onTap: () {},
+              //   leading: const Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: 5),
+              //     child: Icon(
+              //       Icons.favorite,
+              //       color: AppColors.red,
+              //       size: 25,
+              //     ),
+              //   ),
+              //   trailing: const Icon(
+              //     Icons.arrow_forward_ios_rounded,
+              //     size: 18,
+              //   ),
+              // ),
               // purchase
               ListTile(
                 contentPadding:
@@ -283,58 +282,6 @@ class AccountScreen extends StatelessWidget {
                       ),
                     ),
                   )),
-              ListTile(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
-                title: Text(
-                  'PDF',
-                  style: AppTextStyles.medium16,
-                ),
-                onTap: () {
-                  Get.to(() => const PdfViewerScreen(
-                        createdDay: '1',
-                        createdMonth: '1',
-                        createdYear: '2023',
-                        lenderName: 'John Doe',
-                        lenderDob: '01/01/1980',
-                        lenderIdCardNumber: '123456789',
-                        lenderIdCardIssuedBy: 'Local Authority',
-                        lenderIdCardIssuedAt: '01/01/2000',
-                        lenderPermanentResidence: '123 Main Street, City',
-                        lenderPhoneNumber: '123-456-7890',
-                        lenderBankName: 'Sample Bank',
-                        lenderBankAccountNumber: '987654321',
-                        lenderBankBranch: 'Main Branch',
-                        borrowerName: 'Jane Doe',
-                        borrowerDob: '02/02/1990',
-                        borrowerIdCardNumber: '987654321',
-                        borrowerIdCardIssuedBy: 'City Authority',
-                        borrowerIdCardIssuedAt: '02/02/2005',
-                        borrowerPermanentResidence: '456 Oak Street, Town',
-                        borrowerPhoneNumber: '987-654-3210',
-                        borrowerBankName: 'Another Bank',
-                        borrowerBankAccountNumber: '1234567890',
-                        borrowerBankBranch: 'Branch A',
-                        amount: '10000.0',
-                        amountInWords: 'Ten thousand dollars',
-                        loanReason: 'Home improvement',
-                        tenureInMonths: '12',
-                        createdAt: '01/01/2021',
-                        expiredAt: '01/01/2022',
-                        transferDate: '01/01/2021',
-                        interestRate: '5.0',
-                        overdueInterestRate: '10.0',
-                      ));
-                },
-                leading: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Icon(
-                    Icons.login,
-                    color: AppColors.black,
-                    size: 25,
-                  ),
-                ),
-              ),
             ],
           ).toList(),
         ),

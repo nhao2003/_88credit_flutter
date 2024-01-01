@@ -18,6 +18,7 @@ import 'package:get/get.dart';
 import '../../../../config/theme/app_color.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../domain/entities/credit/user.dart';
+import '../pdf_view/pdf_viewer_screen.dart';
 
 class ContractController extends GetxController {
   RxList<LoanRequestEntity> approvedRequests = <LoanRequestEntity>[].obs;
@@ -208,5 +209,10 @@ class ContractController extends GetxController {
     if (status == FlutterZaloPayStatus.success) {
       Get.offAndToNamed(AppRoutes.bottomBar);
     }
+  }
+
+  // navigate to pdf screen
+  void navToPdfScreen(ContractEntity contract) {
+    Get.to(() => PdfViewerScreen(contract: contract));
   }
 }

@@ -45,16 +45,17 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
       appBar: MyAppbar(
         title: "Chi tiết hợp đồng",
         actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "Xem trước",
-              style: AppTextStyles.regular12.copyWith(
-                decoration: TextDecoration.underline,
-                decorationColor: AppColors.green,
+          if (isPurchase)
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Xem trước",
+                style: AppTextStyles.regular12.copyWith(
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColors.green,
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
       body: SingleChildScrollView(
@@ -138,6 +139,15 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
                   ),
                 ],
               )
+            else
+              BaseButton(
+                title: "Xem bản PDF",
+                width: 100.wp,
+                isLoading: isLoading,
+                onClick: () {
+                  controller.navToPdfScreen(post);
+                },
+              ),
           ],
         ),
       ),

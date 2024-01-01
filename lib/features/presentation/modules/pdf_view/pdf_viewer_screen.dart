@@ -1,155 +1,80 @@
 import 'dart:convert';
 import 'package:_88credit_flutter/core/constants/constants.dart';
+import 'package:_88credit_flutter/core/extensions/date_ex.dart';
+import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 class PdfViewerScreen extends StatelessWidget {
-  final String createdDay;
-
-  final String createdMonth;
-
-  final String createdYear;
-
-  final String lenderName;
-
-  final String lenderDob;
-
-  final String lenderIdCardNumber;
-
-  final String lenderIdCardIssuedBy;
-
-  final String lenderIdCardIssuedAt;
-
-  final String lenderPermanentResidence;
-
-  final String lenderPhoneNumber;
-
-  final String lenderBankName;
-
-  final String lenderBankAccountNumber;
-
-  final String lenderBankBranch;
-
-  final String borrowerName;
-
-  final String borrowerDob;
-
-  final String borrowerIdCardNumber;
-
-  final String borrowerIdCardIssuedBy;
-
-  final String borrowerIdCardIssuedAt;
-
-  final String borrowerPermanentResidence;
-
-  final String borrowerPhoneNumber;
-
-  final String borrowerBankName;
-
-  final String borrowerBankAccountNumber;
-
-  final String borrowerBankBranch;
-
-  final String amount;
-
-  final String amountInWords;
-
-  final String loanReason;
-
-  final String tenureInMonths;
-
-  final String createdAt;
-
-  final String expiredAt;
-
-  final String transferDate;
-
-  final String interestRate;
-
-  final String overdueInterestRate;
-
   const PdfViewerScreen({
     super.key,
-    required this.createdDay,
-    required this.createdMonth,
-    required this.createdYear,
-    required this.lenderName,
-    required this.lenderDob,
-    required this.lenderIdCardNumber,
-    required this.lenderIdCardIssuedBy,
-    required this.lenderIdCardIssuedAt,
-    required this.lenderPermanentResidence,
-    required this.lenderPhoneNumber,
-    required this.lenderBankName,
-    required this.lenderBankAccountNumber,
-    required this.lenderBankBranch,
-    required this.borrowerName,
-    required this.borrowerDob,
-    required this.borrowerIdCardNumber,
-    required this.borrowerIdCardIssuedBy,
-    required this.borrowerIdCardIssuedAt,
-    required this.borrowerPermanentResidence,
-    required this.borrowerPhoneNumber,
-    required this.borrowerBankName,
-    required this.borrowerBankAccountNumber,
-    required this.borrowerBankBranch,
-    required this.amount,
-    required this.amountInWords,
-    required this.loanReason,
-    required this.tenureInMonths,
-    required this.createdAt,
-    required this.expiredAt,
-    required this.transferDate,
-    required this.interestRate,
-    required this.overdueInterestRate,
+    required this.contract,
   });
 
+  final ContractEntity contract;
+
   String replaceAll(String content) {
-    content = content.replaceAll('{created_day}', createdDay);
-    content = content.replaceAll('{created_month}', createdMonth);
-    content = content.replaceAll('{created_year}', createdYear);
-    content = content.replaceAll('{lender_name}', lenderName);
-    content = content.replaceAll('{lender_dob}', lenderDob);
-    content = content.replaceAll('{lender_id_card_number}', lenderIdCardNumber);
     content =
-        content.replaceAll('{lender_id_card_issued_by}', lenderIdCardIssuedBy);
+        content.replaceAll('{created_day}', contract.createdAt!.day.toString());
+    content = content.replaceAll(
+        '{created_month}', contract.createdAt!.month.toString());
+    content = content.replaceAll(
+        '{created_year}', contract.createdAt!.year.toString());
+    content = content.replaceAll('{lender_name}', contract.lender!.fullName);
+    content = content.replaceAll('{lender_dob}', contract.lender!.dob!);
+    content = content.replaceAll(
+        '{lender_id_card_number}', contract.lenderBankCardId!);
     content =
-        content.replaceAll('{lender_id_card_issued_at}', lenderIdCardIssuedAt);
-    content = content.replaceAll(
-        '{lender_permanent_residence}', lenderPermanentResidence);
-    content = content.replaceAll('{lender_phone_number}', lenderPhoneNumber);
-    content = content.replaceAll('{lender_bank_name}', lenderBankName);
-    content = content.replaceAll(
-        '{lender_bank_account_number}', lenderBankAccountNumber);
-    content = content.replaceAll('{lender_bank_branch}', lenderBankBranch);
-    content = content.replaceAll('{borrower_name}', borrowerName);
-    content = content.replaceAll('{borrower_dob}', borrowerDob);
+        content.replaceAll('{lender_id_card_issued_by}', 'Local Authority');
+    content = content.replaceAll('{lender_id_card_issued_at}', '01/01/2020');
+    content = content.replaceAll('{lender_permanent_residence}',
+        contract.lender!.address!.getDetailAddress());
     content =
-        content.replaceAll('{borrower_id_card_number}', borrowerIdCardNumber);
-    content = content.replaceAll(
-        '{borrower_id_card_issued_by}', borrowerIdCardIssuedBy);
-    content = content.replaceAll(
-        '{borrower_id_card_issued_at}', borrowerIdCardIssuedAt);
-    content = content.replaceAll(
-        '{borrower_permanent_residence}', borrowerPermanentResidence);
+        content.replaceAll('{lender_phone_number}', contract.lender!.phone!);
     content =
-        content.replaceAll('{borrower_phone_number}', borrowerPhoneNumber);
-    content = content.replaceAll('{borrower_bank_name}', borrowerBankName);
+        content.replaceAll('{lender_bank_name}', contract.lenderBankCardId!);
     content = content.replaceAll(
-        '{borrower_bank_account_number}', borrowerBankAccountNumber);
-    content = content.replaceAll('{borrower_bank_branch}', borrowerBankBranch);
-    content = content.replaceAll('{amount}', amount);
-    content = content.replaceAll('{amount_in_words}', amountInWords);
-    content = content.replaceAll('{loan_reason}', loanReason);
-    content = content.replaceAll('{tenure_in_months}', tenureInMonths);
-    content = content.replaceAll('{created_at}', createdAt);
-    content = content.replaceAll('{expired_at}', expiredAt);
-    content = content.replaceAll('{transfer_date}', transferDate);
-    content = content.replaceAll('{interest_rate}', interestRate);
+        '{lender_bank_account_number}', contract.lenderBankCardId!);
     content =
-        content.replaceAll('{overdue_interest_rate}', overdueInterestRate);
+        content.replaceAll('{lender_bank_branch}', contract.lenderBankCardId!);
+    content =
+        content.replaceAll('{borrower_name}', contract.borrower!.fullName);
+    content = content.replaceAll('{borrower_dob}', contract.borrower!.dob!);
+    content = content.replaceAll(
+        '{borrower_id_card_number}', contract.borrowerBankCardId!);
+    content =
+        content.replaceAll('{borrower_id_card_issued_by}', 'Local Authority');
+    content = content.replaceAll('{borrower_id_card_issued_at}', '01/01/2020');
+    content = content.replaceAll('{borrower_permanent_residence}',
+        contract.borrower!.address!.getDetailAddress());
+    content = content.replaceAll(
+        '{borrower_phone_number}', contract.borrower!.phone!);
+    content = content.replaceAll(
+        '{borrower_bank_name}', contract.borrowerBankCardId!);
+    content = content.replaceAll(
+        '{borrower_bank_account_number}', contract.borrowerBankCardId!);
+    content = content.replaceAll(
+        '{borrower_bank_branch}', contract.borrowerBankCardId!);
+    content = content.replaceAll('{amount}', contract.amount!.toString());
+    content = content.replaceAll(
+        '{amount_in_words}', contract.amount!.toInt().convertNumberToWords());
+    content = content.replaceAll('{loan_reason}', contract.loanReason!);
+    content = content.replaceAll(
+        '{tenure_in_months}', contract.tenureInMonths!.toString());
+    content =
+        content.replaceAll('{created_at}', contract.createdAt!.toDMYString());
+    content =
+        content.replaceAll('{expired_at}', contract.expiredAt!.toDMYString());
+    content = content.replaceAll(
+        '{transfer_date}', contract.createdAt!.toDMYString());
+    content = content.replaceAll(
+        '{interest_rate}', contract.interestRate!.toString());
+    content = content.replaceAll(
+        '{overdue_interest_rate}', contract.overdueInterestRate!.toString());
     return content;
   }
 
