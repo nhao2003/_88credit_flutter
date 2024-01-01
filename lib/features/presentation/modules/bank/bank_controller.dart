@@ -7,8 +7,10 @@ import 'package:_88credit_flutter/features/domain/usecases/bank/get_bank_cards.d
 import 'package:_88credit_flutter/features/domain/usecases/bank/mark_as_primary_bank_card.dart';
 import 'package:_88credit_flutter/injection_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../../core/resources/pair.dart';
+import '../../../domain/usecases/bank/delete_bank_card.dart';
 import '../../../domain/usecases/bank/get_all_banks.dart';
 
 class BankController extends GetxController {
@@ -22,13 +24,13 @@ class BankController extends GetxController {
 
   // bank card list
   RxBool isLoading = false.obs;
-  List<BankCardEntity> listBankCards = <BankCardEntity>[].obs;
+  RxList<BankCardEntity> listBankCards = <BankCardEntity>[].obs;
   final GetBankCardsUseCase getBankCardsUseCase = sl<GetBankCardsUseCase>();
 
   Future<List<BankCardEntity>> getBankCards() async {
     isLoading.value = true;
     final dataState = await getBankCardsUseCase();
-    listBankCards = [...dataState];
+    listBankCards.value = [...dataState];
     isLoading.value = false;
     return dataState;
   }
@@ -36,10 +38,10 @@ class BankController extends GetxController {
   MarkAsPrimaryBankCardsUseCase markAsPrimaryBankCardsUseCase =
       sl<MarkAsPrimaryBankCardsUseCase>();
   Future<void> setPrimaryCard(String idCard) async {
-    isLoading.value = true;
+    EasyLoading.show(status: 'loading...');
     await markAsPrimaryBankCardsUseCase(params: idCard);
-    listBankCards = [...await getBankCardsUseCase()];
-    isLoading.value = false;
+    listBankCards.value = [...await getBankCardsUseCase()];
+    EasyLoading.dismiss();
   }
 
   void navigateToAddBankCard() async {
@@ -81,5 +83,14 @@ class BankController extends GetxController {
       cardNumber: cardNumber,
       isPrimary: false,
     );
+  }
+
+  // delete bank card
+  DeleteBankCardUseCase deleteBankCardUseCase = sl<DeleteBankCardUseCase>();
+  Future<void> deleteBankCard(BankCardEntity card) async {
+    EasyLoading.show(status: 'Đang cập nhập');
+    await deleteBankCardUseCase(params: card);
+    listBankCards.value = [...await getBankCardsUseCase()];
+    EasyLoading.dismiss();
   }
 }

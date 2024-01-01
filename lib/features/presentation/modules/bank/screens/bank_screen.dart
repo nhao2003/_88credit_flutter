@@ -36,14 +36,17 @@ class _BankScreenState extends State<BankScreen> {
                 )
               : controller.listBankCards.isEmpty
                   ? Center(
-                      child: Text("Bạn chưa có thẻ ngân hàng nào",
-                          style: AppTextStyles.bold16.colorEx(
-                            AppColors.green,
-                          )),
+                      child: Text(
+                        "Bạn chưa có thẻ ngân hàng nào",
+                        style: AppTextStyles.bold16.colorEx(
+                          AppColors.green,
+                        ),
+                      ),
                     )
                   : BankCardList(
                       listBanks: controller.listBankCards,
                       onTap: controller.setPrimaryCard,
+                      onDeleteCard: controller.deleteBankCard,
                     ),
         ),
       ),

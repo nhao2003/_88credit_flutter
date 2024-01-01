@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_pages.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       initialRoute: AppRoutes.splashScreen,
       getPages: AppPages.pages,
+      builder: EasyLoading.init(),
     );
   }
 }

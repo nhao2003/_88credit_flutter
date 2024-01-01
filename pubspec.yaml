@@ -139,6 +139,9 @@ dependencies:
   # video player
   video_player: ^2.8.1
 
+  # loading
+  flutter_easyloading: ^3.0.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

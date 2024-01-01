@@ -14,6 +14,7 @@ abstract class BankRemoteDataSrc {
   Future<HttpResponse<List<BankCardModel>>> getBankCards();
   Future<HttpResponse<void>> markAsPrimaryBankCard(String id);
   Future<HttpResponse<void>> addBankCard(BankCardModel bankCardModel);
+  Future<HttpResponse<void>> deleteBankCard(String id);
 }
 
 class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
@@ -100,8 +101,6 @@ class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
   Future<HttpResponse<void>> markAsPrimaryBankCard(String id) async {
     String url = '$apiUrl$kGetBankCardEndpoint/$id$kGetMarkPrimaryEndpoint';
 
-    print(url);
-
     try {
       // get access token
       AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
@@ -148,9 +147,6 @@ class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
             message: 'Access token is null', statusCode: 505);
       }
 
-      // Gửi yêu cầu đến server
-      print(bankCardModel.toJson());
-
       final response = await client.post(
         url,
         options: Options(
@@ -172,6 +168,44 @@ class BankRemoteDataSrcImpl extends BankRemoteDataSrc {
       throw ApiException(
         message: e.message ?? "Error when create bank card",
         statusCode: e.response?.statusCode ?? 505,
+      );
+    } on ApiException {
+      rethrow;
+    } catch (error) {
+      throw ApiException(message: error.toString(), statusCode: 505);
+    }
+  }
+
+  @override
+  Future<HttpResponse<void>> deleteBankCard(String id) async {
+    String url = '$apiUrl$kGetBankCardEndpoint/$id';
+
+    try {
+      // get access token
+      AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+      String? accessToken = localDataSrc.getAccessToken();
+      if (accessToken == null) {
+        throw const ApiException(
+            message: 'Access token is null', statusCode: 505);
+      }
+
+      final response = await client.delete(
+        url,
+        options: Options(
+            sendTimeout: const Duration(seconds: 10),
+            headers: {'Authorization': 'Bearer $accessToken'}),
+      );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.data['message'],
+          statusCode: response.statusCode!,
+        );
+      }
+
+      return HttpResponse<void>(
+        null,
+        response,
       );
     } on ApiException {
       rethrow;
