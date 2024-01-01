@@ -6,6 +6,7 @@ import 'package:_88credit_flutter/features/data/repository/media_repository_impl
 import 'package:_88credit_flutter/features/domain/repository/bank_repository.dart';
 import 'package:_88credit_flutter/features/domain/repository/media_repository.dart';
 import 'package:_88credit_flutter/features/domain/usecases/bank/get_all_banks.dart';
+import 'package:_88credit_flutter/features/domain/usecases/bank/get_bank_cards.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_request.dart';
 import 'package:_88credit_flutter/features/domain/repository/user_repository.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
@@ -430,6 +431,12 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<GetAllbankUseCase>(
     GetAllbankUseCase(
+      sl<BankRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetBankCardsUseCase>(
+    GetBankCardsUseCase(
       sl<BankRepository>(),
     ),
   );

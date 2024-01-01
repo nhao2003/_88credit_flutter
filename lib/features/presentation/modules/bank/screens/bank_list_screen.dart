@@ -121,6 +121,8 @@ class _BankListScreenState extends State<BankListScreen> {
                         ),
                       ),
                       child: ListTile(
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 5),
                         leading: ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(50)),
@@ -145,6 +147,10 @@ class _BankListScreenState extends State<BankListScreen> {
                           listBanks[index].name,
                           style: AppTextStyles.medium14
                               .copyWith(color: AppColors.grey400),
+                        ),
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 15,
                         ),
                         onTap: () {
                           // createRequestController

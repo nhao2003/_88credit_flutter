@@ -1,5 +1,6 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/extensions/textstyle_ex.dart';
+import 'package:_88credit_flutter/features/presentation/modules/bank/widgets/bank_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
 import 'package:get/get.dart';
@@ -16,8 +17,17 @@ class BankScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppbar(title: "Thay đổi thẻ ngân hàng"),
-      body: const Center(
-        child: Text('Bank Screen'),
+      body: FutureBuilder(
+        future: controller.getBankCards(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return BankCardList(listBanks: snapshot.data!);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
