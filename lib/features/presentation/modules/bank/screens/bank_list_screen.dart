@@ -73,7 +73,7 @@ class _BankListScreenState extends State<BankListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar(title: "Danh sách ngân hàng"),
+      appBar: MyAppbar(title: "Lựa chọn ngân hàng"),
       body: Column(
         children: [
           Padding(

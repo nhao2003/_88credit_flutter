@@ -64,7 +64,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                     bankName: "Agribank",
                     bankNumber: "1233456789",
                     hanleChooseCard: () {
-                      Get.toNamed(AppRoutes.bankList);
+                      Get.toNamed(AppRoutes.bank);
                     },
                     buttonText: "Đổi thẻ",
                   ),
