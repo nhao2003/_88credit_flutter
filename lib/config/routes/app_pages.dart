@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/features/presentation/modules/bank/screens/add_bank_card_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/bank/screens/bank_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/change_user_screen.dart';
 import '../../features/presentation/modules/bank/bank_binding.dart';
@@ -185,7 +186,12 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.bank,
-      page: () => BankScreen(),
+      page: () => const BankScreen(),
+      binding: BankBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.addBankCard,
+      page: () => AddBankCardScreen(),
       binding: BankBinding(),
     ),
   ];

@@ -30,6 +30,7 @@ abstract class AppRoutes {
 
   static const bank = '/bank';
   static const bankList = '/bank/bankList';
+  static const addBankCard = '/bank/addBankCard';
 
   static const changeUser = '/changeUser';
 

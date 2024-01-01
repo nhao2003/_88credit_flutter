@@ -3,6 +3,7 @@ import 'package:_88credit_flutter/features/domain/entities/credit/bank_card.dart
 import 'package:_88credit_flutter/features/domain/usecases/bank/get_bank_cards.dart';
 import 'package:_88credit_flutter/features/domain/usecases/bank/mark_as_primary_bank_card.dart';
 import 'package:_88credit_flutter/injection_container.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/resources/pair.dart';
 import '../../../domain/usecases/bank/get_all_banks.dart';
@@ -36,5 +37,28 @@ class BankController extends GetxController {
     await markAsPrimaryBankCardsUseCase(params: idCard);
     listBankCards = [...await getBankCardsUseCase()];
     isLoading.value = false;
+  }
+
+  // add bank Card
+  RxBool isLoadingAddBankCard = false.obs;
+  final formKey = GlobalKey<FormState>();
+
+  BankEntity? selectedBank;
+  final TextEditingController cardNumberController = TextEditingController();
+  String cardNumber = "";
+
+  Future<void> addBankCard() async {
+    isLoadingAddBankCard.value = true;
+    // validate number card
+    if (!formKey.currentState!.validate()) {
+      isLoadingAddBankCard.value = false;
+      return;
+    }
+    // call api
+    await Future.delayed(const Duration(seconds: 2));
+    isLoadingAddBankCard.value = false;
+    // back
+    Get.back();
+    Get.back();
   }
 }

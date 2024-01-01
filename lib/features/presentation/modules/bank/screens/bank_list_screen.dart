@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/bank.dart';
@@ -153,9 +154,8 @@ class _BankListScreenState extends State<BankListScreen> {
                           size: 15,
                         ),
                         onTap: () {
-                          // createRequestController
-                          //     .changeReceiver(listBanks[index]);
-                          Get.back();
+                          bankController.selectedBank = listBanks[index];
+                          Get.toNamed(AppRoutes.addBankCard);
                         },
                       ),
                     );
