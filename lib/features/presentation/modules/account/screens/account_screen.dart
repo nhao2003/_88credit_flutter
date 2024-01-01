@@ -171,6 +171,29 @@ class AccountScreen extends StatelessWidget {
                   size: 18,
                 ),
               ),
+              ListTile(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+                title: Text(
+                  'Quản lý thẻ ngân hàng',
+                  style: AppTextStyles.medium16,
+                ),
+                onTap: () {
+                  Get.toNamed(AppRoutes.bank);
+                },
+                leading: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Icon(
+                    Icons.credit_card,
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 18,
+                ),
+              ),
               // update info
               ListTile(
                 contentPadding:

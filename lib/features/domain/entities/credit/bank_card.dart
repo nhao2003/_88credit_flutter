@@ -1,21 +1,24 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/bank.dart';
 import 'package:equatable/equatable.dart';
 
-class BankAccountEntity extends Equatable {
+class BankCardEntity extends Equatable {
   final String? id;
   final bool? isPrimary;
   final String? userId;
-  final String? bankName;
-  final String? bankAccount;
+  final String? bankId;
+  final String? cardNumber;
   final String? branch;
+  final BankEntity? bank;
   final DateTime? createdAt;
   final DateTime? deletedAt;
 
-  const BankAccountEntity({
+  const BankCardEntity({
     this.id,
     this.isPrimary,
     this.userId,
-    this.bankName,
-    this.bankAccount,
+    this.bankId,
+    this.bank,
+    this.cardNumber,
     this.branch,
     this.createdAt,
     this.deletedAt,
@@ -26,29 +29,32 @@ class BankAccountEntity extends Equatable {
         id,
         isPrimary,
         userId,
-        bankName,
-        bankAccount,
+        bankId,
+        bank,
+        cardNumber,
         branch,
         createdAt,
         deletedAt,
       ];
 
-  BankAccountEntity copyWith({
+  BankCardEntity copyWith({
     String? id,
     bool? isPrimary,
     String? userId,
-    String? bankName,
-    String? bankAccount,
+    String? bankId,
+    BankEntity? bank,
+    String? cardNumber,
     String? branch,
     DateTime? createdAt,
     DateTime? deletedAt,
   }) {
-    return BankAccountEntity(
+    return BankCardEntity(
       id: id ?? this.id,
       isPrimary: isPrimary ?? this.isPrimary,
       userId: userId ?? this.userId,
-      bankName: bankName ?? this.bankName,
-      bankAccount: bankAccount ?? this.bankAccount,
+      bankId: bankId ?? this.bankId,
+      bank: bank ?? this.bank,
+      cardNumber: cardNumber ?? this.cardNumber,
       branch: branch ?? this.branch,
       createdAt: createdAt ?? this.createdAt,
       deletedAt: deletedAt ?? this.deletedAt,

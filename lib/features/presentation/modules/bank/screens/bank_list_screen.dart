@@ -2,7 +2,7 @@ import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/bank.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/my_appbar.dart';
-import 'package:_88credit_flutter/features/presentation/modules/create_request/create_request_controler.dart';
+import 'package:_88credit_flutter/features/presentation/modules/bank/bank_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,18 +63,17 @@ class _BankListScreenState extends State<BankListScreen> {
     }
   }
 
-  final CreateRequestController createRequestController = Get.find();
+  final BankController bankController = Get.find();
   Future<Pair<int, List<BankEntity>>> getListBanks(int page) async {
     assert(page >= 1);
-    final data =
-        await createRequestController.searchBank(searchQuery.value, page);
+    final data = await bankController.searchBank(searchQuery.value, page);
     return data;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar(title: "Danh sách ngân hàng"),
+      appBar: MyAppbar(title: "Lựa chọn ngân hàng"),
       body: Column(
         children: [
           Padding(
@@ -122,6 +121,8 @@ class _BankListScreenState extends State<BankListScreen> {
                         ),
                       ),
                       child: ListTile(
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 5),
                         leading: ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(50)),
@@ -146,6 +147,10 @@ class _BankListScreenState extends State<BankListScreen> {
                           listBanks[index].name,
                           style: AppTextStyles.medium14
                               .copyWith(color: AppColors.grey400),
+                        ),
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 15,
                         ),
                         onTap: () {
                           // createRequestController

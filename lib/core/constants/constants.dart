@@ -32,3 +32,4 @@ const String kGetContractEndpoint = '/contract';
 const String kGetMe = '/me';
 
 const String kGetBankEndpoint = '/bank';
+const String kGetBankCardEndpoint = '/bank-card';

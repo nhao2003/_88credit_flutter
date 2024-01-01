@@ -1,6 +1,7 @@
-import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/bank_list_screen.dart';
+import 'package:_88credit_flutter/features/presentation/modules/bank/screens/bank_screen.dart';
 import 'package:_88credit_flutter/features/presentation/modules/create_request/screens/change_user_screen.dart';
-
+import '../../features/presentation/modules/bank/bank_binding.dart';
+import '../../features/presentation/modules/bank/screens/bank_list_screen.dart';
 import '../../features/presentation/modules/contract/screens/contract_detail_screen.dart';
 import '../../features/presentation/modules/contract/screens/request_detail_screen.dart';
 import '../../features/presentation/modules/create_request/create_request_binding.dart';
@@ -180,7 +181,12 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.bankList,
       page: () => const BankListScreen(),
-      binding: CreateRequestBinding(),
+      binding: BankBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.bank,
+      page: () => BankScreen(),
+      binding: BankBinding(),
     ),
   ];
 }
