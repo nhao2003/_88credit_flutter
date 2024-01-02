@@ -22,6 +22,7 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_req
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_images.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_videos.dart';
+import 'package:_88credit_flutter/features/domain/usecases/user/get_profile.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:_88credit_flutter/features/data/data_sources/remote/blog_data_source.dart';
@@ -416,6 +417,12 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<SearchUserUseCase>(
     SearchUserUseCase(
+      sl<UserRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<GetProfileUseCase>(
+    GetProfileUseCase(
       sl<UserRepository>(),
     ),
   );

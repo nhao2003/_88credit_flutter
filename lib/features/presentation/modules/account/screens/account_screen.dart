@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
@@ -38,32 +39,53 @@ class AccountScreen extends StatelessWidget {
               ListTile(
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Phan Văn Minh',
-                          style: AppTextStyles.medium16,
-                        ),
-                        const SizedBox(width: 2),
-                        if (controller.isIdentity)
-                          Image.asset(
-                            Assets.badge,
-                            height: 15,
-                            width: 15,
+                onTap: () {
+                  controller.navigateToProfile();
+                },
+                title: controller.me.value == null
+                    ? const LoadingComponent(color: AppColors.green)
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                controller.me.value!.fullName,
+                                style: AppTextStyles.medium16,
+                              ),
+                              const SizedBox(width: 2),
+                              if (controller.isIdentity)
+                                Image.asset(
+                                  Assets.badge,
+                                  height: 15,
+                                  width: 15,
+                                ),
+                            ],
                           ),
-                      ],
-                    ),
-                    if (!controller.isIdentity) const NotIdentityCard(),
-                  ],
-                ),
-                onTap: () {},
-                leading: const CircleAvatar(
-                  radius: 18,
-                  backgroundImage: AssetImage(Assets.avatarDefault),
-                ),
+                          if (!controller.isIdentity) const NotIdentityCard(),
+                        ],
+                      ),
+                leading: controller.me.value != null
+                    ? ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50)),
+                        child: CachedNetworkImage(
+                          imageUrl: controller.me.value!.avatar!,
+                          fit: BoxFit.cover,
+                          width: 36,
+                          height: 36,
+                          errorWidget: (context, _, __) {
+                            return const CircleAvatar(
+                              radius: 18,
+                              backgroundImage: AssetImage(Assets.avatarDefault),
+                            );
+                          },
+                        ),
+                      )
+                    : const CircleAvatar(
+                        radius: 18,
+                        backgroundImage: AssetImage(Assets.avatarDefault),
+                      ),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,
                   size: 18,

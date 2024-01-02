@@ -25,6 +25,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final UserProfileController controller = UserProfileController();
 
   @override
+  void initState() {
+    controller.checkIsMe();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double sizeImage = 22.wp;
     return Scaffold(
@@ -132,7 +138,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           Obx(
                             () => ButtonFollow(
                               isFollow: controller.isFollow.value,
-                              isMe: controller.isYourPost,
+                              isMe: controller.isMe.value,
                               onTap: controller.toggleIsFollow,
                             ),
                           ),
@@ -206,19 +212,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           const TabProfile(),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          controller.navToCreateRequest();
-        },
-        backgroundColor: AppColors.green,
-        extendedPadding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-        label: Text(
-          "Tạo yêu cầu",
-          style: AppTextStyles.bold12.colorEx(
-            AppColors.white,
-          ),
-        ),
+      floatingActionButton: Obx(
+        () => controller.isMe.value
+            ? Container()
+            : FloatingActionButton.extended(
+                onPressed: () {
+                  controller.navToCreateRequest();
+                },
+                backgroundColor: AppColors.green,
+                extendedPadding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                label: Text(
+                  "Tạo yêu cầu",
+                  style: AppTextStyles.bold12.colorEx(
+                    AppColors.white,
+                  ),
+                ),
+              ),
       ),
     );
   }

@@ -12,10 +12,10 @@ class UserProfileController extends GetxController {
   UserEntity? user = Get.arguments;
 
   GetUserIdUseCase get _getUserIdUseCase => sl<GetUserIdUseCase>();
-  @override
-  onInit() async {
-    super.onInit();
-    isYourPost = (user!.id == await _getUserIdUseCase());
+
+  void checkIsMe() async {
+    isMe.value = (user!.id == await _getUserIdUseCase());
+    print(isMe);
   }
 
   void navToCreateRequest() {
@@ -28,7 +28,7 @@ class UserProfileController extends GetxController {
 
   RxBool isFollow = false.obs;
 
-  late bool isYourPost = false;
+  RxBool isMe = false.obs;
 
   RxString numOfPosts = "-".obs;
 

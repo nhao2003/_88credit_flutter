@@ -29,7 +29,7 @@ const String kRejectRequestEndpoint = '/loan-request/reject-request';
 const String kGetUserEndpoint = '/user';
 
 const String kGetContractEndpoint = '/contract';
-const String kGetMe = '/me';
+const String kGetMe = '/user/me';
 
 const String kGetBankEndpoint = '/bank';
 const String kGetBankCardEndpoint = '/bank-card';

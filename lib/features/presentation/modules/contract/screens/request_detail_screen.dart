@@ -140,7 +140,16 @@ class RequestDetailScreen extends StatelessWidget {
                     },
                   ),
                 ],
-              )
+              ),
+            if (post.status == LoanContractRequestStatus.waitingForPayment)
+              BaseButton(
+                title: "Thanh toán",
+                width: 100.wp,
+                isLoading: isLoading,
+                onClick: () {
+                  //controller.acceptRequest(post);
+                },
+              ),
           ],
         ),
       ),

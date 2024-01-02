@@ -1,3 +1,5 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
+import 'package:_88credit_flutter/features/domain/usecases/user/get_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
@@ -11,6 +13,23 @@ class AccountController extends GetxController {
   bool isIdentity = true;
   RxBool isLoadingLogout = false.obs;
   int servicePack = 1;
+
+  @override
+  void onInit() {
+    getProfile();
+    super.onInit();
+  }
+
+  GetProfileUseCase get _getProfileUseCase => sl<GetProfileUseCase>();
+  Rxn<UserEntity> me = Rxn<UserEntity>(null);
+
+  Future<void> getProfile() async {
+    me.value = await _getProfileUseCase();
+  }
+
+  navigateToProfile() {
+    Get.toNamed(AppRoutes.userProfile, arguments: me.value);
+  }
 
   void changeServicePack(int value) {
     servicePack = value;
