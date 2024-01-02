@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/features/data/models/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
@@ -19,6 +20,8 @@ class ContractModel extends ContractEntity {
     super.overdueInterestRate,
     super.createdAt,
     super.expiredAt,
+    super.lenderBankCard,
+    super.borrowerBankCard,
   });
 
   factory ContractModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +43,12 @@ class ContractModel extends ContractEntity {
       overdueInterestRate: json['overdue_interest_rate'],
       createdAt: DateTime.parse(json['created_at']),
       expiredAt: DateTime.parse(json['expired_at']),
+      lenderBankCard: json['lender_bank_card'] != null
+          ? BankCardModel.fromJson(json['lender_bank_card'])
+          : null,
+      borrowerBankCard: json['borrower_bank_card'] != null
+          ? BankCardModel.fromJson(json['borrower_bank_card'])
+          : null,
     );
   }
 
@@ -81,6 +90,8 @@ class ContractModel extends ContractEntity {
       overdueInterestRate: entity.overdueInterestRate,
       createdAt: entity.createdAt,
       expiredAt: entity.expiredAt,
+      lenderBankCard: entity.lenderBankCard,
+      borrowerBankCard: entity.borrowerBankCard,
     );
   }
 }

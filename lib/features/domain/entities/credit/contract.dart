@@ -1,3 +1,4 @@
+import 'package:_88credit_flutter/features/domain/entities/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 import 'package:equatable/equatable.dart';
@@ -8,8 +9,10 @@ class ContractEntity extends Equatable {
   final String? contractTemplateId;
   final UserEntity? lender;
   final String? lenderBankCardId;
+  final BankCardEntity? lenderBankCard;
   final UserEntity? borrower;
   final String? borrowerBankCardId;
+  final BankCardEntity? borrowerBankCard;
   final LoanReasonTypes? loanReasonType;
   final String? loanReason;
   final double? amount;
@@ -35,6 +38,8 @@ class ContractEntity extends Equatable {
     this.overdueInterestRate,
     this.createdAt,
     this.expiredAt,
+    this.lenderBankCard,
+    this.borrowerBankCard,
   });
 
   @override
@@ -54,6 +59,8 @@ class ContractEntity extends Equatable {
         overdueInterestRate,
         createdAt,
         expiredAt,
+        lenderBankCard,
+        borrowerBankCard,
       ];
 
   ContractEntity copyWith({
@@ -72,6 +79,8 @@ class ContractEntity extends Equatable {
     double? overdueInterestRate,
     DateTime? createdAt,
     DateTime? expiredAt,
+    BankCardEntity? lenderBankCard,
+    BankCardEntity? borrowerBankCard,
   }) {
     return ContractEntity(
       id: id ?? this.id,
@@ -81,8 +90,7 @@ class ContractEntity extends Equatable {
       lender: lender ?? this.lender,
       lenderBankCardId: lenderBankCardId ?? this.lenderBankCardId,
       borrower: borrower ?? this.borrower,
-      borrowerBankCardId:
-          borrowerBankCardId ?? this.borrowerBankCardId,
+      borrowerBankCardId: borrowerBankCardId ?? this.borrowerBankCardId,
       loanReasonType: loanReasonType ?? this.loanReasonType,
       loanReason: loanReason ?? this.loanReason,
       amount: amount ?? this.amount,
@@ -91,6 +99,8 @@ class ContractEntity extends Equatable {
       overdueInterestRate: overdueInterestRate ?? this.overdueInterestRate,
       createdAt: createdAt ?? this.createdAt,
       expiredAt: expiredAt ?? this.expiredAt,
+      lenderBankCard: lenderBankCard ?? this.lenderBankCard,
+      borrowerBankCard: borrowerBankCard ?? this.borrowerBankCard,
     );
   }
 }

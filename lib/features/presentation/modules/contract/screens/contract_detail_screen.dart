@@ -2,6 +2,7 @@ import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/config/theme/text_styles.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/utils/add_months_date.dart';
+import 'package:_88credit_flutter/core/utils/bank_format.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/base_button.dart';
 import 'package:_88credit_flutter/features/presentation/modules/contract/contract_controler.dart';
@@ -93,8 +94,10 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
             const SizedBox(height: 20),
             CreditCard(
               buttonText: "Sao chép",
-              bankName: "Agribank",
-              bankNumber: "**** **** **** 3456",
+              bankName: post.lenderBankCard!.bank!.shortName,
+              bankNumber:
+                  BankFormat.formatCardNumber(post.lenderBankCard!.cardNumber!),
+              logoBank: post.lenderBankCard!.bank!.logo,
               hanleChooseCard: () {},
             ),
             const SizedBox(height: 20),
@@ -106,8 +109,10 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
             ),
             const SizedBox(height: 20),
             CreditCard(
-              bankName: "Agribank",
-              bankNumber: "**** **** **** 3456",
+              bankName: post.borrowerBankCard!.bank!.shortName,
+              bankNumber: BankFormat.formatCardNumber(
+                  post.borrowerBankCard!.cardNumber!),
+              logoBank: post.borrowerBankCard!.bank!.logo,
               hanleChooseCard: () {},
             ),
             const SizedBox(height: 20),
