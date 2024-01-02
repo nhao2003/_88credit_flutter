@@ -25,7 +25,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
   @override
   void initState() {
     if (Get.arguments != null) {
-      controller.receiver = Get.arguments;
+      controller.receiver.value = Get.arguments;
     }
     controller.getPrimaryBankCard();
     super.initState();
