@@ -82,7 +82,9 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                                 ),
                               ),
                             ))
-                        : controller.primaryBankCard.value == null
+                        : controller.primaryBankCard.value == null ||
+                                controller.primaryBankCard.value!.cardNumber ==
+                                    null
                             ? CreditCard(
                                 bankName: "Chọn thẻ",
                                 bankNumber: "Không có dữ liệu",

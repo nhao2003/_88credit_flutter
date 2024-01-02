@@ -169,6 +169,7 @@ class CreateRequestController extends GetxController {
     isGetingPrimaryBankCard.value = true;
     final dataState = await getPrimaryBankCardUseCase();
     primaryBankCard.value = dataState;
+    print(primaryBankCard.value);
     isGetingPrimaryBankCard.value = false;
   }
 
