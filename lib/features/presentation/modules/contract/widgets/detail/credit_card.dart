@@ -7,6 +7,7 @@ import '../../../../../../config/values/asset_image.dart';
 class CreditCard extends StatelessWidget {
   const CreditCard({
     this.buttonText,
+    this.logoBank,
     required this.bankName,
     required this.bankNumber,
     required this.hanleChooseCard,
@@ -17,6 +18,7 @@ class CreditCard extends StatelessWidget {
   final String bankNumber;
   final Function hanleChooseCard;
   final String? buttonText;
+  final String? logoBank;
 
   void handleCopyBankNumber() {}
 
@@ -36,11 +38,17 @@ class CreditCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // avatar
-              Image.asset(
-                Assets.creditCard,
-                width: 50,
-                height: 50,
-              ),
+              logoBank != null
+                  ? Image.network(
+                      logoBank!,
+                      width: 50,
+                      height: 50,
+                    )
+                  : Image.asset(
+                      Assets.creditCard,
+                      width: 50,
+                      height: 50,
+                    ),
               const SizedBox(width: 10),
               // Name
               Column(

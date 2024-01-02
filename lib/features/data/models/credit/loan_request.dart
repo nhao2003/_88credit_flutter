@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/core/utils/convert_number.dart';
+import 'package:_88credit_flutter/features/data/models/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 
@@ -28,6 +29,8 @@ class LoanRequestModel extends LoanRequestEntity {
     super.createdAt,
     super.updatedAt,
     super.deletedAt,
+    super.senderBankCard,
+    super.receiverBankCard,
   });
 
   factory LoanRequestModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +65,12 @@ class LoanRequestModel extends LoanRequestEntity {
       deletedAt: json['deleted_at'] != null
           ? DateTime.parse(json['deleted_at'])
           : null,
+      senderBankCard: json['sender_bank_card'] != null
+          ? BankCardModel.fromJson(json['sender_bank_card'])
+          : null,
+      receiverBankCard: json['receiver_bank_card'] != null
+          ? BankCardModel.fromJson(json['receiver_bank_card'])
+          : null,
     );
   }
 
@@ -79,9 +88,8 @@ class LoanRequestModel extends LoanRequestEntity {
       'portait_photo': portaitPhoto,
       'id_card_front_photo': idCardFrontPhoto,
       'id_card_back_photo': idCardBackPhoto,
-      //'sender_bank_account_id': senderBankCardId,
-      "sender_bank_card_id": "71b5f5ff-b399-42f9-909a-420629baef9a"
-      //'receiver_bank_account_id': receiverBankCardId,
+      "sender_bank_card_id": senderBankCardId,
+      'receiver_bank_card_id': receiverBankCardId,
     };
   }
 
@@ -109,6 +117,8 @@ class LoanRequestModel extends LoanRequestEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       deletedAt: entity.deletedAt,
+      senderBankCard: entity.senderBankCard,
+      receiverBankCard: entity.receiverBankCard,
     );
   }
 }

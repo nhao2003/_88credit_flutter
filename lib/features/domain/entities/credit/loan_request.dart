@@ -2,6 +2,7 @@ import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 import 'package:equatable/equatable.dart';
 import '../../enums/loan_contract_request_status.dart';
+import 'bank_card.dart';
 
 class LoanRequestEntity extends Equatable {
   final String? id;
@@ -20,7 +21,9 @@ class LoanRequestEntity extends Equatable {
   final String? idCardFrontPhoto;
   final String? idCardBackPhoto;
   final String? senderBankCardId;
+  final BankCardEntity? senderBankCard;
   final String? receiverBankCardId;
+  final BankCardEntity? receiverBankCard;
   final String? rejectedReason;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -48,6 +51,8 @@ class LoanRequestEntity extends Equatable {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.senderBankCard,
+    this.receiverBankCard,
   });
 
   @override
@@ -73,6 +78,8 @@ class LoanRequestEntity extends Equatable {
         createdAt,
         updatedAt,
         deletedAt,
+        senderBankCard,
+        receiverBankCard,
       ];
 
   LoanRequestEntity copyWith({
@@ -97,6 +104,8 @@ class LoanRequestEntity extends Equatable {
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
+    BankCardEntity? senderBankCard,
+    BankCardEntity? receiverBankCard,
   }) {
     return LoanRequestEntity(
       id: id ?? this.id,
@@ -120,6 +129,8 @@ class LoanRequestEntity extends Equatable {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
+      senderBankCard: senderBankCard ?? this.senderBankCard,
+      receiverBankCard: receiverBankCard ?? this.receiverBankCard,
     );
   }
 }

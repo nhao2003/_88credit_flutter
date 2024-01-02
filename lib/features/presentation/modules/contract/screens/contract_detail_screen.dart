@@ -92,7 +92,7 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
             ),
             const SizedBox(height: 20),
             CreditCard(
-              buttonText: "Thay đổi",
+              buttonText: "Sao chép",
               bankName: "Agribank",
               bankNumber: "**** **** **** 3456",
               hanleChooseCard: () {},

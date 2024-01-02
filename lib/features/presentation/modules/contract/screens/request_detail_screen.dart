@@ -1,6 +1,7 @@
 import 'package:_88credit_flutter/config/theme/app_color.dart';
 import 'package:_88credit_flutter/core/extensions/integer_ex.dart';
 import 'package:_88credit_flutter/core/utils/add_months_date.dart';
+import 'package:_88credit_flutter/core/utils/bank_format.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/base_button.dart';
 import 'package:_88credit_flutter/features/presentation/global_widgets/header_title.dart';
@@ -74,8 +75,10 @@ class RequestDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             CreditCard(
-              bankName: "Agribank",
-              bankNumber: "**** **** **** 3456",
+              bankName: post.senderBankCard!.bank!.shortName,
+              bankNumber:
+                  BankFormat.formatCardNumber(post.senderBankCard!.cardNumber!),
+              logoBank: post.senderBankCard!.bank!.logo,
               hanleChooseCard: () {},
             ),
             const SizedBox(height: 20),
