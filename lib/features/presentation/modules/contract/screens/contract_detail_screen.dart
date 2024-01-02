@@ -48,7 +48,9 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
         actions: [
           if (isPurchase)
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.navToPdfScreen(post);
+              },
               child: Text(
                 "Xem trước",
                 style: AppTextStyles.regular12.copyWith(
@@ -98,7 +100,9 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
               bankNumber:
                   BankFormat.formatCardNumber(post.lenderBankCard!.cardNumber!),
               logoBank: post.lenderBankCard!.bank!.logo,
-              hanleChooseCard: () {},
+              hanleChooseCard: () {
+                controller.copyToClipboard(post.lenderBankCard!.cardNumber!);
+              },
             ),
             const SizedBox(height: 20),
             UserCard(
@@ -113,7 +117,9 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
               bankNumber: BankFormat.formatCardNumber(
                   post.borrowerBankCard!.cardNumber!),
               logoBank: post.borrowerBankCard!.bank!.logo,
-              hanleChooseCard: () {},
+              hanleChooseCard: () {
+                controller.copyToClipboard(post.borrowerBankCard!.cardNumber!);
+              },
             ),
             const SizedBox(height: 20),
             DescriptionCard(

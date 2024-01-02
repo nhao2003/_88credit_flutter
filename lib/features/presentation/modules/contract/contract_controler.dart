@@ -19,6 +19,7 @@ import '../../../../config/theme/app_color.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../domain/entities/credit/user.dart';
 import '../pdf_view/pdf_viewer_screen.dart';
+import 'package:flutter/services.dart';
 
 class ContractController extends GetxController {
   RxList<LoanRequestEntity> approvedRequests = <LoanRequestEntity>[].obs;
@@ -214,5 +215,16 @@ class ContractController extends GetxController {
   // navigate to pdf screen
   void navToPdfScreen(ContractEntity contract) {
     Get.to(() => PdfViewerScreen(contract: contract));
+  }
+
+  // copy to clipboard
+  void copyToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+    Get.snackbar(
+      'Đã copy',
+      text,
+      backgroundColor: AppColors.green,
+      colorText: Colors.white,
+    );
   }
 }

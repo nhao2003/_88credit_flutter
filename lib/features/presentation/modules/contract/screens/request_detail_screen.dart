@@ -79,7 +79,9 @@ class RequestDetailScreen extends StatelessWidget {
               bankNumber:
                   BankFormat.formatCardNumber(post.senderBankCard!.cardNumber!),
               logoBank: post.senderBankCard!.bank!.logo,
-              hanleChooseCard: () {},
+              hanleChooseCard: () {
+                controller.copyToClipboard(post.senderBankCard!.cardNumber!);
+              },
             ),
             const SizedBox(height: 20),
             DescriptionCard(
