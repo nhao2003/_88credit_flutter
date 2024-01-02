@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:_88credit_flutter/features/domain/entities/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/bank/get_primary_bank_card.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/create_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/user/search_user_usecase.dart';
 import 'package:_88credit_flutter/features/domain/usecases/media/upload_videos.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../config/routes/app_routes.dart';
 import '../../../../config/theme/app_color.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/resources/pair.dart';
@@ -98,6 +101,7 @@ class CreateRequestController extends GetxController {
       idCardFrontPhoto: idCardFrontPhotoUrl,
       idCardBackPhoto: idCardBackPhotoUrl,
       videoConfirmation: videoUrl,
+      senderBankCardId: primaryBankCard.value!.id,
       status: LoanContractRequestStatus.pending,
       createdAt: DateTime.now(),
     );
@@ -153,6 +157,26 @@ class CreateRequestController extends GetxController {
   changeReceiver(UserEntity user) {
     receiver.value = user;
   }
+
+  // primary bank card
+  RxBool isGetingPrimaryBankCard = false.obs;
+
+  Rxn<BankCardEntity> primaryBankCard = Rxn(null);
+  GetPrimaryBankCardUseCase getPrimaryBankCardUseCase =
+      sl<GetPrimaryBankCardUseCase>();
+
+  Future<void> getPrimaryBankCard() async {
+    isGetingPrimaryBankCard.value = true;
+    final dataState = await getPrimaryBankCardUseCase();
+    primaryBankCard.value = dataState;
+    isGetingPrimaryBankCard.value = false;
+  }
+
+  void navigateToBank() async {
+    Get.toNamed(AppRoutes.bank)!.then((value) => getPrimaryBankCard());
+  }
+
+  // form
 
   final loanAmountTextController = TextEditingController();
   double? loanAmount;

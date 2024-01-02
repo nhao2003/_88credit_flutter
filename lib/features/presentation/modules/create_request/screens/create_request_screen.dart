@@ -27,6 +27,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
     if (Get.arguments != null) {
       controller.receiver = Get.arguments;
     }
+    controller.getPrimaryBankCard();
     super.initState();
   }
 
@@ -58,15 +59,50 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                  child: CreditCard(
-                    bankName: "Agribank",
-                    bankNumber: "1233456789",
-                    hanleChooseCard: () {
-                      Get.toNamed(AppRoutes.bank);
-                    },
-                    buttonText: "Đổi thẻ",
+                Obx(
+                  () => Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 10),
+                    child: controller.isGetingPrimaryBankCard.value
+                        ? Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 18, horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: AppColors.grey100,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Center(
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  color: AppColors.green,
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ))
+                        : controller.primaryBankCard.value == null
+                            ? CreditCard(
+                                bankName: "Chọn thẻ",
+                                bankNumber: "Không có dữ liệu",
+                                hanleChooseCard: () {
+                                  Get.toNamed(AppRoutes.bank);
+                                },
+                                buttonText: "Chọn thẻ",
+                              )
+                            : CreditCard(
+                                bankName: controller
+                                    .primaryBankCard.value!.bank!.shortName,
+                                bankNumber: controller
+                                    .primaryBankCard.value!.cardNumber!,
+                                logoBank: controller
+                                    .primaryBankCard.value!.bank!.logo,
+                                hanleChooseCard: () {
+                                  controller.navigateToBank();
+                                },
+                                buttonText: "Đổi thẻ",
+                              ),
                   ),
                 ),
                 // Thong tin bai dang
