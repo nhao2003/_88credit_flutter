@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/resources/data_state.dart';
@@ -20,6 +22,10 @@ class UserProfileController extends GetxController {
 
   void navToCreateRequest() {
     Get.toNamed(AppRoutes.createRequest, arguments: user);
+  }
+
+  void handleReportUser(UserEntity user, String reason, File image) {
+    print(reason);
   }
 
   int numberPost = 122;

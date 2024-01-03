@@ -1,4 +1,5 @@
 import 'package:_88credit_flutter/core/extensions/date_ex.dart';
+import 'package:_88credit_flutter/features/presentation/modules/user_profile/screens/dialog_report.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:_88credit_flutter/config/theme/app_color.dart';
@@ -11,7 +12,6 @@ import 'package:_88credit_flutter/features/presentation/modules/user_profile/wid
 import 'package:_88credit_flutter/features/presentation/modules/user_profile/widgets/tab_profile.dart';
 import 'package:_88credit_flutter/features/presentation/modules/user_profile/widgets/verify_component.dart';
 import 'package:get/get.dart';
-
 import '../../../../../config/values/asset_image.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -30,12 +30,37 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     super.initState();
   }
 
+  void showCommentForm(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => DialogReport(
+        user: controller.user!,
+        handleReportUser: controller.handleReportUser,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double sizeImage = 22.wp;
     return Scaffold(
       appBar: MyAppbar(
         title: controller.user!.fullName,
+        actions: [
+          if (!controller.isMe.value)
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                onPressed: () {
+                  showCommentForm(context);
+                },
+                icon: const Icon(
+                  Icons.outlined_flag_rounded,
+                  color: AppColors.grey500,
+                ),
+              ),
+            ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
