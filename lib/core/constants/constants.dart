@@ -1,9 +1,9 @@
 const ipConfig = "192.168.139.225";
-const bool isProduction = false;
+const bool isProduction = true;
 const String apiDevUrl = "http://$ipConfig:8000/api/v1";
 const String apiProductionUrl = "https://eight8credit.onrender.com/api/v1";
-const String apiUrl = apiDevUrl;
-const String apiAppUrl = isProduction ? apiProductionUrl : apiDevUrl;
+const String apiUrl = isProduction ? apiProductionUrl : apiDevUrl;
+//const String apiAppUrl = isProduction ? apiProductionUrl : apiDevUrl;
 const String kSignIn = '/auth/sign-in';
 const String kSignUp = '/auth/sign-up';
 const String kChangePassword = '/auth/change-password';

@@ -9,6 +9,7 @@ import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_req
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_pending.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_reject.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_sent.dart';
+import 'package:_88credit_flutter/features/domain/usecases/contract/get_loan_requests_waiting_payment.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/pay_loan_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/reject_request.dart';
 import 'package:_88credit_flutter/injection_container.dart';
@@ -24,6 +25,7 @@ import 'package:flutter/services.dart';
 class ContractController extends GetxController {
   RxList<LoanRequestEntity> approvedRequests = <LoanRequestEntity>[].obs;
   RxList<LoanRequestEntity> pendingRequests = <LoanRequestEntity>[].obs;
+  RxList<LoanRequestEntity> waitingPaymentRequests = <LoanRequestEntity>[].obs;
   RxList<LoanRequestEntity> sentRequests = <LoanRequestEntity>[].obs;
   RxList<LoanRequestEntity> rejectedRequests = <LoanRequestEntity>[].obs;
   RxList<ContractEntity> lendingContracts = <ContractEntity>[].obs;
@@ -33,6 +35,19 @@ class ContractController extends GetxController {
       {int? page = 1}) async {
     final GetRequestApprovedUseCase getPostsApprovedUseCase =
         sl<GetRequestApprovedUseCase>();
+
+    final dataState = await getPostsApprovedUseCase(params: page);
+    if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
+      return dataState.data!;
+    } else {
+      return Pair(1, []);
+    }
+  }
+
+  Future<Pair<int, List<LoanRequestEntity>>> getRequestsWaitingPayment(
+      {int? page = 1}) async {
+    final GetRequestWaitingPaymentUseCase getPostsApprovedUseCase =
+        sl<GetRequestWaitingPaymentUseCase>();
 
     final dataState = await getPostsApprovedUseCase(params: page);
     if (dataState is DataSuccess && dataState.data!.second.isNotEmpty) {
@@ -165,7 +180,7 @@ class ContractController extends GetxController {
 
   ContractEntity createContractFromRequest(LoanRequestEntity request) {
     return ContractEntity(
-      id: "123123123",
+      id: request.id,
       loanContractRequestId: request.id,
       contractTemplateId: "contractTemplateId",
       lender: request.receiver,

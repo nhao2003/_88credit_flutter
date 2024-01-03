@@ -23,6 +23,8 @@ abstract class RequestRemoteDataSrc {
       int? page);
   Future<HttpResponse<Pair<int, List<LoanRequestModel>>>> getRequestsSent(
       int? page);
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>>
+      getRequestsWaitingPayment(int? page);
   Future<HttpResponse<void>> createRequest(LoanRequestModel request);
   Future<HttpResponse<void>> confirmRequest(LoanRequestModel request);
   Future<HttpResponse<void>> rejectRequest(
@@ -108,8 +110,8 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     int pageQuery = page ?? 1;
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
-    queryBuilder.addQuery('request_status', Operation.inValue,
-        '\'${LoanContractRequestStatus.paid.toString()}\',\'${LoanContractRequestStatus.waitingForPayment.toString()}\'');
+    queryBuilder.addQuery('request_status', Operation.equals,
+        '\'${LoanContractRequestStatus.paid.toString()}\'');
     queryBuilder.addOrderBy('created_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
@@ -278,6 +280,29 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
         '\'${LoanContractRequestStatus.pending.toString()}\'');
 
     queryBuilder.addQuery('request_sender_id', Operation.equals, '\'$userId\'');
+
+    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+
+    String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
+
+    return await DatabaseHelper().getRequests(url, client);
+  }
+
+  @override
+  Future<HttpResponse<Pair<int, List<LoanRequestModel>>>>
+      getRequestsWaitingPayment(int? page) async {
+    // get userId
+    AuthenLocalDataSrc localDataSrc = sl<AuthenLocalDataSrc>();
+    String? userId = localDataSrc.getUserIdFromToken();
+
+    int pageQuery = page ?? 1;
+    QueryBuilder queryBuilder = QueryBuilder();
+    queryBuilder.addPage(pageQuery);
+    queryBuilder.addQuery('request_status', Operation.equals,
+        '\'${LoanContractRequestStatus.waitingForPayment.toString()}\'');
+
+    queryBuilder.addQuery(
+        'request_receiver_id', Operation.equals, '\'$userId\'');
 
     queryBuilder.addOrderBy('created_at', OrderBy.desc);
 

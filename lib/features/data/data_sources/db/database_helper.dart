@@ -14,8 +14,8 @@ class DatabaseHelper {
   Future<HttpResponse<Pair<int, List<PostModel>>>> getPosts(
       String url, Dio client) async {
     try {
-      final response = await client.get(url);
       print(url);
+      final response = await client.get(url);
       //print('${response.statusCode} : ${response.data["message"].toString()}');
       if (response.statusCode != 200) {
         //print('${response.statusCode} : ${response.data["result"].toString()}');

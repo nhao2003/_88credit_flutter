@@ -123,6 +123,27 @@ class RequestRepositoryImpl implements RequestRepository {
   }
 
   @override
+  Future<DataState<Pair<int, List<LoanRequestEntity>>>>
+      getRequestsWaitingPayment(int? page) async {
+    try {
+      final httpResponse = await _dataSrc.getRequestsWaitingPayment(page);
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(DioException(
+          error: httpResponse.response.statusMessage,
+          response: httpResponse.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResponse.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
+
+  @override
   Future<DataState<Pair<int, List<LoanRequestEntity>>>> getRequestsRejected(
       int? page) async {
     try {
