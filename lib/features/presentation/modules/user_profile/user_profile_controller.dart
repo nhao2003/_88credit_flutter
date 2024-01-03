@@ -17,7 +17,6 @@ class UserProfileController extends GetxController {
 
   void checkIsMe() async {
     isMe.value = (user!.id == await _getUserIdUseCase());
-    print(isMe);
   }
 
   void navToCreateRequest() {

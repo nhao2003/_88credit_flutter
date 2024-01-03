@@ -1,7 +1,9 @@
 import 'package:_88credit_flutter/config/routes/app_routes.dart';
 import 'package:_88credit_flutter/core/resources/pair.dart';
+import 'package:_88credit_flutter/features/domain/entities/credit/bank_card.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart';
 import 'package:_88credit_flutter/features/domain/entities/credit/loan_request.dart';
+import 'package:_88credit_flutter/features/domain/usecases/bank/get_primary_bank_card.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/confirm_request.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_borrowing_contracts.dart';
 import 'package:_88credit_flutter/features/domain/usecases/contract/get_lending_contracts.dart';
@@ -145,19 +147,12 @@ class ContractController extends GetxController {
     }
   }
 
-  Future<void> acceptRequest(LoanRequestEntity request) async {
-    // confirm request => call api confirm
-    bool isConfirmed = await confirmRequest(request);
-    if (!isConfirmed) return;
-    // create new contract
-    ContractEntity contract = createContractFromRequest(request);
-    // navigate to contract detail
-    navToContractDetail(contract);
-  }
-
+  RxBool isConfirming = false.obs;
   Future<bool> confirmRequest(LoanRequestEntity request) async {
     ConfirmRequestUseCase confirmRequestUseCase = sl<ConfirmRequestUseCase>();
+    isConfirming.value = true;
     final dataState = await confirmRequestUseCase(params: request);
+    isConfirming.value = false;
 
     if (dataState is DataSuccess) {
       Get.snackbar(
@@ -178,15 +173,35 @@ class ContractController extends GetxController {
     }
   }
 
-  ContractEntity createContractFromRequest(LoanRequestEntity request) {
+  void reviewContract(LoanRequestEntity request) async {
+    ContractEntity contract = await createContractFromRequest(request);
+    // navigate to contract detail
+    navToContractDetail(contract);
+  }
+
+  late BankCardEntity primaryBankCard;
+  GetPrimaryBankCardUseCase getPrimaryBankCardUseCase =
+      sl<GetPrimaryBankCardUseCase>();
+
+  Future<void> getPrimaryBankCard() async {
+    print("getPrimaryBankCard");
+    final dataState = await getPrimaryBankCardUseCase();
+    primaryBankCard = dataState!;
+  }
+
+  Future<ContractEntity> createContractFromRequest(
+      LoanRequestEntity request) async {
+    await getPrimaryBankCard();
     return ContractEntity(
       id: request.id,
       loanContractRequestId: request.id,
-      contractTemplateId: "contractTemplateId",
+      contractTemplateId: "a8a9304f-068b-4c1e-be2d-d7c14a6e33cd",
       lender: request.receiver,
       borrower: request.sender,
-      lenderBankCardId: request.receiverBankCardId,
-      borrowerBankCardId: request.senderBankCardId,
+      lenderBankCardId: request.receiverBankCardId ?? primaryBankCard.id,
+      borrowerBankCardId: request.senderBankCardId ?? primaryBankCard.id,
+      lenderBankCard: request.receiverBankCard ?? primaryBankCard,
+      borrowerBankCard: request.senderBankCard ?? primaryBankCard,
       loanReasonType: request.loanReasonType,
       loanReason: request.loanReason,
       amount: request.loanAmount,
@@ -212,9 +227,8 @@ class ContractController extends GetxController {
 
   PayLoanRequestUsecase get _payLoanRequestUsecase =>
       sl<PayLoanRequestUsecase>();
-  Future<void> payContractFee() async {
-    final value = await _payLoanRequestUsecase.call(
-        params: "52e5d5f0-7cb8-49de-be39-67936e115db9");
+  Future<void> payContractFee(LoanRequestEntity request) async {
+    final value = await _payLoanRequestUsecase.call(params: request.id);
     FlutterZaloPayStatus status;
     print("value: $value");
     if (value is DataSuccess) {

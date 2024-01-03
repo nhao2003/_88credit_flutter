@@ -46,7 +46,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
           'post_type', Operation.equals, '\'${postTypes.toString()}\'');
     }
 
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     url += queryBuilder.build();
     return await DatabaseHelper().getPosts(url, client);
@@ -59,7 +59,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
     queryBuilder.addQuery('post_status', Operation.equals, '\'$status\'');
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
 
@@ -73,7 +73,7 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
 
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
 

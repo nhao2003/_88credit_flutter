@@ -98,7 +98,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
           'request_receiver_id', Operation.equals, '\'$userId\'');
     }
 
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     url += queryBuilder.build();
     return await DatabaseHelper().getRequests(url, client);
@@ -112,7 +112,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     queryBuilder.addPage(pageQuery);
     queryBuilder.addQuery('request_status', Operation.equals,
         '\'${LoanContractRequestStatus.paid.toString()}\'');
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
@@ -127,7 +127,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     queryBuilder.addPage(pageQuery);
     queryBuilder.addQuery(
         'request_status', Operation.equals, '\'${status.toString()}\'');
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
@@ -259,7 +259,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     queryBuilder.addQuery(
         'request_receiver_id', Operation.equals, '\'$userId\'');
 
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
@@ -281,7 +281,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
 
     queryBuilder.addQuery('request_sender_id', Operation.equals, '\'$userId\'');
 
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
@@ -304,7 +304,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
     queryBuilder.addQuery(
         'request_receiver_id', Operation.equals, '\'$userId\'');
 
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetRequestEndpoint${queryBuilder.build()}';
 
@@ -330,7 +330,7 @@ class RequestRemoteDataSrcImpl implements RequestRemoteDataSrc {
           'contract_borrower_id', Operation.equals, '\'$userId\'');
     }
 
-    queryBuilder.addOrderBy('created_at', OrderBy.desc);
+    queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
     String url = '$apiUrl$kGetContractEndpoint${queryBuilder.build()}';
 

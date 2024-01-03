@@ -3,6 +3,8 @@ import 'package:_88credit_flutter/features/domain/entities/credit/contract.dart'
 import 'package:_88credit_flutter/features/domain/entities/credit/user.dart';
 import 'package:_88credit_flutter/features/domain/enums/loan_reason_types.dart';
 
+import '../../../../core/utils/convert_number.dart';
+
 class ContractModel extends ContractEntity {
   const ContractModel({
     super.id,
@@ -25,6 +27,7 @@ class ContractModel extends ContractEntity {
   });
 
   factory ContractModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return ContractModel(
       id: json['id'],
       loanContractRequestId: json['loan_contract_request_id'],
@@ -38,9 +41,10 @@ class ContractModel extends ContractEntity {
           : null,
       loanReason: json['loan_reason'],
       amount: double.tryParse(json['amount']),
-      interestRate: json['interest_rate'],
+      interestRate: ConverNumber.convertIntToDouble(json['interest_rate']),
+      overdueInterestRate:
+          ConverNumber.convertIntToDouble(json['overdue_interest_rate']),
       tenureInMonths: json['tenure_in_months'],
-      overdueInterestRate: json['overdue_interest_rate'],
       createdAt: DateTime.parse(json['created_at']),
       expiredAt: DateTime.parse(json['expired_at']),
       lenderBankCard: json['lender_bank_card'] != null

@@ -52,7 +52,7 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
                 controller.navToPdfScreen(post);
               },
               child: Text(
-                "Xem trước",
+                "Xem PDF",
                 style: AppTextStyles.regular12.copyWith(
                   decoration: TextDecoration.underline,
                   decorationColor: AppColors.green,
@@ -127,30 +127,30 @@ class _ContractDetailScreenState extends State<ContractDetailScreen> {
               description: post.loanReason!,
             ),
             const SizedBox(height: 20),
-            if (isPurchase)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BaseButton(
-                    title: "Từ chối",
-                    colorButton: AppColors.red,
-                    width: 43.wp,
-                    isLoading: isLoading,
-                    onClick: () {
-                      Get.back();
-                    },
-                  ),
-                  BaseButton(
-                    title: "Thanh toán",
-                    width: 43.wp,
-                    isLoading: isLoading,
-                    onClick: () async => {
-                      await controller.payContractFee(),
-                    },
-                  ),
-                ],
-              )
-            else
+            if (!isPurchase)
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     BaseButton(
+              //       title: "Từ chối",
+              //       colorButton: AppColors.red,
+              //       width: 43.wp,
+              //       isLoading: isLoading,
+              //       onClick: () {
+              //         Get.back();
+              //       },
+              //     ),
+              //     BaseButton(
+              //       title: "Thanh toán",
+              //       width: 43.wp,
+              //       isLoading: isLoading,
+              //       onClick: () async => {
+              //         //await controller.payContractFee(post),
+              //       },
+              //     ),
+              //   ],
+              // )
+
               BaseButton(
                 title: "Xem bản PDF",
                 width: 100.wp,

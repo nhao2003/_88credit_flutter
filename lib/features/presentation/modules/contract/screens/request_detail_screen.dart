@@ -15,14 +15,20 @@ import 'package:_88credit_flutter/features/presentation/modules/contract/widgets
 import 'package:_88credit_flutter/features/presentation/modules/contract/widgets/detail/video_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../config/theme/text_styles.dart';
 import '../../../../domain/enums/loan_contract_request_status.dart';
 import '../../../global_widgets/my_appbar.dart';
 import '../../post_detail/widgets/description_card.dart';
 import '../widgets/detail/received_amount_item.dart';
 
-class RequestDetailScreen extends StatelessWidget {
-  RequestDetailScreen({super.key});
+class RequestDetailScreen extends StatefulWidget {
+  const RequestDetailScreen({super.key});
 
+  @override
+  State<RequestDetailScreen> createState() => _RequestDetailScreenState();
+}
+
+class _RequestDetailScreenState extends State<RequestDetailScreen> {
   final ContractController controller = Get.find<ContractController>();
 
   final LoanRequestEntity post = Get.arguments as LoanRequestEntity;
@@ -39,10 +45,34 @@ class RequestDetailScreen extends StatelessWidget {
     );
   }
 
+  Rx<LoanContractRequestStatus> status = LoanContractRequestStatus.pending.obs;
+
+  @override
+  void initState() {
+    status.value = post.status!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar(title: "Chi tiết yêu cầu"),
+      appBar: MyAppbar(
+        title: "Chi tiết yêu cầu",
+        actions: [
+          TextButton(
+            onPressed: () {
+              controller.reviewContract(post);
+            },
+            child: Text(
+              "Xem hợp đồng",
+              style: AppTextStyles.regular12.copyWith(
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.green,
+              ),
+            ),
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
@@ -118,38 +148,48 @@ class RequestDetailScreen extends StatelessWidget {
                 ],
               ),
             const SizedBox(height: 20),
-            if (post.status == LoanContractRequestStatus.pending)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BaseButton(
-                    title: "Từ chối",
-                    colorButton: AppColors.red,
-                    width: 43.wp,
-                    isLoading: isLoading,
-                    onClick: () {
-                      showCommentForm(context);
-                    },
-                  ),
-                  BaseButton(
-                    title: "Đồng ý",
-                    width: 43.wp,
-                    isLoading: isLoading,
-                    onClick: () {
-                      controller.acceptRequest(post);
-                    },
-                  ),
-                ],
-              ),
-            if (post.status == LoanContractRequestStatus.waitingForPayment)
-              BaseButton(
-                title: "Thanh toán",
-                width: 100.wp,
-                isLoading: isLoading,
-                onClick: () {
-                  //controller.acceptRequest(post);
-                },
-              ),
+            Obx(
+              () => controller.isConfirming.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : status.value == LoanContractRequestStatus.pending
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            BaseButton(
+                              title: "Từ chối",
+                              colorButton: AppColors.red,
+                              width: 43.wp,
+                              isLoading: isLoading,
+                              onClick: () {
+                                showCommentForm(context);
+                              },
+                            ),
+                            BaseButton(
+                              title: "Đồng ý",
+                              width: 43.wp,
+                              isLoading: isLoading,
+                              onClick: () async {
+                                controller.confirmRequest(post).then((value) {
+                                  status.value = LoanContractRequestStatus
+                                      .waitingForPayment;
+                                  setState(() {});
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      : status.value ==
+                              LoanContractRequestStatus.waitingForPayment
+                          ? BaseButton(
+                              title: "Thanh toán",
+                              width: 100.wp,
+                              isLoading: isLoading,
+                              onClick: () async {
+                                await controller.payContractFee(post);
+                              },
+                            )
+                          : const SizedBox(),
+            )
           ],
         ),
       ),
