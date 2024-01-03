@@ -47,19 +47,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       appBar: MyAppbar(
         title: controller.user!.fullName,
         actions: [
-          if (!controller.isMe.value)
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                onPressed: () {
-                  showCommentForm(context);
-                },
-                icon: const Icon(
-                  Icons.outlined_flag_rounded,
-                  color: AppColors.grey500,
+          controller.isMe.value
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: IconButton(
+                    onPressed: () {
+                      showCommentForm(context);
+                    },
+                    icon: const Icon(
+                      Icons.outlined_flag_rounded,
+                      color: AppColors.grey500,
+                    ),
+                  ),
                 ),
-              ),
-            ),
         ],
       ),
       body: Column(
