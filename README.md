@@ -33,7 +33,7 @@
 </p>
 <p align="center">
   <img src="assets/images/screenshot/home.png" alt="Screenshot 6" width="150" style="vertical-align: top;">
-  <img src="assets/images/screenshot/blog.png" alt="Screenshot 7" width="150" style="vertical-align: top;">
+  <img src="assets/images/screenshot/Blog.png" alt="Screenshot 7" width="150" style="vertical-align: top;">
   <img src="assets/images/screenshot/baidang.png" alt="Screenshot 8" width="150" style="vertical-align: top;">
   <img src="assets/images/screenshot/chitietbaidang.png" alt="Screenshot 9" width="150" style="vertical-align: top;">
   <img src="assets/images/screenshot/profile.png" alt="Screenshot 10" width="150" style="vertical-align: top;">
