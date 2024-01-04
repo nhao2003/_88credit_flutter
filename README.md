@@ -103,6 +103,14 @@ The Flutter codebase follows Clean Architecture principles, a design philosophy 
 
 ```
 
+## UseCase Diagram
+
+<img src="assets/images/usecase.jpg" alt="UseCase" width="500">
+
+## ERD Diagram
+
+<img src="assets/images/erd.jpg" alt="ERD" width="500">
+
 ## Screenshots
 
 <p align="center">
